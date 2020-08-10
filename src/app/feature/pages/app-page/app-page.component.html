@@ -1,0 +1,19 @@
+<ng-container *ngIf="questionary$ | async; let questionary">
+
+  <mat-toolbar>
+    <span class="title">{{'app.title' | translate}}</span>
+    <span class="questionary-title">{{questionary.title | translate}}</span>
+    <button mat-icon-button>
+      <mat-icon (click)="save(questionary)" class="">save</mat-icon>
+    </button>
+  </mat-toolbar>
+  <ng-container *ngIf="currentStep$ | async; let currentStep">
+    <app-questionary
+      (dataChanged)="dataChanged($event)"
+      (stepChanged)="stepChanged($event)"
+      [currentStep]="currentStep"
+      [data]="data"
+      [questionary]="questionary"
+      class="questionary"></app-questionary>
+  </ng-container>
+</ng-container>

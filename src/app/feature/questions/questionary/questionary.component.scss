@@ -1,0 +1,59 @@
+@import "~@angular/material/theming";
+
+
+@mixin questionary($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+
+  $progress-indicator-height: 6px;
+
+  .questionary-component-progress-indicator {
+    height: $progress-indicator-height;
+    display: flex;
+
+    div {
+      flex: 1;
+      background: mat-color($accent, 100);
+
+      &.done {
+        background: mat-color($accent, 400);
+      }
+
+      &.active {
+        background: mat-color($accent, 600);
+      }
+    }
+  }
+
+  .questionary-component-container {
+    height: calc(100% - #{$progress-indicator-height});
+    overflow: auto;
+
+    .questionary-component-card-container {
+      margin-top: 64px;
+      margin-bottom: 128px;
+      overflow: hidden;
+      position: relative;
+
+      .next-question-container, .previous-question-container {
+        display: none;
+        position: absolute;
+        top: 0;
+      }
+
+      .previous-question-container {
+        left: -100%;
+      }
+
+      .current-question-container {
+        display: block;
+      }
+
+      .next-question-container {
+        right: -100%;
+      }
+    }
+  }
+
+}
+

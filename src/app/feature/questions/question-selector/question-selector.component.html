@@ -1,0 +1,18 @@
+<ng-container [ngSwitch]="question.type">
+  <app-multiple-choice-question *ngSwitchCase="'multipleChoice'" [context]="context" [control]="control"
+                                [question]="question">
+  </app-multiple-choice-question>
+  <app-text-question *ngSwitchCase="'text'" [context]="context" [control]="control"
+                     [question]="question"></app-text-question>
+  <app-calendar-question *ngSwitchCase="'calendar'" [context]="context" [control]="control"
+                         [question]="question"></app-calendar-question>
+  <app-yes-no-question *ngSwitchCase="'yesno'" [context]="context" [control]="control"
+                       [question]="question"></app-yes-no-question>
+  <app-text-block-question *ngSwitchCase="'textBlock'" [context]="context" [control]="control"
+                           [question]="question"></app-text-block-question>
+  <app-list-question *ngSwitchCase="'list'" [context]="context" [control]="control"
+                     [question]="question"></app-list-question>
+  <div *ngSwitchDefault>
+    The question type "{{question.type}}" is unknown.
+  </div>
+</ng-container>

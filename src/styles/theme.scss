@@ -1,0 +1,49 @@
+@import '~@angular/material/theming';
+
+@import "src/app/feature/questions/questionary/questionary.component";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+/*** DARK THEME ***/
+$dark-app-primary: mat-palette($mat-blue);
+$dark-app-accent: mat-palette($mat-orange);
+$dark-app-warn: mat-palette($mat-red);
+
+$dark-app-theme: mat-dark-theme($dark-app-primary, $dark-app-accent, $dark-app-warn);
+
+/** LIGHT THEME **/
+$light-app-primary: mat-palette($mat-pink);
+$light-app-accent: mat-palette($mat-blue-grey, A200, A100, A400);
+$light-app-warn: mat-palette($mat-red);
+
+$light-app-theme: mat-light-theme($light-app-primary, $light-app-accent, $light-app-warn);
+
+@mixin theme($theme) {
+
+
+  @include angular-material-theme($theme);
+
+
+  @include questionary($theme);
+}
+
+body {
+
+  &.theme-dark {
+    @include theme($dark-app-theme);
+  }
+
+  &.theme-light {
+    @include theme($light-app-theme);
+  }
+
+
+}

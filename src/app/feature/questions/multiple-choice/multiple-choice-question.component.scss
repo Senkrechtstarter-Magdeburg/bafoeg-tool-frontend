@@ -1,0 +1,41 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.promoted {
+  margin: 16px auto 48px auto;
+
+  .choice {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    justify-items: center;
+
+    box-sizing: border-box;
+
+    cursor: pointer;
+
+    padding: 16px;
+
+    .img {
+      box-sizing: border-box;
+      grid-row: 1;
+      width: 50%;
+      padding: 24px;
+    }
+
+    .title {
+      grid-row: 2;
+      text-align: center;
+      white-space: pre-wrap;
+
+      line-height: 32px;
+
+      margin: 0;
+    }
+  }
+}
+
+mat-form-field {
+  display: block;
+}

@@ -1,0 +1,37 @@
+<div class="questionary-component-progress-indicator">
+  <div *ngFor="let container of questionary.questionContainers | visible: context; let i = index;"
+       [class.active]="container == currentStep"
+       [class.done]="i < questionary.questionContainers.indexOf(currentStep)">
+  </div>
+</div>
+
+<div #containerRef class="questionary-component-container">
+  <div (@prevCurNext.done)="animationDone()" (@prevCurNext.start)="animationStarting()"
+       [@prevCurNext]="state"
+       class="questionary-component-card-container">
+    <app-question-container
+      *ngIf="previous"
+      [context]="context"
+      [group]="formGroup.controls[previous.namespace]"
+      [questionContainer]="previous"
+      class="previous-question-container">
+    </app-question-container>
+    <app-question-container
+      (continue)="state = 'next'"
+      (goBack)="state = 'prev'"
+      [allowNext]="!!next"
+      [allowPrevious]="!!previous"
+      [context]="context"
+      [group]="formGroup.controls[currentStep.namespace]"
+      [questionContainer]="currentStep"
+      class="current-question-container">
+    </app-question-container>
+    <app-question-container
+      *ngIf="next"
+      [context]="context"
+      [group]="formGroup.controls[next.namespace]"
+      [questionContainer]="next"
+      class="next-question-container">
+    </app-question-container>
+  </div>
+</div>

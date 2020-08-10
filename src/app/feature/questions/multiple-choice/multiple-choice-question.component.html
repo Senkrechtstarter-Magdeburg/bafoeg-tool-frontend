@@ -1,0 +1,37 @@
+<ng-container [ngSwitch]="question.displayType">
+  <app-base-question *ngSwitchCase="DisplayType.Inline" [control]="control" [question]="question">
+    <mat-button-toggle-group [formControl]="control">
+      <ng-container *ngFor="let choice of question.choices">
+        <mat-button-toggle *ngIf="!(choice.hideIf && choice.hideIf(context))" [value]="choice.value">
+          {{choice.text | translate: translationContext}}
+        </mat-button-toggle>
+      </ng-container>
+    </mat-button-toggle-group>
+  </app-base-question>
+  <app-base-question *ngSwitchCase="DisplayType.Dropdown" [control]="control" [question]="question">
+    <mat-form-field>
+      <mat-label *ngIf="question.placeholder">{{question.placeholder | translate: translationContext}}</mat-label>
+      <mat-select [formControl]="control">
+        <ng-container *ngFor="let choice of question.choices">
+          <mat-option *ngIf="!(choice.hideIf && choice.hideIf(context))" [value]="choice.value">
+            {{choice.text | translate: translationContext}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </app-base-question>
+  <div *ngSwitchCase="DisplayType.Promoted" class="promoted">
+    <h3 class="mat-subheader">{{question.text | translate}}</h3>
+    <div class="container">
+      <mat-button-toggle-group [formControl]="control">
+        <mat-button-toggle *ngFor="let choice of question.choices" [style.width]="(100/question.choices.length) + '%'"
+                           [value]="choice.value" class="choice">
+          <img *ngIf="choice.icon" [alt]="choice.icon" [src]="choice.icon | appIcon" class="img">
+          <h3 class="title">{{choice.text | translate}}</h3>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+</ng-container>
+
+

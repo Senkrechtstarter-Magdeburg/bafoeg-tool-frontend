@@ -1,0 +1,36 @@
+<app-base-question [control]="control" [question]="question">
+  <div *ngFor="let itemGroup of control?.controls; let i = index;" class="entry">
+    <h3 *ngIf="question.itemCaption">{{question.itemCaption | translate: expandTranslationContext({index: i + 1})}}</h3>
+    <ng-container *ngFor="let itemQuestion of question.itemQuestions;">
+      <ng-container [ngSwitch]="itemQuestion.question.type">
+        <app-multiple-choice-question *ngSwitchCase="'multipleChoice'" [context]="context"
+                                      [control]="itemGroup.controls[itemQuestion.question.id]"
+                                      [question]="itemQuestion.question"
+                                      [translationContext]="expandTranslationContext({index: i})">
+        </app-multiple-choice-question>
+        <app-text-question *ngSwitchCase="'text'" [context]="context"
+                           [control]="itemGroup.controls[itemQuestion.question.id]"
+                           [question]="itemQuestion.question"
+                           [translationContext]="expandTranslationContext({index: i})"></app-text-question>
+        <app-calendar-question *ngSwitchCase="'calendar'" [context]="context"
+                               [control]="itemGroup.controls[itemQuestion.question.id]"
+                               [question]="itemQuestion.question"
+                               [translationContext]="expandTranslationContext({index: i})"></app-calendar-question>
+        <app-yes-no-question *ngSwitchCase="'yesno'" [context]="context"
+                             [control]="itemGroup.controls[itemQuestion.question.id]"
+                             [question]="itemQuestion.question"
+                             [translationContext]="expandTranslationContext({index: i})"></app-yes-no-question>
+        <app-text-block-question *ngSwitchCase="'textBlock'" [context]="context"
+                                 [control]="itemGroup.controls[itemQuestion.question.id]"
+                                 [question]="itemQuestion.question"
+                                 [translationContext]="expandTranslationContext({index: i})"></app-text-block-question>
+        <div *ngSwitchDefault>
+          The question type "{{question.type}}" is unknown.
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+  <button (click)="addItem()" color="primary" mat-raised-button>
+    <mat-icon>add</mat-icon>
+  </button>
+</app-base-question>

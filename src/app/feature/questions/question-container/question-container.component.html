@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-title>{{questionContainer.title | translate}}</mat-card-title>
+  <mat-card-subtitle>{{questionContainer.description | translate}}</mat-card-subtitle>
+  <mat-card-content>
+    <ng-container *ngFor="let entry of questionContainer.questionEntries; trackBy: trackByQuestionEntryId">
+      <ng-container *ngIf="!(entry.isHidden && entry.isHidden(context))">
+        <app-question-selector
+          [context]="context"
+          [control]="group.controls[entry.question.id]"
+          [question]="entry.question"
+          [translationContext]="group.root.value"></app-question-selector>
+      </ng-container>
+    </ng-container>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button (click)="goBack.next()" *ngIf="allowPrevious; else spacer" color="primary"
+            mat-button>{{questionContainer.previousText | translate}}</button>
+    <button (click)="group.valid ? continue.next() : group.markAllAsTouched()" *ngIf="allowNext; else spacer"
+            [color]="group.valid ? 'primary' : 'warn'"
+            mat-button>{{questionContainer.nextText | translate}}</button>
+  </mat-card-actions>
+</mat-card>
+
+<ng-template #spacer>
+  <span class="spacer"></span>
+</ng-template>

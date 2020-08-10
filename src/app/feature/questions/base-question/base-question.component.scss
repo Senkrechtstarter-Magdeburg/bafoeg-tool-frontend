@@ -1,0 +1,30 @@
+.container {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr auto;
+
+  h3 {
+    grid-column: 1;
+  }
+
+  .question {
+    grid-column: 1/3;
+  }
+
+  .hint {
+    grid-column: 2;
+    grid-row: 1;
+    margin-left: 16px;
+    margin-top: 16px;
+  }
+
+  &.inline {
+    .question {
+      grid-column: 1/2;
+    }
+
+    .hint {
+      grid-row: 1;
+    }
+  }
+}

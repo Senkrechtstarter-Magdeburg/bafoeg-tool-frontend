@@ -1,0 +1,763 @@
+{
+  "part1": "",
+  "app": {
+    "next": "Weiter",
+    "previous": "Zurück",
+    "title": "Kronos",
+    "errors": {
+      "maxlength": "Maximale Länge von {requiredLength}",
+      "required": "Dies ist ein Pflichtfeld"
+    }
+  },
+  "questions": {
+    "part1": {
+      "intro": {
+        "phase": {
+          "placeholder": "Tätigkeit",
+          "text": "Was bist du für den Zeitraum in dem du BAföG beantragst?",
+          "choices": {
+            "school": "Schüler",
+            "uni": "Student",
+            "practical": "In einer Ausbildung / Praktikum"
+          }
+        },
+        "start_date": {
+          "hint": "",
+          "placeholder": "Startdatum",
+          "text": "Ab wann möchtest du BAföG beantragen?"
+        },
+        "time": {
+          "hint": "In der Regel sind es 12 Monate",
+          "placeholder": "Bezugsdauer",
+          "text": "Für wie viele Monate möchtest du BAfÖG beantragen?",
+          "choices": {
+            "1": "1 Monat",
+            "2": "2 Monate",
+            "3": "3 Monate",
+            "4": "4 Monate",
+            "5": "5 Monate",
+            "6": "6 Monate",
+            "7": "7 Monate",
+            "8": "8 Monate",
+            "9": "9 Monate",
+            "10": "10 Monate",
+            "11": "11 Monate",
+            "12": "12 Monate"
+          }
+        },
+        "aboard": {
+          "text": "Hast du vor in dem Zeitraum in dem du BAföG beantragst ins Ausland zu gehen?"
+        },
+        "parents": {
+          "hint": "HINTS TEXT",
+          "text": "Beantragst du Elternunabhängiges BAföG (bitte lese hierzu den Hinweis!) ?"
+        },
+        "firsttime": {
+          "hint": "Bild vom Bescheid",
+          "text": "Hast du schon Mal BAföG beantragt?"
+        },
+        "institute": {
+          "placeholder": "BAföG Amt",
+          "text": "Bei welchem Amt hast du den Antrag gestellt?",
+          "hint": "Häufig das Studenten- / Studierendenwerk"
+        },
+        "number": {
+          "placeholder": "Föderungsnummer",
+          "text": "Wie lautet deine bisherige Amts- und Föderungsnummer?"
+        }
+      },
+      "uni": {
+        "info": {
+          "text": "Studium"
+        },
+        "university": {
+          "placeholder": "Name der Ausbildungstätte",
+          "text": "Wie heißt deine Ausbildungstätte?"
+        },
+        "subject": {
+          "placeholder": "Studienfach",
+          "text": "Studienfach"
+        },
+        "graduation": {
+          "placeholder": "Angestrebter Abschluss",
+          "text": "Angestrebter Abschluss",
+          "choices": {
+            "ba": "Bachelor of Arts",
+            "bsc": "Bachelor of Science",
+            "llb": "Bachelor of Laws",
+            "bed": "Bachelor of Education",
+            "beng": "Bachelor of Engineering",
+            "bfa": "Bachelor of Fine Arts",
+            "bmus": "Bachelor of Music",
+            "bma": "Bachelor of Musical Arts",
+            "ma": "Master of Arts",
+            "msc": "Master of Science",
+            "llm": "Master of Laws",
+            "med": "Master of Education",
+            "meng": "Master of Engineering",
+            "mfa": "Master of Fine Arts",
+            "mmus": "Master of Music"
+          }
+        },
+        "semester": {
+          "placeholder": "Semester",
+          "text": "In welchem Semester wirst Du sein, wenn du BAföG beziehst?"
+        },
+        "time": {
+          "hint": "",
+          "placeholder": "Voll-/Teilzeit",
+          "text": "Studierst du Voll- oder Teilzeit?",
+          "choices": {
+            "full": "Vollzeit",
+            "part": "Teilzeit"
+          }
+        }
+      },
+      "aboard": {
+        "info": {
+          "text": "Studium im Ausland"
+        },
+        "name": {
+          "placeholder": "Name der Ausbildungstätte",
+          "text": "Wie heißt die Ausbildungsstätte im Ausland"
+        },
+        "address": {
+          "placeholder": "Straße und Hausnummer",
+          "text": "Was ist die Anschrift der Ausbildungstätte?"
+        },
+        "zip": {
+          "placeholder": "Postleitzahl"
+        },
+        "city": {
+          "placeholder": "Stadt"
+        },
+        "country": {
+          "placeholder": "Land"
+        },
+        "type": {
+          "placeholder": "Art der Hochschule",
+          "text": "Was für eine Art Hochschule ist {{name}}"
+        },
+        "start": {
+          "text": "Ab wann möchtest du gefördert werden?"
+        },
+        "end": {
+          "text": "Bis wann möchtest du gefördert werden?"
+        },
+        "start_lec": {
+          "text": "Ab wann finden deine Lehrveranstaltungen statt?"
+        },
+        "end_lec": {
+          "text": "Bis wann finden deine Lehrveranstaltungen statt?"
+        }
+      },
+      "aboard_study": {
+        "start": {
+          "placeholder": "Förderbeginn",
+          "text": "Ab wann möchtest du gefördert werden?"
+        },
+        "end": {
+          "placeholder": "Förderende",
+          "text": "Bis wann möchtest du gefördert werden?"
+        },
+        "start_lec": {
+          "placeholder": "Lehrveranstaltungsbeginn",
+          "text": "Ab wann finden deine Lehrveranstaltungen statt?"
+        },
+        "end_lec": {
+          "placeholder": "Lehrveranstaltungsende",
+          "text": "Bis wann finden deine Lehrveranstaltungen statt?"
+        }
+      },
+      "about_me": {
+        "firstname": {
+          "placeholder": "Vorname",
+          "text": "Was ist dein Vorname?"
+        },
+        "name": {
+          "placeholder": "Nachname",
+          "text": "Was ist dein Nachname?"
+        },
+        "q_birthname": {
+          "text": "Hast du einen anderen Geburtsnamen?"
+        },
+        "birthname": {
+          "placeholder": "Geburtsname",
+          "text": "Wie lautet dein Geburtsname?"
+        },
+        "sex": {
+          "placeholder": "Geschlecht",
+          "text": "Welches geschlecht hast du?",
+          "hint": "Das BAföG Amt unterscheidet nur in diese beiden Geschlechter.",
+          "choices": {
+            "male": "Männlich",
+            "female": "Weiblich"
+          }
+        },
+        "birthdate": {
+          "placeholder": "Geburtstag",
+          "text": "Wann bist du geboren"
+        },
+        "birthplace": {
+          "hint": "Bitte gebe in Klammern das Geburtsland an.",
+          "placeholder": "Geburtsland",
+          "text": "Wo bist du geboren?"
+        },
+        "foreveralone": {
+          "placeholder": "Familienstand",
+          "text": "Du bist?",
+          "choices": {
+            "alone": "ledig",
+            "married": "verheiratet oder in eingetragener Lebenspartnerschaft",
+            "seperated": "dauernd getrennt lebend",
+            "weathered": "verwittwert",
+            "divorced": "geschieden"
+          }
+        },
+        "status_since": {
+          "placeholder": "Datum",
+          "text": "Seit wann?"
+        },
+        "german_nationality": {
+          "text": "Hast du die Deutsche Staatsbürgerschaft?"
+        },
+        "nationality": {
+          "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden Nl",
+          "placeholder": "Nationalität",
+          "text": "Welche Staatsbrügerschaft hast du?"
+        },
+        "children": {
+          "hint": "Gemeint sind eheliche und für ehelich erklärte, adoptierte sowie nichteheliche Kinder jeden Alters",
+          "text": "Hast du Kinder?"
+        }
+      },
+      "mine_address": {
+        "main_address": {
+          "text": "Hierbei geht es um deinen Hauptwohsitz (zum Beispiel bei deinen Eltern)"
+        },
+        "q_bell": {
+          "text": "Steht dein (Nach)Name auf dem Klingelschild?"
+        },
+        "bell": {
+          "hint": "Welcher Name steht auf dem Klingelschild?",
+          "placeholder": "Klingelschild",
+          "text": "Bei?"
+        },
+        "q_different_address_while_studying": {
+          "text": "Wirst du während der Ausbildung anderswo wohnen?"
+        },
+        "reason_for_own_household": {
+          "placeholder": "Grund",
+          "hint": "Wenn du eine schulische Ausbildung machst und nicht mehr bei deinen Eltern wohnst, musst du schlüssig darlegen, warum das so ist. (Bspw. Distanz ziwschen Elternhaus und Ausbildungsstätte)",
+          "text": "Warum nicht?"
+        },
+        "know_address": {
+          "text": "Kennst du deine Adresse, die du während deiner Ausbildung (Schule oder Studium) hast? "
+        },
+        "sec_address": {
+          "text": "Hierbei geht es um deine Adresse an deinem Ausbildungsort (Schule, Studium)"
+        },
+        "sec_bell": {
+          "hint": "Welcher Name steht auf dem Klingelschild drauf?",
+          "placeholder": "Klingelschild",
+          "text": "Bei?"
+        },
+        "prop_of_parents": {
+          "text": "Gehört deinen Eltern die Wohnung bzw. das Objekt, das du bewohnst?"
+        },
+        "address": {
+          "text": "Wie lautet die Anschrift?",
+          "placeholder": "Straße"
+        },
+        "zip": {
+          "placeholder": "Postleitzahl"
+        },
+        "city": {
+          "placeholder": "Stadt"
+        },
+        "country": {
+          "placeholder": "Land",
+          "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden Nl"
+        },
+        "sec_street": {
+          "text": "Wie lautet Strasse und Hausnummer?"
+        },
+        "sec_zip": {
+          "text": "Wie lautet die Postleitzahl?"
+        },
+        "sec_city": {
+          "text": "In welcher Stadt?"
+        },
+        "sec_out_of_country": {
+          "text": "In welchem Land?",
+          "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden Nl"
+        },
+        "post": {
+          "text": "Wo soll die Post hin?"
+        }
+      },
+      "capital": {
+        "capital": {
+          "text": "Vermögen"
+        },
+        "bar": {
+          "text": "Besitzt du momentan Barvermögen in Höhe von mehr als 1€?"
+        },
+        "bar_amount": {
+          "placeholder": "Barvermögen",
+          "text": "Die momentane Höhe deines Barvermögens"
+        },
+        "bank": {
+          "text": "Besitzt du momentan Bank- und Sparguthaben in Höhe von mehr als 1€?"
+        },
+        "bank_amount": {
+          "placeholder": "Kontostand",
+          "text": "Die momentane Höhe deines Bank- und Sparguthaben"
+        },
+        "building_savings": {
+          "text": "Besitzt du momentan Bauspar- und Prämiensparguthaben?"
+        },
+        "building_savings_amount": {
+          "placeholder": "Bauspar- und Prämiensparguthaben",
+          "text": "Die momentane Höhe deines Bauspar- und Prämiensparguthaben"
+        },
+        "retirement": {
+          "text": "Zahlst Du momentan über Deinen Arbeitgeber in eine Betriebsrente, Riester-Rente oder Pensionskasse ein?"
+        },
+        "retirement_amount": {
+          "placeholder": "eingezahlte Altersvorsorge",
+          "text": "Die Höhe von der bisher eingezahlten Altersvorsorge"
+        },
+        "kfz": {
+          "text": "Besitzt du ein Kfz? (also Auto, Motorrad usw.)?"
+        },
+        "kfz_amount": {
+          "hint": "",
+          "placeholder": "Zeitwert",
+          "text": "Gebe bitte hier den Zeitwert der Fahrzeuge an."
+        },
+        "stocks": {
+          "text": "Besitzt Du Betriebsanteile, Wertpapiere oder Lebensversicherungen?"
+        },
+        "buisness_assets": {
+          "hint": "",
+          "placeholder": "Betriebsvermögens",
+          "text": "Die Höhe deines Betriebsvermögens (auch Miteigentumsanteile; Zeitwert)"
+        },
+        "stock": {
+          "hint": "Hier ist der Kurswert im Zeitpunkt der Antragstellung maßgeblich.",
+          "placeholder": "",
+          "text": "Die Höhe deiner Wertpapiere (z. B. Aktien, Pfandbriefe, Schatzanweisungen, Wechsel, Schecks; Kurswert)"
+        },
+        "life": {
+          "hint": "",
+          "placeholder": "",
+          "text": "Lebensversicherungen (Rückkaufswert)"
+        },
+        "land": {
+          "text": "Besitzt Du Grundstücke oder Miteigentumsanteile?"
+        },
+        "forest": {
+          "hint": "",
+          "placeholder": "",
+          "text": "Land- und forstwirtschaftliche Grundstücke auch Miteigentumsanteile; Zeitwert)"
+        },
+        "vacant": {
+          "hint": "",
+          "placeholder": "",
+          "text": "Sonstige unbebaute Grundstücke (auch Miteigentumsanteile; Zeitwert)"
+        },
+        "built": {
+          "hint": "",
+          "placeholder": "",
+          "text": "Sonstige bebaute Grundstücke, Eigentumswohnungen oder Eigenheime (auch Miteigentumsanteile; zum Zeitwert)"
+        },
+        "other": {
+          "text": "Hast du im moment Vermögensgegenstände, die du nicht den anderen Angabemöglichkeiten zuordnen kannst?"
+        },
+        "pension": {
+          "hint": "",
+          "placeholder": "",
+          "text": "Forderungen und sonstige Rechte"
+        },
+        "other_amount": {
+          "placeholder": "",
+          "text": "Die Höhe der sonstigen Vermögensgegenstände"
+        }
+      },
+      "income": {
+        "you_will": {
+          "text": "Wirst du für den Zeitraum in dem du BAföG beantragst..."
+        },
+        "income": {
+          "text": "Einkommen erzielen"
+        },
+        "intership": {
+          "text": "Ausbildungs- und Praktikumsvergütung oder Sachbezüge erhalten?"
+        },
+        "intership_amount": {
+          "hint": "Die Ausbildungsvergütung umfasst auch Zuschüsse wie Essensgeld, Mietzuschüsse und Sachbezüge (z.B. freie Unterkunft und Verpflegung). Bei Sachbezügen sind stets die tatsächlichen Werte anzugeben.",
+          "placeholder": "",
+          "text": "Bruttosumme Ausbildungs- und Praktikumsvergütung (auch Sachbezüge)"
+        },
+        "holiday": {
+          "text": "Einnahmen aus Ferien- und Gelegenheitsarbeiten, Mini-Jobs oder bestehenden und ruhenden Arbeitsverhältnissen haben?"
+        },
+        "holiday_amount": {
+          "hint": "Hier sind auch die Bezüge zu erfassen, welche du aus einer Beurlaubung für Dein Studium erhälst. Auch Einkünfte aus Minijobs sind zu erfassen. Steuern, Pauschalbeträge und Sozialbeiträge werden vom BAföG-Amt automatisch berücksichtigt.",
+          "placeholder": "",
+          "text": "Voraussichtliche Brutto-Einnahmen aus bestehenden oder ruhenden Arbeitsverhältnissen, Ferien-, Gelegenheitsarbeiten, Mini-Jobs"
+        },
+        "service": {
+          "hint": "Vermögenswirksame Leistungen sind Beiträge, die der Arbeitnehmer (zusätzlich) zum Gehalt für den Arbeitnehmer/die Arbeitnehmerin zahlt (z.B. in Form von Bausparverträgen oder dem vergeben von Beteiligungen an dem Unternehmen).",
+          "text": "von deinem Arbeitgeber vermögenswirksame Leistungen erhalten?"
+        },
+        "independence": {
+          "text": "Einnahmen aus selbständiger Arbeit, Gewerbebetrieb, Vermietung und Verpachtung oder Land- und Forstwirtschaft erhalten?"
+        },
+        "independence_amount": {
+          "placeholder": "",
+          "text": "Bruttoeinkünfte aus selbständiger Arbeit, Gewerbebetrieb, Vermietung und Verpachtung, Land- und Forstwirtschaft "
+        },
+        "capital": {
+          "text": "Einkünfte aus Kapitalvermögen (z.B. Sparzinsen oder Dividenden) erhalten?"
+        },
+        "capital_amount": {
+          "hint": "Bei gewissen Zinserträgen zieht die Bank automatisch 25% Kapitalertragssteuer ab. Anzugeben sind hier allerdings immer die Bruttoeinkünfte, d.h vor Abzug der Steuer. Du kannst den Bruttobetrag in der Regel dem Kontoauszug oder der Zinsübersiht, die Du von der Bank erhälst, entnehmen. Solltest Du Dir nicht sicher sein, ruf doch einfach bei Deiner Bank an und frage nach, ob Kapitalertragsstuer abgezogen wurde.",
+          "placeholder": "",
+          "text": "Bruttoeinkünfte aus Kapitalvermögen (z.B. Sparzinsen, Dividenden)"
+        },
+        "sholarship": {
+          "text": "Zuwendungen von Firmen oder privaten Stiftungen (z. B. Stipendien) erhalten?"
+        },
+        "sholarship_amount": {
+          "placeholder": "",
+          "text": "Höhe der Zuwendung"
+        },
+        "bafog_regulation": {
+          "text": "Einnahmen aus Arbeitslosengeld, Insolvenzgeld, Kurzarbeitergeld, Gründerzuschüssen, Mutterschaftsgeld oder Wehrsold-Abfindungen haben?"
+        },
+        "bafog_regulation_amount": {
+          "hint": "",
+          "placeholder": "",
+          "text": "Summe aller Einnahmen"
+        },
+        "children_entertains": {
+          "text": "du Einnahmen die zu Unterhaltsdeckung deines Kindes bestimmt sind?"
+        },
+        "children_entertains_amount": {
+          "hint": "z.B. Familienzuschläge zur (Ausbildungs-)vergütung (nicht Kindergeld).",
+          "placeholder": "",
+          "text": "Gib dir Summe der Monatlichen Unterhaltszahlung an"
+        },
+        "partner_entertains": {
+          "text": "Hast du Einnahmen die zur Unterhaltsdeckung deines Partners bestimmt sind?"
+        },
+        "partner_entertains_amount": {
+          "hint": "z.B. Familienzuschläge zur (Ausbildungs-)vergütung",
+          "placeholder": "",
+          "text": "Gib dir Summe der Monatlichen Unterhaltszahlung an"
+        },
+        "ex_partner_entertains": {
+          "text": "Unterhaltsleistungen von dauernd von mir getrennt lebenden oder deines geschiedenen Ehegatten bzw. nicht mehr verbundenen eingetragenen Lebenspartners oder sonstiger unterhaltspflichtiger Personen (nicht deiner Eltern)"
+        },
+        "ex_partner_entertains_amount": {
+          "hint": "Erhälst Du Unterhalt von Deinem ehem. Ehe- oder Lebenspartner? Unterhaltsleistungen von Deinen Eltern an Dich sind hier nicht anzugeben. Weiter sind nur Beträge zur Deckung Deines Bedarfs anzugeben - nicht Unterhaltsbeträge zur Versorgung z.B. gemeinsamer Kinder",
+          "placeholder": "",
+          "text": "Gib dir Summe der Monatlichen Unterhaltszahlung an"
+        },
+        "support": {
+          "text": "ein Stipendium, welches (zum Teil) aus öffentlichen Mitteln gefördert wird (z.B. Deutschlandstipendium), Meister-BAföG, Erziehungsbeihilfen, Hilfen aus EU Sozialfonds oder andere Ausbildungsbeihilfen aus öffentlichen Mitteln erhalten?"
+        },
+        "support_amount": {
+          "hint": "",
+          "placeholder": "",
+          "text": "Bruttosumme aller Ausbildungsbeihilfen und gleichartige Leistungen aus öffentlichen Mitteln, sowie Förderungsleistungen anderer Staaten"
+        },
+        "other": {
+          "placeholder": "",
+          "text": "Bruttosumme sonstiger Ausbildungsbeihilfen"
+        },
+        "rister": {
+          "text": "Zahlst du in die Rister Rente ein?"
+        },
+        "rister_amount": {
+          "hint": "Cleverer Hinweis",
+          "placeholder": "",
+          "text": "Summe"
+        },
+        "pension": {
+          "text": "eine Rente z.B. Waisen- oder Unfallrente erhalten?"
+        },
+        "pension_amount": {
+          "hint": "rechtlicher Kram",
+          "placeholder": "",
+          "text": "Waisenrente und/oder Waisengeld (einschl. Weihnachtszuwendung)"
+        },
+        "other_pension": {
+          "placeholder": "",
+          "text": "Sonstige Renten (z.B. Unfallrente)"
+        },
+        "social": {
+          "text": "Sozialleistungen (z.B. Waisenrente oder AFBG) beantragen? "
+        },
+        "social_info": {
+          "hint": "Hast Du eine Sozialleistung (z.B. Waisengeld, Meister-BAföG, o.ä.) beantrag und hast noch keinen Bewilligungsbescheid erhalten? Bitte gib hier die beantragte(n) Sozialleistung(en) an.",
+          "placeholder": "",
+          "text": "Von dir beantrage Sozialleistung"
+        }
+      },
+      "debts": {
+        "debt": {
+          "placeholder": "",
+          "text": "Schulden"
+        },
+        "mortgage": {
+          "text": "Bezahlst du eine Hypothek, Grundschulden oder sonstige Belastungen dieser Art ab?"
+        },
+        "mortgage_amount": {
+          "placeholder": "",
+          "text": "Wie hoch ist die GESAMTE Summe aus Hypothek, Grundschulden oder sonstige Belastungen?"
+        },
+        "repeat": {
+          "text": "Hast Du Lasten, aus denen du z.B. zu regelmäßigen Zahlungen verpflichtet bist? Zum Beispiel: Autokredit oder Rentenzahlung"
+        },
+        "repeat_amount": {
+          "placeholder": "",
+          "text": "Wie hoch ist die GESAMTE Summer von den regelmäßigen Zahlungen zu denen du verpflichtet bist."
+        },
+        "other": {
+          "text": "Hast du noch Schulden, die du nicht den anderen Angabemöglichekeiten zuordnen kannst z.B. Kleinkredite oder Studienkredite?"
+        },
+        "other_amount": {
+          "hint": "z.B. Kleinkredite oder Studienkredite. Hier ist immer nur die Restschuld anzugeben. ",
+          "placeholder": "",
+          "text": "Wie hoch ist die GESAMTE Summer der übrigen angaben?"
+        }
+      },
+      "mother": {
+        "forname": {
+          "placeholder": "",
+          "text": "Wie lauter der Vorname deiner Mutter?"
+        },
+        "name": {
+          "placeholder": "",
+          "text": "Wie lauter der Nachname deiner Mutter?"
+        },
+        "birthname_q": {
+          "text": "Hat deine Mutter einen anderen Geburtsnamen?"
+        },
+        "birthname": {
+          "placeholder": "",
+          "text": "Wie lautet der Geburtsname deiner Mutter?"
+        },
+        "birthdate": {
+          "placeholder": "",
+          "text": "Wann ist deine Mutter geboren?"
+        },
+        "alive": {
+          "text": "Ist deine Mutter verstorben?"
+        },
+        "death_date": {
+          "placeholder": "",
+          "text": "Wann ist sie verstorben?"
+        }
+      },
+      "mother_other": {
+        "street": {
+          "placeholder": "",
+          "text": "In welcher Straße wohnt deine Mutter? (mit Hausnummer)"
+        },
+        "city": {
+          "placeholder": "",
+          "text": "In welcher Stadt wohnt sie?"
+        },
+        "zip": {
+          "placeholder": "",
+          "text": "Wie lautet die Postleitzahl?"
+        },
+        "telefon_q": {
+          "text": "Möchtest du die Telefonnummer deiner Mutter angeben?"
+        },
+        "telefon": {
+          "placeholder": "",
+          "text": "Wie lautet die Telefonnummer?"
+        },
+        "mail_q": {
+          "text": "Möchtest du die E-Mail-Adresse deiner Mutter angeben?"
+        },
+        "mail": {
+          "placeholder": "",
+          "text": "Wie lautet die E-Mail Adresse?"
+        },
+        "german_nationality": {
+          "text": "Hat deine Mutter die Deutsche Staatsbürgerschaft?"
+        },
+        "nationality": {
+          "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden Nl",
+          "placeholder": "",
+          "text": "Welche Staatsbrügerschaft hat sie?"
+        },
+        "foreveralone": {
+          "placeholder": "",
+          "text": "Welchen Familienstand hat deine Mutter?",
+          "choices": {
+            "alone": "ledig",
+            "married": "verheiratet oder in eingetragener Lebenspartnerschaft",
+            "seperated": "dauernd getrennt lebend",
+            "weathered": "verwittwert",
+            "divorced": "geschieden"
+          }
+        },
+        "since": {
+          "placeholder": "",
+          "text": "Seit wann?"
+        },
+        "income": {
+          "text": "Hatte deine Mutter vor 2 Jahren einnahmen?"
+        }
+      },
+      "mother_income": {
+        "employment_relationship": {
+          "placeholder": "",
+          "text": "Als was ist deine Mutter momentan tätig?",
+          "choices": {
+            "worker": "Arbeiterin/Arbeiter",
+            "employee": "Angestellte/ Angestellter",
+            "official": "Beamtin/ Beamter",
+            "entrepreneur": "Selbständige/ Selbständiger",
+            "notlonger": "Nicht mehr erwerbstätig"
+          }
+        },
+        "since": {
+          "placeholder": "",
+          "text": "Seit wann?"
+        },
+        "employment_relationship_past": {
+          "placeholder": "",
+          "text": "Als was war deine Mutter vor zwei Jahren tätig?",
+          "choices": {
+            "worker": "erwerbstätig als rentenversicherungspflichtige/r Arbeitnehmer/in (z.B. Arbeiter/in, Angestellte/r) oder in Ausbildung",
+            "employee": "erwerbstätig als nichtrentenversicherungspflichtige/r Arbeitnehmer/in oder als Person im Ruhestandsalter, die einen Anspruch auf Alterssicherung aus einer renten- oder nichtrentenversicherungspflichtigen Beschäftigung oder Tätigkeit hat (z. B. Beamte, Richter, Berufssoldaten, Altersrentner/in)",
+            "official": "erwerbstätig als Nichtarbeitnehmer/in (z.B. Selbständige/r) oder auf Antrag von der Versicherungspflicht befreite/r oder wegen geringfügiger Beschäftigung versicherungsfreie/r Arbeitnehmer/in",
+            "entrepreneur": "Personen im Ruhestandsalter, soweit sie nicht erwerbstätig sind, und sonstige Nichterwerbstätige"
+          }
+        },
+        "tax_info": {
+          "placeholder": "",
+          "text": "Steuererklärung für vor 2 Jahren"
+        },
+        "tax_1": {
+          "text": "Hat deine Mutter für das Jahr vor 2 Jahren eine Steuererklärung abgegeben?"
+        },
+        "tax_2": {
+          "text": "Wird deine Mutter noch eine Steuererklärung für das Jahr vor 2 Jahren abgeben?"
+        },
+        "tax_3": {
+          "hint": "Bei der Abgabe der Lohnsteuererklärug kann man beantragen, dass die Veranlagung - also sozusagen die Berechnung der Steuer - zusammen mit einer anderen Person erfolgen soll.",
+          "text": "Hat deine Mutter die Steuerklärung einzelveranlagt, also alleine abgegeben?"
+        },
+        "tax_3_ext": {
+          "placeholder": "",
+          "text": "Die Veranlagung erfolgt/e zusammen mit",
+          "choices": {
+            "father": "deinem Vater",
+            "other": "der oder dem neuen Ehegatten/in des Elternteils"
+          }
+        },
+        "office": {
+          "placeholder": "",
+          "text": "Bei welchem Finanzamt?"
+        },
+        "number": {
+          "placeholder": "",
+          "text": "Wie lautet die Steuernummer?"
+        }
+      },
+      "children": {
+        "children": {
+          "placeholder": "",
+          "text": "",
+          "elementCaption": "Kind {{index}}",
+          "addCaption": "Weiteres Kind hinzufügen",
+          "listEntries": {
+            "firstName": {
+              "text": "Vorname"
+            },
+            "lastName": {
+              "text": "Nachname"
+            }
+          }
+        }
+      },
+      "general": {
+        "money_info": {
+          "placeholder": "",
+          "text": "Hierbei geht es um die Kontodaten auf den das BAföG gezahlt werden soll."
+        },
+        "your_acc": {
+          "text": "Handelt es sich um dein Konto?"
+        },
+        "whose_acc": {
+          "placeholder": "",
+          "text": "Wem gehört das Konto?"
+        },
+        "money_inst": {
+          "placeholder": "",
+          "text": "Wie lautet der Name des Geldinstitus?"
+        },
+        "iban": {
+          "placeholder": "",
+          "text": "Wie lautet die IBAN?"
+        },
+        "blz": {
+          "placeholder": "",
+          "text": "Wie lautet die Bankleitzahl?"
+        },
+        "tax_ident": {
+          "hint": "Wenn du schon mal gearbeitet hast, findest du diese auf deiner Lohnabrechnung sonst frage bei deinen Eltern nach. Falls sie dir auch nicht weiterhelfen können, rufe bei deinem Finanzamt an und diese schicken dir diese per Post.",
+          "placeholder": "",
+          "text": "Wie lautet deine Steueridentifikationsnummer?"
+        },
+        "post": {
+          "placeholder": "",
+          "text": "Wo soll die Post hingesendet werden?",
+          "choices": {
+            "me_main": "Mich (Hauptwohnsitz)",
+            "me_sec": "Mich (Adresse am Ausbildungsort)",
+            "mother": "Mutter",
+            "father": "Vater",
+            "custodian": "Sorgeberechtigten"
+          }
+        }
+      }
+    },
+    "blocks": {
+      "address": {
+        "address": {
+          "placeholder": "Straße",
+          "text": "Wie lautet die Anschrift?"
+        },
+        "zip": {
+          "placeholder": "Postleitzahl"
+        },
+        "city": {
+          "placeholder": "Stadt"
+        },
+        "country": {
+          "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden Nl",
+          "placeholder": "Land"
+        }
+      }
+    },
+    "__default": {
+      "list": {
+        "add": "Weitere hinzufügen"
+      }
+    }
+  },
+  "answers": {
+    "yes": "Ja",
+    "no": "Nein"
+  }
+}

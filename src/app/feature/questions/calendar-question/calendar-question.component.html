@@ -1,0 +1,9 @@
+<app-base-question [control]="control" [question]="question">
+  <mat-form-field>
+    <input [formControl]="control" [matDatepicker]="datepicker"
+           [placeholder]="question.placeholder ? (question.placeholder | translate) : ''" matInput>
+    <mat-datepicker-toggle [for]="datepicker" matSuffix></mat-datepicker-toggle>
+  </mat-form-field>
+
+  <mat-datepicker #datepicker></mat-datepicker>
+</app-base-question>
