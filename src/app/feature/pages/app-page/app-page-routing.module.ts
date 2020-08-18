@@ -12,19 +12,24 @@ const routes: Routes = [
     redirectTo: questions[0].id
   },
   {
-    path: `:${ROUTE_PARAMETER_CURRENT_QUESTIONARY}`,
+    path: "app",
     children: [
       {
-        path: "",
-        pathMatch: "full",
-        redirectTo: "start"
-      },
-      {
-        path: `:${ROUTE_PARAMETER_CURRENT_STEP}`,
-        component: AppPageComponent,
+        path: `:${ROUTE_PARAMETER_CURRENT_QUESTIONARY}`,
+        children: [
+          {
+            path: "",
+            pathMatch: "full",
+            redirectTo: "start"
+          },
+          {
+            path: `:${ROUTE_PARAMETER_CURRENT_STEP}`,
+            component: AppPageComponent,
+          }
+        ]
       }
     ]
-  },
+  }
 ];
 
 @NgModule({

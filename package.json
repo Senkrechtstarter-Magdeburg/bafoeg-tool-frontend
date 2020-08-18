@@ -26,6 +26,7 @@
     "@ngrx/store": "^9.2.0",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "@senkrechtstarter-magdeburg/pdfformfill": "^0.1.5",
     "assemblyscript": "^0.14.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
@@ -33,6 +34,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@schematics/angular": "^10.0.5",
     "@angular-devkit/build-angular": "~0.1000.4",
     "@angular/cli": "~10.0.4",
     "@angular/compiler-cli": "~10.0.5",

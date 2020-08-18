@@ -13,11 +13,19 @@ import {DefaultQuestionFormControlFactory} from "../../questions/shared/defaultQ
 import {ValidatorFactory} from "../../questions/shared/validatorFactory";
 import {QuestionValidatorFactory} from "../../questions/shared/questionValidatorFactory";
 import {MatButtonModule} from "@angular/material/button";
+import {FormService} from "@shared/form-service/form.service";
+import {WasmFormService} from "@shared/form-service/wasm-form.service";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatCardModule} from "@angular/material/card";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {PdfDialogComponent} from "./pdf-dialog/pdf-dialog.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
   declarations: [
-    AppPageComponent
+    AppPageComponent,
+    PdfDialogComponent
   ],
   exports: [
     AppPageComponent
@@ -30,6 +38,10 @@ import {MatButtonModule} from "@angular/material/button";
     TranslateModule,
     MatIconModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatDialogModule,
   ],
   providers: [
     {
@@ -43,6 +55,10 @@ import {MatButtonModule} from "@angular/material/button";
     {
       provide: ValidatorFactory,
       useClass: QuestionValidatorFactory
+    },
+    {
+      provide: FormService,
+      useClass: WasmFormService
     }
   ]
 })

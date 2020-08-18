@@ -7,6 +7,16 @@
     "errors": {
       "maxlength": "Maximale Länge von {requiredLength}",
       "required": "Dies ist ein Pflichtfeld"
+    },
+    "pdf_export": {
+      "dialog": {
+        "error": "Ein Fehler ist aufgetreten. Bitte wende dich an die Entwickler!",
+        "generating": "Aus Deinen Daten wird jetzt der Antrag generiert.",
+        "ready": "Dein Antrag wurde generiert.",
+        "btn_download": "PDF speichern",
+        "btn_cancel": "Abbrechen",
+        "title": "PDF generieren"
+      }
     }
   },
   "questions": {

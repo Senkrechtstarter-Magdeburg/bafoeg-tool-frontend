@@ -1,14 +1,15 @@
 import {Component, OnInit} from "@angular/core";
 import {combineLatest, Observable} from "rxjs";
-import {filter, first, map} from "rxjs/operators";
+import {filter, map} from "rxjs/operators";
 import {ROUTE_PARAMETER_CURRENT_QUESTIONARY, ROUTE_PARAMETER_CURRENT_STEP} from "./routing-params";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Questionary, QuestionContainer} from "@models/questions";
 import {questions} from "../../../questions/questions";
 import {SafeSubscriptionComponent} from "@shared/safe-subscription-component";
-import {FormService} from "./form.service";
 import {Dict} from "@shared/dict";
 import {StorageService} from "@shared";
+import {MatDialog} from "@angular/material/dialog";
+import {PdfDialogComponent} from "./pdf-dialog/pdf-dialog.component";
 
 
 @Component({
@@ -24,8 +25,8 @@ export class AppPageComponent extends SafeSubscriptionComponent implements OnIni
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private formService: FormService,
-              private storageService: StorageService) {
+              private storageService: StorageService,
+              private dialog: MatDialog) {
     super();
   }
 
@@ -58,17 +59,11 @@ export class AppPageComponent extends SafeSubscriptionComponent implements OnIni
   }
 
   public save(questionary: Questionary) {
-    // this.http.get("/assets/forms/Formblatt_1.pdf", {responseType: "arraybuffer"})
-    this.formService.fillQuestionary(questionary, this.data)
-      .pipe(
-        first(),
-      ).subscribe(data => {
-      const blob = new Blob([data], {type: "application/pdf"});
-      const link = document.createElement("a");
-      link.target = "_blank";
-      link.href = window.URL.createObjectURL(blob);
-      link.download = "Formblatt_1.pdf";
-      link.click();
+    this.dialog.open(PdfDialogComponent, {
+      data: {
+        questionary,
+        data: this.data
+      }
     });
   }
 
