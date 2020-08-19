@@ -4,5 +4,13 @@ import {TextBlockQuestion} from "@models/questions/textBlockQuestion";
 import {TextQuestion} from "@models/questions/textQuestion";
 import {YesNoQuestion} from "@models/questions/yesNoQuestion";
 import {ListQuestion} from "@models/questions/listQuestion";
+import {AutocompleteQuestion} from "@models/questions/autocompleteQuestion";
 
-export type Questions = CalendarQuestion | MultipleChoiceQuestion | TextBlockQuestion | TextQuestion | YesNoQuestion | ListQuestion;
+export type Questions =
+  CalendarQuestion
+  | MultipleChoiceQuestion
+  | TextBlockQuestion
+  | TextQuestion
+  | YesNoQuestion
+  | ListQuestion
+  | AutocompleteQuestion;

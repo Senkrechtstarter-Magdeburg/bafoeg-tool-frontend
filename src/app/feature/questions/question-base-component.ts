@@ -1,4 +1,4 @@
-import {Directive, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Directive, EventEmitter, Input, Output} from "@angular/core";
 import {Question} from "../../models/questions/question";
 import {AbstractControl, FormControl} from "@angular/forms";
 import {SafeSubscriptionComponent} from "@shared/safe-subscription-component";
@@ -7,8 +7,7 @@ import {DisplayType} from "@models";
 @Directive()
 // tslint:disable-next-line:directive-class-suffix
 export abstract class QuestionBaseComponent<TQuestion extends Question, TAnswer, TControl extends AbstractControl = FormControl>
-  extends SafeSubscriptionComponent
-  implements OnInit {
+  extends SafeSubscriptionComponent {
 
   public DisplayType = DisplayType;
 
@@ -34,9 +33,6 @@ export abstract class QuestionBaseComponent<TQuestion extends Question, TAnswer,
 
   public get isInline(): boolean {
     return !!(this.question.displayType & DisplayType.Inline);
-  }
-
-  public ngOnInit(): void {
   }
 
   public expandTranslationContext(add: object) {

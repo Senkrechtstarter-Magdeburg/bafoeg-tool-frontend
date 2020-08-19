@@ -2,6 +2,8 @@ import {buildQuestionary, defineBlock, QuestionContext} from "@shared/builder";
 import {DisplayType, QuestionEntry} from "@models/questions";
 import {PDF_FORMS} from "@questions/pdfForms";
 
+import universities from "./autocomplete/universities.json";
+
 export enum Gender {
   Male,
   Female,
@@ -119,7 +121,9 @@ export const questions = [
     .addQuestionContainer("uni", c => c
       .hideIf(ctx => ctx.is("intro.phase", 1, 3))
       .printInfo("info")
-      .askText("university", f => f.withFormName("Ausbildungsstätte_Eingabe", "fb1"))
+      .askAutocompleteQuestion("university", f => f
+        .withFormName("Ausbildungsstätte_Eingabe", "fb1")
+        .option(...universities.map(u => ({title: u, value: u}))))
       .askText("subject", f => f.withFormName("Klasse_Fachrichtung_Eingabe", "fb1"))
       .askMultipleChoiceQuestion("graduation", f => f
         .withFormName("angestrebter_Anschluss_Eingabe", "fb1")

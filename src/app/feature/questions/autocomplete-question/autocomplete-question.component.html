@@ -1,0 +1,12 @@
+<app-base-question [control]="control" [question]="question">
+  <mat-form-field>
+    <input [formControl]="control" [matAutocomplete]="autocomplete" [placeholder]="question.placeholder | translate"
+           matInput
+           type="text">
+  </mat-form-field>
+  <mat-autocomplete #autocomplete>
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">
+      {{ option.title }}
+    </mat-option>
+  </mat-autocomplete>
+</app-base-question>

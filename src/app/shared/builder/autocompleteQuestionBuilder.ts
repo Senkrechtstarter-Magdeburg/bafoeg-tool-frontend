@@ -1,16 +1,20 @@
 import {QuestionBuilder} from "./questionBuilder";
-import {AutocompleteQuestion} from "../../models/questions/autocompleteQuestion";
+import {AutocompleteOption, AutocompleteQuestion} from "../../models/questions/autocompleteQuestion";
 
 export class AutocompleteQuestionBuilder extends QuestionBuilder<AutocompleteQuestion> {
+  private options: AutocompleteOption[] = [];
+
   public build(): AutocompleteQuestion {
     return new AutocompleteQuestion({
       ...super.buildBaseOptions(),
-      options: []
+      options: this.options
     });
   }
 
-  public addOptionsFromFile(path: string) {
+  public option(...option: AutocompleteOption[]): this {
+    this.options.push(...option);
 
+    return this;
   }
 
 }
