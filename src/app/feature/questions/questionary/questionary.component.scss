@@ -8,8 +8,6 @@
   $progress-indicator-height: 6px;
 
   .questionary-component-progress-indicator {
-    position: fixed;
-    z-index: 1;
     height: $progress-indicator-height;
     display: flex;
     width: 100%;
@@ -29,8 +27,8 @@
   }
 
   .questionary-component-container {
-    margin-top: $progress-indicator-height;
     overflow: auto;
+    height: calc(100% - #{$progress-indicator-height});
 
     .questionary-component-card-container {
       margin-top: 64px;

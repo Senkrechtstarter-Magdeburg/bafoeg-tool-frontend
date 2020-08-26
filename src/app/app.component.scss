@@ -1,15 +1,13 @@
 @import "src/styles/vars";
 
+:host {
+}
+
 .toolbar {
-  display: block;
-  top: 0;
-  left: 0;
-  position: fixed;
-  z-index: 1;
   width: 100%;
 }
 
 .container {
-  margin-top: $toolbar-size;
   position: relative;
+  height: calc(100% - #{$toolbar-size});
 }
