@@ -18,12 +18,3 @@ for (const key in r) {
     window[key] = r[key];
   }
 }
-
-// import("pdfformfill").then(wasm => {
-//
-//   fetch("assets/forms/Formblatt_1.pdf").then(x => x.arrayBuffer()).then(buf => {
-//     const form = wasm.load_form(new Uint8Array(buf));
-//     console.log({form});
-//   }).catch(err => console.error(err));
-// });
-//

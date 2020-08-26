@@ -17,7 +17,7 @@ addEventListener("message", (ev) => wasm$.subscribe(wasm => {
 
       postMessage(new FillPdfResponse(result));
     } catch (e) {
-      postMessage(new WorkerError({message: e.message, stack: e.stack, name: e.name}));
+      postMessage(new WorkerError(e));
     }
   } else if (isWorkerMessage(data)) {
     postMessage(new WorkerError(`Unknown message type: "${data.type}"`));

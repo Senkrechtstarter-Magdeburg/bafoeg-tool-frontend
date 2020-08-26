@@ -5,6 +5,7 @@ import {SafeSubscriptionComponent} from "@shared/safe-subscription-component";
 import {prevCurNextAnimation} from "./questionary.animation";
 import {Dict} from "@shared/dict";
 import {QuestionFormControlFactory} from "../shared/questionFormControlFactory";
+import {getEntries} from "@shared/objectHelper";
 
 @Component({
   selector: "app-questionary",
@@ -35,9 +36,14 @@ export class QuestionaryComponent extends SafeSubscriptionComponent implements O
 
   @Input()
   public set data(value: Dict) {
-    if (this.formGroup && this._data !== value) {
+    if (this.formGroup && this.formGroup.value !== value) {
       for (const container of this.questionary.questionContainers) {
-        this.formGroup.controls[container.namespace] = this.controlFactory.createQuestionEntryFormGroup(container.questionEntries, value);
+        if (this.formGroup.controls[container.namespace]) {
+          const updateObj = getEntries(value).filter(([k]) => k.startsWith(container.id)).collect();
+          (this.formGroup.controls[container.namespace] as FormGroup).patchValue(updateObj, {emitEvent: false});
+        } else {
+          this.formGroup.controls[container.namespace] = this.controlFactory.createQuestionEntryFormGroup(container.questionEntries, value);
+        }
       }
     }
     this._data = value;
