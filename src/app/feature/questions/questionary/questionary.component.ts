@@ -35,12 +35,13 @@ export class QuestionaryComponent extends SafeSubscriptionComponent implements O
 
   @Input()
   public set data(value: Dict) {
-    this._data = value;
     if (this.formGroup && this._data !== value) {
-      for (let container of this.questionary.questionContainers) {
+      for (const container of this.questionary.questionContainers) {
         this.formGroup.controls[container.namespace] = this.controlFactory.createQuestionEntryFormGroup(container.questionEntries, value);
       }
     }
+    this._data = value;
+
   }
 
   public get next(): QuestionContainer | null {
@@ -82,7 +83,7 @@ export class QuestionaryComponent extends SafeSubscriptionComponent implements O
       return null;
     }
 
-    if (amount == 0) {
+    if (amount === 0) {
       return this.currentStep;
     }
 

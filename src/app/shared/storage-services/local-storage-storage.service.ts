@@ -15,4 +15,8 @@ export class LocalStorageStorageService implements StorageService {
   public restore(): Dict {
     return JSON.parse(localStorage.getItem("data") || "{}");
   }
+
+  public clear() {
+    localStorage.removeItem("data");
+  }
 }
