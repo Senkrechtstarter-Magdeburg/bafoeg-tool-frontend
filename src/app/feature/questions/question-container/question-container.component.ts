@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, TrackByFunction} from "@angular/core";
-import {QuestionContainer} from "../../../models/questions/questionContainer";
+import {QuestionContainer} from "@models";
 import {FormGroup} from "@angular/forms";
-import {QuestionService} from "../question.service";
-import {SafeSubscriptionComponent} from "../../../shared/safe-subscription-component";
+import {SafeSubscriptionComponent} from "@shared";
 import {QuestionEntry} from "@models/questions/questionEntry";
 import {distinctUntilChanged} from "rxjs/operators";
 import {environment} from "../../../../environments/environment";
@@ -29,7 +28,7 @@ export class QuestionContainerComponent extends SafeSubscriptionComponent implem
   @Output()
   public continue = new EventEmitter();
 
-  constructor(private questionService: QuestionService) {
+  constructor() {
     super();
   }
 

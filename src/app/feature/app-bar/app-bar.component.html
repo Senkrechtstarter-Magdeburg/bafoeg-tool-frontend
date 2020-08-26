@@ -1,5 +1,39 @@
 <mat-toolbar>
-  <a mat-button routerLink="/">{{'app.menu.main' | translate}}</a>
-  <a mat-button routerLink="/about">{{'app.menu.about' | translate}}</a>
-  <a mat-button routerLink="/app">{{'app.menu.app' | translate}}</a>
+  <div class="left">
+    <ng-container *ngFor="let obj of (portalOutletsLeft$ | async); trackBy: trackByFn">
+      <ng-template [cdkPortalOutlet]="obj.portal"></ng-template>
+    </ng-container>
+  </div>
+
+
+  <div class="spacer"></div>
+
+  <div class="center">
+    <ng-container *ngFor="let obj of (portalOutletsCenter$ | async); trackBy: trackByFn">
+      <ng-template [cdkPortalOutlet]="obj.portal"></ng-template>
+    </ng-container>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="right">
+    <ng-container *ngFor="let obj of (portalOutletsRight$ | async); trackBy: trackByFn">
+      <ng-template [cdkPortalOutlet]="obj.portal"></ng-template>
+    </ng-container>
+    <ng-container *ngIf="(portalOutletsMore$ | async); let entries">
+      <button *ngIf="entries.length > 0"
+              [matMenuTriggerFor]="moreMenu"
+              mat-icon-button>
+        <mat-icon>more_vert</mat-icon>
+
+        <mat-menu #moreMenu>
+          <ng-container *ngFor="let obj of entries; trackBy: trackByFn">
+            <!--            <div mat-menu-item style="width: fit-content">-->
+            <ng-template [cdkPortalOutlet]="obj.portal"></ng-template>
+            <!--            </div>-->
+          </ng-container>
+        </mat-menu>
+      </button>
+    </ng-container>
+  </div>
 </mat-toolbar>

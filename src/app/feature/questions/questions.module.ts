@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuestionContainerComponent} from "./question-container/question-container.component";
 import {TextQuestionComponent} from "./text-question/text-question.component";
 import {QuestionaryComponent} from "./questionary/questionary.component";
-import {SharedModule} from "../../shared/shared.module";
+import {SharedModule} from "@shared";
 import {MatButtonModule} from "@angular/material/button";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatCardModule} from "@angular/material/card";
@@ -61,7 +61,7 @@ import {DefaultQuestionFormControlFactory} from "./shared/defaultQuestionFormCon
     MatButtonToggleModule,
     MatSelectModule,
     MatTooltipModule,
-    RouterModule
+    RouterModule,
   ],
   providers: [
     {

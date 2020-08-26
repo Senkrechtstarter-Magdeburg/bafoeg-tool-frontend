@@ -5,7 +5,7 @@
     "previous": "Zurück",
     "title": "Kronos",
     "errors": {
-      "maxlength": "Maximale Länge von {requiredLength}",
+      "maxlength": "Maximale Länge von {{requiredLength}}",
       "required": "Dies ist ein Pflichtfeld"
     },
     "pdf_export": {
@@ -17,6 +17,16 @@
         "btn_cancel": "Abbrechen",
         "title": "PDF generieren"
       }
+    },
+    "import_export": {
+      "export_data": "Speichern",
+      "export_data_file_name": "BafoegToolExport_{{date}}",
+      "import_data": "Öffnen",
+      "error_opening_too_many_files": "Datei konnte nicht geladen werden: Es wurden zu viele Dateien ausgewählt.",
+      "error_opening_file": "Datei konnte nicht geladen werden: {{msg}}.",
+      "snackbar_close": "Ok",
+      "error_panel_retry": "Wiederholen",
+      "successfully_imported": "Daten erfolgreich geladen!"
     }
   },
   "questions": {

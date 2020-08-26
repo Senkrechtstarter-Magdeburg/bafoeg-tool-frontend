@@ -37,7 +37,7 @@ export abstract class QuestionBuilder<T extends Question> {
     custom: <Z = any>(errorKey: string,
                       condition: (value: Z, context: QuestionContext) => boolean | { valid: boolean, additional?: Dict },
                       id: string): this => {
-      const answerCondition: AnswerCondition<Z> = (v, ctx) => {
+      this.conditions[id] = (v, ctx) => {
         if (this.hiddenCondition && this.hiddenCondition(ctx)) {
           return null;
         }
@@ -51,7 +51,6 @@ export abstract class QuestionBuilder<T extends Question> {
         };
 
       };
-      this.conditions[id] = answerCondition;
       return this;
     }
   };
@@ -59,7 +58,7 @@ export abstract class QuestionBuilder<T extends Question> {
   protected placeholder: string;
   protected translationPrefix: string;
   protected displayType: DisplayType = DisplayType.Inline;
-  private requiredValidatorUid: number;
+  private requiredValidatorUid: string;
 
   public constructor(protected readonly id: string,
                      protected namespace: string,

@@ -1,0 +1,10 @@
+@import "src/styles/vars";
+
+mat-toolbar {
+  z-index: 1;
+
+  height: $toolbar-size;
+
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {combineLatest, Observable} from "rxjs";
-import {filter, map} from "rxjs/operators";
+import {filter, first, map} from "rxjs/operators";
 import {ROUTE_PARAMETER_CURRENT_QUESTIONARY, ROUTE_PARAMETER_CURRENT_STEP} from "./routing-params";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Questionary, QuestionContainer} from "@models/questions";
@@ -10,6 +10,9 @@ import {Dict} from "@shared/dict";
 import {StorageService} from "@shared";
 import {MatDialog} from "@angular/material/dialog";
 import {PdfDialogComponent} from "./pdf-dialog/pdf-dialog.component";
+import {FileExchangeService, FilesError} from "@shared/file-exchange.service";
+import {TranslateService} from "@ngx-translate/core";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -23,15 +26,20 @@ export class AppPageComponent extends SafeSubscriptionComponent implements OnIni
   public currentStep$: Observable<QuestionContainer>;
   public data = {};
 
+  public window = window;
+
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private storageService: StorageService,
-              private dialog: MatDialog) {
+              public storageService: StorageService,
+              private dialog: MatDialog,
+              private fileExchangeService: FileExchangeService,
+              private translateService: TranslateService,
+              private snackBar: MatSnackBar) {
     super();
   }
 
   ngOnInit() {
-    this.data = this.storageService.restore();
+    this.restore();
 
     this.questionary$ = this.activatedRoute.paramMap.pipe(
       map(params => questions.find(q => q.id === params.get(ROUTE_PARAMETER_CURRENT_QUESTIONARY))),
@@ -67,9 +75,62 @@ export class AppPageComponent extends SafeSubscriptionComponent implements OnIni
     });
   }
 
+  public restore() {
+    this.data = this.storageService.restore();
+  }
+
 
   public dataChanged(data: Dict) {
     this.data = data;
     this.storageService.store(data);
+  }
+
+  public export() {
+    const date = new Date();
+
+    this.fileExchangeService.downloadJSON(this.data,
+      `${this.translateService.instant(
+        "app.import_export.export_data_file_name",
+        {date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`})}.json`);
+  }
+
+  public import() {
+    this.fileExchangeService.uploadJson().subscribe({
+      error: (err: Error) => {
+        let msg: { text: string, interpolateParams?: object } = null;
+
+        if (!(err instanceof FilesError && err.actualFiles < 1)) {
+          msg = {text: "app.import_export.error_opening_file", interpolateParams: {msg: err.message}};
+        } else if (err.actualFiles > 1) {
+          msg = {text: "app.import_export.error_opening_too_many_files"};
+        }
+
+        if (msg) {
+          this.snackBar.open(
+            this.translateService.instant(msg.text, msg.interpolateParams),
+            this.translateService.instant("app.import_export.error_panel_retry"), {
+              duration: 20_000,
+              panelClass: "error-bg"
+            }).onAction().pipe(
+            first()
+          ).subscribe(() => this.import());
+        } else {
+          console.error(err);
+        }
+      },
+      next: content => {
+        this.data = content;
+        this.storageService.store(this.data);
+
+        this.snackBar.open(
+          this.translateService.instant("app.import_export.successfully_imported"),
+          this.translateService.instant("app.import_export.snackbar_close"),
+          {
+            duration: 20_000,
+            panelClass: "success-bg"
+          }
+        );
+      }
+    });
   }
 }

@@ -1,1 +1,20 @@
-<router-outlet></router-outlet>
+<app-app-bar class="toolbar"></app-app-bar>
+
+<ng-container *appAppBarElement="'more'">
+
+  <button (click)="setTheme('light')" *ngIf="isDarkMode; else enableDarkMode" mat-menu-item>
+    <mat-icon>wb_sunny</mat-icon>
+    Light mode
+  </button>
+  <ng-template #enableDarkMode>
+    <button (click)="setTheme('dark')" mat-menu-item>
+      <mat-icon>nights_stay</mat-icon>
+      Dark mode
+    </button>
+  </ng-template>
+
+</ng-container>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
