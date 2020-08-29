@@ -11,10 +11,18 @@
   },
   "questions": {
     "part1": {
+      "cv": {
+        "__title": "Lebenslauf",
+        "info": {
+          "text": "In diesem Abschnitt musst du lückenlos angeben, was du von der Schule bis jetzt gemacht hast.", 
+          "hint": "Zum Beispiel: Schule, Ausbildung, Praktika, Studium; Erwerbstätigkeit; Wehr- und Zivildienst bzw. FSJ / FÖJ; Krankheiten, die mit Arbeitsunfähigkeit verbunden waren; Beschäftigungsverbote wegen Mutterschutz; Erwerbsunfähigkeit; Arbeitslosigkeit; Maßnahme zur medizinischen oder beruflichen Rehabilitation; berufliche Weiterbildung."
+        }
+      },
       "intro": {
+        "__title": "Allgemeines",
         "phase": {
           "placeholder": "Tätigkeit",
-          "text": "Was bist du für den Zeitraum in dem du BAföG beantragst?",
+          "text": "Welche Tätigkeit wirst du in dem Zeitraum, in dem du BAföG empfangen möchtest, ausüben?",
           "choices": {
             "school": "Schüler",
             "uni": "Student",
@@ -45,7 +53,7 @@
             "12": "12 Monate"
           }
         },
-        "aboard": {
+        "abroad": {
           "text": "Hast du vor in dem Zeitraum in dem du BAföG beantragst ins Ausland zu gehen?"
         },
         "parents": {
@@ -113,9 +121,10 @@
           }
         }
       },
-      "aboard": {
+      "abroad": {
+        "__title": "Auslandsaufenthalt",
         "info": {
-          "text": "Studium im Ausland"
+          "text": "Aufenthalt im Ausland"
         },
         "name": {
           "placeholder": "Name der Ausbildungstätte",
@@ -135,8 +144,43 @@
           "placeholder": "Land"
         },
         "type": {
-          "placeholder": "Art der Hochschule",
-          "text": "Was für eine Art Hochschule ist {{name}}"
+          "placeholder": "Art der Ausbildungstätte",
+          "text": "Um was für eine Art Ausbildungstätte handelt es sich?",
+          "hint": "zum Beispiel Universität, Schule"
+        },
+        "discipline": {
+          "placeholder": "Fachrichtung",
+          "text": "In welche Fachrichtung wirst du gehen?"
+        },
+        "prev_discipline": {
+          "text": "Hast du in dieser Fachrichtung vorher schon was gemacht?"
+        },
+        "prev_discipline_time": {
+          "placeholder": "Anzahl Semester / Schuljahre",
+          "text": "Wie lange warst du schon in dieser Fachrichtung?",
+          "hint": "Für Schüler:innen: Angabe in Anzahl der Schuljahre, für Studierende: Angabe in Anzahl der Semester"
+        },
+        "prev_discipline_abroad": {
+          "text": "Hat ein Teil davon im Ausland stattgefunden?"
+        },
+        "prev_discipline_abroad_time": {
+          "placeholder": "Anzahl Semester / Schuljahre",
+          "text": "Wie lange war der Auslandsteil?",
+          "hint": "Für Schüler:innen: Angabe in Anzahl der Schuljahre, für Studierende: Angabe in Anzahl der Semester"
+        },
+        "prev_discipline_abroad_country": {
+          "placeholder": "Land",
+          "text": "Wo hat der Auslandsteil stattgefunden?",
+          "hint": "Falls es verschiedene Länder sind, trenne diese mit Kommata ab."
+        },
+        "prev_discipline_abroad_bafoeg": {
+          "text": "Hast du dort bereits Auslandsbafög erhalten?"
+        },
+        "prev_discipline_abroad_bafoeg_from": {
+          "text": "Von:"
+        },
+        "prev_discipline_abroad_bafoeg_to": {
+          "text": "Bis:"
         },
         "start": {
           "text": "Ab wann möchtest du gefördert werden?"
@@ -151,7 +195,10 @@
           "text": "Bis wann finden deine Lehrveranstaltungen statt?"
         }
       },
-      "aboard_study": {
+      "abroad_study": {
+        "info": {
+          "text": "Ganz wichtig: Du kannst auch in der vorlesungsfreien Zeit gefördert werden, solange du eingeschrieben bist."
+        },
         "start": {
           "placeholder": "Förderbeginn",
           "text": "Ab wann möchtest du gefördert werden?"
@@ -170,13 +217,14 @@
         }
       },
       "about_me": {
+        "__title": "Über dich",
         "firstname": {
           "placeholder": "Vorname",
-          "text": "Was ist dein Vorname?"
+          "text": "Wie lautet dein Vorname?"
         },
         "name": {
           "placeholder": "Nachname",
-          "text": "Was ist dein Nachname?"
+          "text": "Wie lautet dein Nachname?"
         },
         "q_birthname": {
           "text": "Hast du einen anderen Geburtsnamen?"
@@ -187,7 +235,7 @@
         },
         "sex": {
           "placeholder": "Geschlecht",
-          "text": "Welches geschlecht hast du?",
+          "text": "Welches Geschlecht hast du?",
           "hint": "Das BAföG Amt unterscheidet nur in diese beiden Geschlechter.",
           "choices": {
             "male": "Männlich",
@@ -196,12 +244,12 @@
         },
         "birthdate": {
           "placeholder": "Geburtstag",
-          "text": "Wann bist du geboren"
+          "text": "Wann wurdest du geboren?"
         },
         "birthplace": {
-          "hint": "Bitte gebe in Klammern das Geburtsland an.",
-          "placeholder": "Geburtsland",
-          "text": "Wo bist du geboren?"
+          "hint": "Bitte gebe in Klammern das Geburtsland an, falls du im Ausland geboren wurdest.",
+          "placeholder": "Geburtsstadt",
+          "text": "In welcher Stadt wurdest du geboren?"
         },
         "foreveralone": {
           "placeholder": "Familienstand",
@@ -222,9 +270,9 @@
           "text": "Hast du die Deutsche Staatsbürgerschaft?"
         },
         "nationality": {
-          "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden Nl",
+          "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden NL",
           "placeholder": "Nationalität",
-          "text": "Welche Staatsbrügerschaft hast du?"
+          "text": "Welche Staatsbürgerschaft hast du? (Kürzel)"
         },
         "children": {
           "hint": "Gemeint sind eheliche und für ehelich erklärte, adoptierte sowie nichteheliche Kinder jeden Alters",
@@ -747,6 +795,34 @@
         "country": {
           "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden Nl",
           "placeholder": "Land"
+        }
+        
+      },
+      "cvEntry": {
+        "work": {
+          "placeholder": "Ausbildungsstätte",
+          "text": "Wie lautet der Name der Ausbildungsstätte, die du besucht hast?"
+        },
+        "city": {
+          "placeholder": "Magdeburg",
+          "text": "In welcher Stadt?"
+        },
+        "type": {
+          "placeholder": "Schulabschluss/Fachrichtung oder Art der Tätigkeit",
+          "text": "Was für eine Schulart/Fachrichtung bzw. Art der Tätigkeit bist du nachgegangen?"
+        },
+        "from": {
+          "placeholder": "01/01/1900",
+          "text": "Von (gib einfach den ersten des jeweiligen Monats an)?"
+        },
+        "to": {
+          "placeholder": "01/01/2020",
+          "text": "Bis (gib einfach den ersten des jeweiligen Monats an)?"
+        },
+        "wage": {
+          "placeholder": "Abitur",
+          "text": "Welchen Abschluss hast erreicht bzw. wie hoch war dein monatlicher Bruttolohn?",
+          "hint": "Den Lohn bitte in Euro angeben. Neben dem Lohn ist auch die Leistung gemeint, die du erhalten hast."
         }
       }
     },

@@ -1,5 +1,5 @@
-import {buildQuestionary, defineBlock, QuestionContext} from "@shared/builder";
-import {DisplayType, QuestionEntry} from "@models/questions";
+import { buildQuestionary, defineBlock, QuestionContext } from "@shared/builder";
+import { DisplayType, QuestionEntry } from "@models/questions";
 
 export enum Gender {
   Male,
@@ -26,9 +26,9 @@ export type BlockArgs<T extends string> = {
 
 export const askForAddress = defineBlock("address",
   (builder,
-   args: BlockArgs<"address" | "zip" | "city" | "country">) => {
+    args: BlockArgs<"address" | "zip" | "city" | "country">) => {
 
-    args = {hints: {country: true, ...args.hints}, defaults: {country: () => "DE", ...args.defaults}, ...args};
+    args = { hints: { country: true, ...args.hints }, defaults: { country: () => "DE", ...args.defaults }, ...args };
 
     for (const name of ["address", "zip", "city", "country"]) {
       builder.askText(name, f => {
@@ -41,7 +41,7 @@ export const askForAddress = defineBlock("address",
           f.showHint();
         }
 
-        if (args.defaults[name]) {
+        if (args.defaults && args.defaults[name]) {
           f.defaultTo(args.defaults[name]);
         }
 
@@ -61,6 +61,39 @@ export const askForAddress = defineBlock("address",
   }
 );
 
+export const cvEntry = defineBlock("cvEntry",
+  (builder, args: BlockArgs<"work" | "city" | "type" | "from" | "to" | "wage">) => {
+    args = { hints: { wage: true, ...args.hints }, ...args };
+
+    for (const name of ["work", "city", "type", "wage"]) {
+      builder.askText(name, f => {
+        f.withFormName(args.form[name]);
+        if (args.hints && args.hints[name]) {
+          f.showHint();
+        }
+
+        if (args.defaults && args.defaults[name]) {
+          f.defaultTo(args.defaults[name]);
+        }
+
+        if ("hideIf" in args) {
+          f.hideIf(args.hideIf);
+        }
+
+        if ("showIf" in args) {
+          f.showIf(args.showIf);
+        }
+
+        return f;
+      });
+    }
+    builder.askForDate("from")
+    builder.askForDate("to")
+
+    return builder;
+  }
+);
+
 export const questions = [
   buildQuestionary("part1")
     .useForm("Formblatt1", fb => fb
@@ -68,12 +101,29 @@ export const questions = [
       .addCalculatedMapping("Name_Vorname_Auszubildender_Eingabe",
         ctx => `${ctx.get("about_me.name")}, ${ctx.get("about_me.firstname")}`))
 
+    .addQuestionContainer("cv", qc => qc
+      .printInfo("info", ctx => ctx
+        .showHint())
+      .askForList("cvEntries", f => f
+        .hideText()
+        .entries(e => e
+          .block("cvEntry", cvEntry, {
+        form: {
+          city: "",
+          from: "", // TODO add pdf mapping
+          to: "",
+          type: "",
+          wage: "",
+          work: ""
+        }
+      })
+          )))
     .addQuestionContainer("intro", qc => qc
       .askMultipleChoiceQuestion("phase", c => c
         .displayAs(DisplayType.Promoted)
-        .option("school", Phase.School, {icon: "school"})
-        .option("uni", Phase.Uni, {icon: "graduation"})
-        .option("practical", Phase.Practical, {icon: "apprenticeship"}))
+        .option("school", Phase.School, { icon: "school" })
+        .option("uni", Phase.Uni, { icon: "graduation" })
+        .option("practical", Phase.Practical, { icon: "apprenticeship" }))
       .askForDate("start_date", c => c
         .showAsPopup()
         .showHint())
@@ -93,7 +143,7 @@ export const questions = [
         .defaultTo(12)
         .showHint()
       )
-      .askYesNoQuestion("aboard")
+      .askYesNoQuestion("abroad")
       .askYesNoQuestion("parents", c => c
         .showHint())
       .askYesNoQuestion("firsttime", c => c
@@ -137,19 +187,43 @@ export const questions = [
         .withFormName("Vollzeit_Teilzeit_Auswahl")
         .showHint()))
 
-    .addQuestionContainer("aboard", c => c
-      .hideIf(ctx => ctx.is("intro.aboard", false))
+    .addQuestionContainer("abroad", c => c
+      .hideIf(ctx => ctx.is("intro.abroad", false))
       .printInfo("info")
       .askText("name")
       .askText("address")
       .askText("zip", f => f.hideText())
       .askText("city", f => f.hideText())
       .askText("country", f => f.hideText())
-      .askText("type")
-    )
+      .askText("type", f => f.showHint())
+      .askText("discipline")
+      .askYesNoQuestion("prev_discipline")
+      //if no we have to put 0 in the pdf form
+      .askText("prev_discipline_time", f => f
+        .showHint()
+        .hideIf(ctx => ctx.is("prev_discipline", false, null)))
+      .askYesNoQuestion("prev_discipline_abroad", f => f
+        .hideIf(ctx => ctx.is("prev_discipline", false, null)))
+      .askText("prev_discipline_abroad_time", f => f
+        .showHint()
+        .hideIf(ctx => ctx.is("prev_discipline_time", false, null)))
+      .askText("prev_discipline_abroad_country", f => f
+        .showHint()
+        .hideIf(ctx => ctx.is("prev_discipline", false, null) || ctx.is("prev_discipline_abroad", false, null)))
+      .askYesNoQuestion("prev_discipline_abroad_bafoeg", f => f
+        .hideIf(ctx => ctx.is("prev_discipline_abroad", false, null) || ctx.is("prev_discipline", false, null)))
+        //.hideIf(ctx => ctx.is("prev_discipline", false, null)))
+      .askForDate("prev_discipline_abroad_bafoeg_from", f => f
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null)))
+        //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
+      .askForDate("prev_discipline_abroad_bafoeg_to", f => f
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null)))
+        //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
+      ) 
 
-    .addQuestionContainer("aboard_study", c => c
-      .hideIf(ctx => ctx.is("intro.aboard", false))
+    .addQuestionContainer("abroad_study", c => c
+      .printInfo("info")
+      .hideIf(ctx => ctx.is("intro.abroad", false))
       .askForDate("start", f => f.showAsPopup())
       .askForDate("end", f => f.showAsPopup())
       .askForDate("start_lec", f => f.showAsPopup())
@@ -190,7 +264,7 @@ export const questions = [
         .hideIf(ctx => ctx.is("foreveralone", 1, null))
         .showAsPopup())
       .askYesNoQuestion("german_nationality")
-      .askText("nationality", f => f
+      .askText("nationality", f => f // TODO use dropdown instead
         .hideIf(ctx => ctx.is("german_nationality", true, null))
         .showHint())
       .askYesNoQuestion("children", f => f
@@ -222,7 +296,7 @@ export const questions = [
       .block("sec_address",
         askForAddress,
         {
-          form: {address: "", city: "", country: "", zip: ""},
+          form: { address: "", city: "", country: "", zip: "" },
           showIf: (ctx => ctx.is("know_address", true) && ctx.is("q_different_address_while_studying", true))
         })
 
@@ -411,7 +485,7 @@ export const questions = [
         .withFormName("E-Mail_w_Eingabe")
         .hideIf(ctx => ctx.is("mail_q", false, null)))
       .askYesNoQuestion("german_nationality")
-      .askText("nationality", f => f
+      .askText("nationality", f => f // TODO use dropdown instead
         .hideIf(ctx => ctx.is("german_nationality", true, null))
         .showHint())
       .askMultipleChoiceQuestion("foreveralone", f => f
@@ -488,5 +562,6 @@ export const questions = [
         .option("father", 4)
         .option("custodian", 5))
     )
+
     .build()
 ];
