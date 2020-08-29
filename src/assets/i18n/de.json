@@ -128,7 +128,8 @@
         },
         "name": {
           "placeholder": "Name der Ausbildungstätte",
-          "text": "Wie heißt die Ausbildungsstätte im Ausland"
+          "text": "Wie heißt die Ausbildungsstätte im Ausland?",
+          "hint": "Hierbei gebe bitte den Namen an, sowie er im Ausland benutzt wird."
         },
         "address": {
           "placeholder": "Straße und Hausnummer",
@@ -177,9 +178,11 @@
           "text": "Hast du dort bereits Auslandsbafög erhalten?"
         },
         "prev_discipline_abroad_bafoeg_from": {
+          "placeholder": "Start",
           "text": "Von:"
         },
         "prev_discipline_abroad_bafoeg_to": {
+          "placeholder": "Ende",
           "text": "Bis:"
         },
         "start": {
@@ -196,6 +199,7 @@
         }
       },
       "abroad_study": {
+        "__title": "Auslandsaufenthalt - Zeitraum und Abschluss",
         "info": {
           "text": "Ganz wichtig: Du kannst auch in der vorlesungsfreien Zeit gefördert werden, solange du eingeschrieben bist."
         },
@@ -214,6 +218,150 @@
         "end_lec": {
           "placeholder": "Lehrveranstaltungsende",
           "text": "Bis wann finden deine Lehrveranstaltungen statt?"
+        },
+        "constraint": {
+          "text": "Musst du laut deiner Ausbildungsstätte den Auslandsaufenthalt machen?"
+        },
+        "inland_name": {
+          "placeholder": "Name der Ausbildungsstätte",
+          "text": "Wie heißt die Ausbildungsstätte im Inland?"
+        },
+        "inland_address": {
+          "placeholder": "Straße und Hausnummer",
+          "text": "Was ist die Anschrift der Ausbildungstätte?"
+        },
+        "inland_zip": {
+          "placeholder": "Postleitzahl"
+        },
+        "inland_city": {
+          "placeholder": "Stadt"
+        },
+        "inland_discipline": {
+          "placeholder": "Fachrichtung",
+          "text": "Zu welcher Fachrichtung gehört die Ausbildungsstätte?"
+        },
+        "final": {
+          "placeholder": "Angestrebter Abschluss",
+          "text": "Welchen Abschluss strebst du momentan an?"
+        },
+        "local": {
+          "placeholder": "Name der Ausbildungstätte",
+          "text": "Wie lautet der Name der Ausbildungsstätte, an der du deinen Abschluss machen willst?"
+        },
+        "where": {
+          "text": "Möchtest du deinen Abschluss im Inland machen?"
+        },
+        "pay": {
+          "text": "Musst du Studiengebühren bezahlen?"
+        },
+        "amount": {
+          "placeholder": "Betrag",
+          "text": "Wie viel musst du bezahlen?"
+        },
+        "currency": {
+          "placeholder": "Währung",
+          "text": "In welcher Währung?"
+        }
+      },
+      "internship": {
+        "__title": "Praktikum im Ausland",
+        "intern_name": {
+          "placeholder": "Name der Praktikumsstelle",
+          "text": "Wie heißt die Praktikumsstelle im Ausland?",
+          "hint": "Hierbei gebe bitte den Namen an, sowie er im Ausland benutzt wird."
+        },
+        "intern_address": {
+          "placeholder": "Straße und Hausnummer",
+          "text": "Was ist die Anschrift der Praktikumsstelle?"
+        },
+        "intern_zip": {
+          "placeholder": "Postleitzahl"
+        },
+        "intern_city": {
+          "placeholder": "Stadt"
+        },
+        "intern_country": {
+          "placeholder": "Land"
+        },
+        "intern_start": {
+          "placeholder": "Von",
+          "text": "Ab wann möchtest du gefördert werden?"
+        },
+        "intern_end": {
+          "placeholder": "Bis",
+          "text": "Bis wann möchtest du gefördert werden?"
+        },
+        "discipline": {
+          "placeholder": "Fachrichtung",
+          "text": "In welche Fachrichtung wirst du gehen?"
+        },
+        "school_name": {
+          "placeholder": "Name der Ausbildungstätte",
+          "text": "Wie heißt die Ausbildungsstätte zu der das Praktikum gehört?"
+        },
+        "school_address": {
+          "placeholder": "Straße und Hausnummer",
+          "text": "Was ist die Anschrift der Ausbildungstätte?"
+        },
+        "school_zip": {
+          "placeholder": "Postleitzahl"
+        },
+        "school_city": {
+          "placeholder": "Stadt"
+        },
+        "school_country": {
+          "placeholder": "Land"
+        },
+        "prev_discipline": {
+          "text": "Hast du in dieser Fachrichtung vorher schon was gemacht?"
+        },
+        "prev_discipline_time": {
+          "placeholder": "Anzahl Semester / Schuljahre",
+          "text": "Wie lange warst du schon in dieser Fachrichtung?",
+          "hint": "Für Schüler:innen: Angabe in Anzahl der Schuljahre, für Studierende: Angabe in Anzahl der Semester"
+        },
+        "prev_discipline_abroad": {
+          "text": "Hat ein Teil davon im Ausland stattgefunden?"
+        },
+        "prev_discipline_abroad_time": {
+          "placeholder": "Anzahl Semester / Schuljahre",
+          "text": "Wie lange war der Auslandsteil?",
+          "hint": "Für Schüler:innen: Angabe in Anzahl der Schuljahre, für Studierende: Angabe in Anzahl der Semester"
+        },
+        "prev_discipline_abroad_country": {
+          "placeholder": "Land",
+          "text": "Wo hat der Auslandsteil stattgefunden?",
+          "hint": "Falls es verschiedene Länder sind, trenne diese mit Kommata ab."
+        },
+        "prev_discipline_abroad_bafoeg": {
+          "text": "Hast du dort bereits Auslandsbafög erhalten?"
+        },
+        "prev_discipline_abroad_bafoeg_from": {
+          "placeholder": "Start",
+          "text": "Von:"
+        },
+        "prev_discipline_abroad_bafoeg_to": {
+          "placeholder": "Ende",
+          "text": "Bis:"
+        }
+      },
+      "abroad_aids": {
+        "__title": "Ausbildungsbeihilfen",
+        "aids": {
+          "hint": "z.B. ERASMUS, Hochschule, DAAD",
+          "text": "Hast du für deinen Auslandsaufenthalt Ausbildungsbeihilfen beantragt bzw. wurden dir welche bewilligt?"
+        },
+        "amount": {
+          "placeholder": "Betrag",
+          "text": "Wie viel Geld hast du beantragt?"
+        },
+        "currency": {
+          "placeholder": "Währung",
+          "text": "In welcher Währung hast du das Geld beantragt?"
+        },
+        "aid_giver": {
+          "placeholder": "bewilligende Stelle",
+          "text": "Von wem hast du das Geld beantragt?"
         }
       },
       "about_me": {

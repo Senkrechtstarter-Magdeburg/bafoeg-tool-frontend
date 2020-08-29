@@ -190,7 +190,7 @@ export const questions = [
     .addQuestionContainer("abroad", c => c
       .hideIf(ctx => ctx.is("intro.abroad", false))
       .printInfo("info")
-      .askText("name")
+      .askText("name", f => f.showHint())
       .askText("address")
       .askText("zip", f => f.hideText())
       .askText("city", f => f.hideText())
@@ -214,10 +214,10 @@ export const questions = [
         .hideIf(ctx => ctx.is("prev_discipline_abroad", false, null) || ctx.is("prev_discipline", false, null)))
         //.hideIf(ctx => ctx.is("prev_discipline", false, null)))
       .askForDate("prev_discipline_abroad_bafoeg_from", f => f
-        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null)))
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null)  || ctx.is("prev_discipline", false, null)))
         //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
       .askForDate("prev_discipline_abroad_bafoeg_to", f => f
-        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null)))
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null) || ctx.is("prev_discipline", false, null)))
         //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
       ) 
 
@@ -227,7 +227,78 @@ export const questions = [
       .askForDate("start", f => f.showAsPopup())
       .askForDate("end", f => f.showAsPopup())
       .askForDate("start_lec", f => f.showAsPopup())
-      .askForDate("end_lec", f => f.showAsPopup()))
+      .askForDate("end_lec", f => f.showAsPopup())
+      .askYesNoQuestion("constraint")
+      .askText("inland_name", f => f
+        .showHint()
+        .hideIf(ctx => ctx.is("constraint", false, null))
+        .defaultTo(ctx => ctx.get("uni.university")))
+      .askText("inland_address", f => f
+        .hideIf(ctx => ctx.is("constraint", false, null)))
+      .askText("inland_zip", f => f
+        .hideText()
+        .hideIf(ctx => ctx.is("constraint", false, null)))
+      .askText("inland_city", f => f
+        .hideText()
+        .hideIf(ctx => ctx.is("constraint", false, null)))
+      .askText("inland_discipline", f => f
+        .hideIf(ctx => ctx.is("constraint", false, null))
+        .defaultTo(ctx => ctx.get("abroad.discipline")))
+      .askText("final")
+      .askText("local")
+      .askYesNoQuestion("where")
+      .askYesNoQuestion("pay")
+      .askText("amount", f => f.hideIf(ctx => ctx.is("pay", null, false)))
+      .askText("currency", f => f.hideIf(ctx => ctx.is("pay", null, false))))
+      
+    .addQuestionContainer("internship", c => c
+      .askText("intern_name", f => f.showHint())
+      .askText("intern_address")
+      .askText("intern_zip", f => f.hideText())
+      .askText("intern_city", f => f.hideText())
+      .askText("intern_country", f => f.hideText())
+      .askForDate("intern_start", f => f.showAsPopup())
+      .askForDate("intern_end", f => f.showAsPopup())
+      .askText("discipline")
+      .askText("school_name")
+      .askText("school_address")
+      .askText("school_zip", f => f.hideText())
+      .askText("school_city", f => f.hideText())
+      .askText("school_country", f => f.hideText())
+      .askYesNoQuestion("prev_discipline")
+      //if no we have to put 0 in the pdf form
+      .askText("prev_discipline_time", f => f
+        .showHint()
+        .hideIf(ctx => ctx.is("prev_discipline", false, null)))
+      .askYesNoQuestion("prev_discipline_abroad", f => f
+        .hideIf(ctx => ctx.is("prev_discipline", false, null)))
+      .askText("prev_discipline_abroad_time", f => f
+        .showHint()
+        .hideIf(ctx => ctx.is("prev_discipline_time", false, null)))
+      .askText("prev_discipline_abroad_country", f => f
+        .showHint()
+        .hideIf(ctx => ctx.is("prev_discipline", false, null) || ctx.is("prev_discipline_abroad", false, null)))
+      .askYesNoQuestion("prev_discipline_abroad_bafoeg", f => f
+        .hideIf(ctx => ctx.is("prev_discipline_abroad", false, null) || ctx.is("prev_discipline", false, null)))
+        //.hideIf(ctx => ctx.is("prev_discipline", false, null)))
+      .askForDate("prev_discipline_abroad_bafoeg_from", f => f
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null)  || ctx.is("prev_discipline", false, null)))
+        //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
+      .askForDate("prev_discipline_abroad_bafoeg_to", f => f
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null) || ctx.is("prev_discipline", false, null)))
+        //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
+    )  
+
+    .addQuestionContainer("abroad_aids", c => c
+      .askYesNoQuestion("aids", f => f
+        .showHint())
+      .askText("amount", f => f
+        .hideIf(ctx => ctx.is("aids", false, null)))
+      .askText("currency", f => f
+      .hideIf(ctx => ctx.is("aids", false, null)))
+      .askText("aid_giver", f => f
+      .hideIf(ctx => ctx.is("aids", false, null)))
+    )
 
     .addQuestionContainer("about_me", qc => qc
       .askText("firstname", f => f.withFormName("Vorname_Eingabe"))
