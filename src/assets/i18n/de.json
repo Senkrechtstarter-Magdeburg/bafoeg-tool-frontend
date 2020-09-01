@@ -27,10 +27,24 @@
       "snackbar_close": "Ok",
       "error_panel_retry": "Wiederholen",
       "successfully_imported": "Daten erfolgreich geladen!"
+    },
+    "finished": {
+      "title": "Abschluss",
+      "content": "Du hast alle nötigen Fragen beantwortet und kannst Deinen Antrag nun generieren. Bitte beachte, dass Du die folgendenden Dokumente Deinem Antrag beifügen musst. (Du kannst die Checkliste hier nutzen, um Dir zu merken, was Du schon bereitgelegt hast)",
+      "all_documents_attached": "Alles angehängt! Jetzt nur noch unterschreiben und abgeben!",
+      "signing_note": "Vergiss nicht, den Antrag zu unterschreiben! Er ist sonst ungültig!",
+      "btn_go_back": "Daten bearbeiten",
+      "btn_generate_pdf": "Antrag generieren"
     }
   },
   "questions": {
     "part1": {
+      "__documents": {
+        "certificate_of_matriculation": {
+          "name": "Immatrikulationsbescheinigung",
+          "description": "Wird dir von deiner Hochschule ausgestellt. Üblicherweise im Studierendensekreteriat oder im Onlinesystem."
+        }
+      },
       "intro": {
         "phase": {
           "placeholder": "Tätigkeit",

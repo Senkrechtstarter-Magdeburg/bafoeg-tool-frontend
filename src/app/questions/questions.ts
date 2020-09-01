@@ -63,6 +63,7 @@ export const askForAddress = defineBlock("address",
 
 export const questions = [
   buildQuestionary("part1")
+    .addDocument("certificate_of_matriculation", ctx => ctx.is("intro.phase", Phase.Uni))
     .useForm("Formblatt1", fb => fb
       .addCalculatedMapping("E-Mail_w_Eingabe", ctx => ctx.get("about_me.firstname") + "@" + ctx.get("about_me.name") + ".de")
       .addCalculatedMapping("Name_Vorname_Auszubildender_Eingabe",

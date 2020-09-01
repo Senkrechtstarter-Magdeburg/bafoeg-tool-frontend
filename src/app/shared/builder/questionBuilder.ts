@@ -1,5 +1,5 @@
 import {v4 as uuid} from "uuid";
-import {AnswerCondition, DisplayType, DocumentRequest, Question, QuestionEntry, QuestionOptions} from "@models/questions";
+import {AnswerCondition, DisplayType, Question, QuestionEntry, QuestionOptions} from "@models/questions";
 import {QuestionContext} from "@shared/builder/questionContext";
 import {FormBuilder} from "@shared/builder/formBuilder";
 import {Dict} from "@shared/dict";
@@ -10,7 +10,6 @@ export abstract class QuestionBuilder<T extends Question> {
   protected hintText: string;
   protected hiddenCondition: QuestionEntry["isHidden"];
   protected defaultValue: QuestionEntry["defaultValue"];
-  protected documents: DocumentRequest[] = [];
   protected conditions: Dict<AnswerCondition> = {};
   public validate = {
     maxLength: (maxLength: number, key: string = "maxLength", id = uuid()): this => {
@@ -163,23 +162,6 @@ export abstract class QuestionBuilder<T extends Question> {
     return this;
   }
 
-  public requireDocument(options: {
-    name: string,
-    description?: string,
-    id?: string,
-    required?: ((context: any) => boolean) | boolean
-  }): this {
-    this.touched = true;
-    const documentRequest: DocumentRequest = {
-      id: uuid(),
-      description: "",
-      required: true,
-      ...options
-    };
-    this.documents.push(documentRequest);
-    return this;
-  }
-
   public displayAs(displayType: DisplayType): this {
     this.touched = true;
     this.displayType = displayType;
@@ -213,7 +195,6 @@ export abstract class QuestionBuilder<T extends Question> {
       id: this.fqn,
       text: this.text,
       hint: this.hintText,
-      documents: this.documents,
       placeholder: this.placeholder,
       displayType: this.displayType
     };

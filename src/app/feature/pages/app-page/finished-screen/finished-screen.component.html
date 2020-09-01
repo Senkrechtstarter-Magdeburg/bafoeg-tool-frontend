@@ -2,26 +2,26 @@
 
   <div class="container">
     <mat-card>
-      <mat-card-title>Finished</mat-card-title>
+      <mat-card-title>{{"app.finished.title" | translate}}</mat-card-title>
       <mat-card-content>
-        <p>
-          You filled all the required data. Your pdf can now be generated. Please note, that you need to attach the
-          following documents (Checking those items has no other effect than helping you stay organized):
-        </p>
+        <p>{{"app.finished.content" | translate}}</p>
         <mat-selection-list #list>
-          <mat-list-option checkboxPosition="before">Confirmation of matriculation</mat-list-option>
-          <mat-list-option checkboxPosition="before">Lease contract</mat-list-option>
+          <mat-list-option *ngFor="let document of requiredDocuments(questionary)" checkboxPosition="before">
+            <h3>{{document.name | translate}}</h3>
+            <p matLine>{{document.description | translate}}</p>
+          </mat-list-option>
         </mat-selection-list>
         <p *ngIf="list.selectedOptions.selected.length === list.options?.length" class="text-success">
-          You did it! Now hand it in and receive BAföG!
+          {{"app.finished.all_documents_attached" | translate}}
         </p>
-        <h2 class="text-warn" style="text-align: center">Make sure to sign the copy. Otherwise your request is not
-          valid!</h2>
+        <h2 class="text-warn" style="text-align: center">{{"app.finished.signing_note" | translate}}</h2>
       </mat-card-content>
       <mat-card-actions>
 
-        <!--    <button (click)="back(questionary)" color="accent" mat-button>back</button>-->
-        <button (click)="save(questionary)" color="primary" mat-button>generate pdf</button>
+        <button (click)="back(questionary)" color="accent"
+                mat-button>{{"app.finished.btn_go_back" | translate}}</button>
+        <button (click)="save(questionary)" color="primary"
+                mat-button>{{"app.finished.btn_generate_pdf" | translate}}</button>
       </mat-card-actions>
     </mat-card>
   </div>
