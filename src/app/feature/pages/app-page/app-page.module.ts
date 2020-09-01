@@ -23,12 +23,17 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {AppBarModule} from "../../app-bar/app-bar.module";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatListModule} from "@angular/material/list";
+import {FinishedScreenComponent} from "./finished-screen/finished-screen.component";
+import {QuestionaryScreenComponent} from "./questionary-screen/questionary-screen.component";
 
 
 @NgModule({
   declarations: [
     AppPageComponent,
-    PdfDialogComponent
+    PdfDialogComponent,
+    FinishedScreenComponent,
+    QuestionaryScreenComponent
   ],
   exports: [
     AppPageComponent
@@ -49,6 +54,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     MatMenuModule,
     MatSnackBarModule,
     SharedModule,
+    MatListModule,
   ],
   providers: [
     {

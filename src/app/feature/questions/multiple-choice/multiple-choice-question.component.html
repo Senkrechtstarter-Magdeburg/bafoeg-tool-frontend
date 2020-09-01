@@ -1,4 +1,4 @@
-<ng-container [ngSwitch]="question.displayType">
+<ng-container [ngSwitch]="displayType$ | async">
   <app-base-question *ngSwitchCase="DisplayType.Inline" [control]="control" [question]="question">
     <mat-button-toggle-group [formControl]="control">
       <ng-container *ngFor="let choice of question.choices">

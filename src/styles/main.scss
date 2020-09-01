@@ -38,3 +38,8 @@ a.mat-menu-item > mat-icon {
 }
 
 /** MDI END **/
+
+
+button, a.mat-button, a.button {
+  text-transform: uppercase;
+}

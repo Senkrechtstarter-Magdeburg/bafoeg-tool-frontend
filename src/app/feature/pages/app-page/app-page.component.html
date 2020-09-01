@@ -21,13 +21,7 @@
     </button>
   </ng-container>
 
+  <router-outlet></router-outlet>
 
-  <ng-container *ngIf="currentStep$ | async; let currentStep">
-    <app-questionary (dataChanged)="dataChanged($event)"
-                     (stepChanged)="stepChanged($event)"
-                     [currentStep]="currentStep"
-                     [data]="data"
-                     [questionary]="questionary"
-                     class="questionary"></app-questionary>
-  </ng-container>
+
 </ng-container>

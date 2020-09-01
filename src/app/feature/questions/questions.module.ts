@@ -23,6 +23,7 @@ import {VisiblePipe} from "./visible.pipe";
 import {ListQuestionComponent} from "./list-question/list-question.component";
 import {QuestionFormControlFactory} from "./shared/questionFormControlFactory";
 import {DefaultQuestionFormControlFactory} from "./shared/defaultQuestionFormControlFactory";
+import {LayoutModule} from "@angular/cdk/layout";
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import {DefaultQuestionFormControlFactory} from "./shared/defaultQuestionFormCon
     MatButtonToggleModule,
     MatSelectModule,
     MatTooltipModule,
+    LayoutModule,
     RouterModule,
   ],
   providers: [

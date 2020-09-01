@@ -12,3 +12,19 @@
   display: block;
   height: 100%;
 }
+
+
+.finished-container {
+  padding: 64px 0 128px;
+
+  mat-card {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}

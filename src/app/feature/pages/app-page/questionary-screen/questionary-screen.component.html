@@ -1,0 +1,13 @@
+<ng-container *ngIf="questionary$ | async; let questionary">
+
+  <ng-container *ngIf="currentStep$ | async; let currentStep">
+    <app-questionary (dataChanged)="dataChanged($event)"
+                     (formFilled)="formFilled()"
+                     (stepChanged)="stepChanged($event)"
+                     [currentStep]="currentStep"
+                     [data]="data"
+                     [questionary]="questionary"
+                     [visibleSteps]="visibleSteps$ | async"
+                     class="questionary"></app-questionary>
+  </ng-container>
+</ng-container>
