@@ -1,0 +1,37 @@
+<ng-container *ngIf="questionary$ | async; let questionary">
+
+  <div class="container">
+    <mat-card>
+      <mat-card-title>{{"app.finished.title" | translate}}</mat-card-title>
+      <mat-card-content>
+        <p>{{"app.finished.content" | translate}}</p>
+        <mat-selection-list #list>
+          <mat-list-option *ngFor="let document of requiredDocuments(questionary)" checkboxPosition="before">
+            <h3>{{document.name | translate}}</h3>
+            <p matLine>{{document.description | translate}}</p>
+          </mat-list-option>
+        </mat-selection-list>
+        <p *ngIf="list.selectedOptions.selected.length === list.options?.length" class="text-success">
+          {{"app.finished.all_documents_attached" | translate}}
+        </p>
+        <h2 class="text-warn" style="text-align: center">{{"app.finished.signing_note" | translate}}</h2>
+
+        <h2>{{"app.finished.title_edit_data" | translate}}</h2>
+        <mat-nav-list>
+          <a *ngFor="let entry of (questionary.questionContainers | visible: this.questionaryService.data)"
+             [routerLink]="['..', entry.id]"
+             mat-list-item>
+            <mat-icon matListIcon>edit</mat-icon>
+            <h3 matLine>{{entry.title | translate}}</h3>
+            <p *ngIf="entry.description" matLine>{{entry.description | translate}}</p>
+          </a>
+        </mat-nav-list>
+      </mat-card-content>
+      <mat-card-actions>
+        <button (click)="save(questionary)" color="primary"
+                mat-button>{{"app.finished.btn_generate_pdf" | translate}}</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</ng-container>

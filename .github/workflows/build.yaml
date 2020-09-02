@@ -1,0 +1,62 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: CI - dev
+
+on:
+  push:
+    branches: [ develop, feature/CI ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm i
+      - run: npm run build --if-present -- --prod
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          # Artifact name
+          name: frontend-static
+          # A file, directory or wildcard pattern that describes what to upload
+          path: dist/bafoeg
+  deploy:
+    if: github.event_name == 'push'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download compiled frontend
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-static
+      - name: list files
+        run: ls -lhaR
+      - name: prepare ssh
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id
+          chmod 600 ~/.ssh/id
+          echo "${{ secrets.KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+      - name: Deploy to Staging server
+        run: rsync -rltzvO -e "ssh -i ~/.ssh/id -p ${REMOTE_PORT}" ./ $REMOTE_USER@$REMOTE_HOST:$REMOTE_TARGET
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-rltgoDzvO"
+          SOURCE: "./"
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
+      - name: remove ssh files
+        run: rm -rf ~/.ssh

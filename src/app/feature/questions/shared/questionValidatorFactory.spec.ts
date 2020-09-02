@@ -1,5 +1,5 @@
 import {QuestionValidatorFactory} from "./questionValidatorFactory";
-import {TextQuestion} from "@models";
+import {DisplayType, TextQuestion} from "@models";
 import {buildQuestionary} from "@shared";
 import {QuestionaryFormGroup} from "./questionaryFormGroup";
 import {QuestionFormControlFactory} from "./questionFormControlFactory";
@@ -23,7 +23,7 @@ describe("QuestionValidatorFactory", () => {
   });
   it("should create no validators for no conditions", () => {
     const actual = factory.createFromEntry({
-      question: new TextQuestion({text: "Text", id: "text"})
+      question: new TextQuestion({text: "Text", id: "text", displayType: DisplayType.Inline})
     });
 
     expect(actual).toEqual([]);

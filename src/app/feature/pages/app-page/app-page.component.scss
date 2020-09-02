@@ -1,4 +1,3 @@
-$toolbar-size: 64px;
 
 :host {
   display: block;
@@ -9,16 +8,23 @@ $toolbar-size: 64px;
   height: 100%;
 }
 
-mat-toolbar {
-  z-index: 1;
-
-  height: $toolbar-size;
-
-  display: flex;
-  justify-content: space-between;
-}
-
 .questionary {
   display: block;
-  height: calc(100% - #{$toolbar-size});
+  height: 100%;
+}
+
+
+.finished-container {
+  padding: 64px 0 128px;
+
+  mat-card {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
 }

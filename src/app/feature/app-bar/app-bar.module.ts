@@ -1,21 +1,30 @@
 import {NgModule} from "@angular/core";
 import {AppBarComponent} from "./app-bar.component";
-import {SharedModule} from "../../shared/shared.module";
-import {MatButtonModule} from "@angular/material/button";
+import {SharedModule} from "@shared";
 import {MatToolbarModule} from "@angular/material/toolbar";
-import {RouterModule} from "@angular/router";
+import {PortalModule} from "@angular/cdk/portal";
+import {AppBarElementDirective} from "./app-bar-element.directive";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
-    AppBarComponent
+    AppBarComponent,
+    AppBarElementDirective
   ],
   imports: [
     SharedModule,
     MatToolbarModule,
+    PortalModule,
     MatButtonModule,
-    RouterModule
+    MatIconModule,
+    MatMenuModule
   ],
-  exports: [AppBarComponent]
+  exports: [
+    AppBarComponent,
+    AppBarElementDirective
+  ]
 })
 export class AppBarModule {
 }

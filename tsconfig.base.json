@@ -30,6 +30,12 @@
       ],
       "@shared/*": [
         "src/app/shared/*"
+      ],
+      "@questions": [
+        "src/app/questions/index.ts"
+      ],
+      "@questions/*": [
+        "src/app/questions/*"
       ]
     }
   }

@@ -2,15 +2,17 @@ import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} f
 import {Questionary, QuestionContainer} from "@models/questions";
 import {FormGroup} from "@angular/forms";
 import {SafeSubscriptionComponent} from "@shared/safe-subscription-component";
-import {prevCurNextAnimation} from "./questionary.animation";
 import {Dict} from "@shared/dict";
 import {QuestionFormControlFactory} from "../shared/questionFormControlFactory";
+import {getEntries} from "@shared/objectHelper";
+import {nextVisible} from "../shared/nextVisible";
+import {slideInAnimation} from "../../pages/app-page/routes.animations";
 
 @Component({
   selector: "app-questionary",
   templateUrl: "./questionary.component.html",
   styleUrls: ["./questionary.component.scss"],
-  animations: [prevCurNextAnimation]
+  animations: [slideInAnimation]
 })
 export class QuestionaryComponent extends SafeSubscriptionComponent implements OnInit {
 
@@ -23,6 +25,12 @@ export class QuestionaryComponent extends SafeSubscriptionComponent implements O
   public currentStep: QuestionContainer;
   @Output()
   public stepChanged: EventEmitter<QuestionContainer> = new EventEmitter<QuestionContainer>();
+  @Output()
+  public formFilled: EventEmitter<void> = new EventEmitter<void>();
+
+  @Input()
+  public visibleSteps: QuestionContainer[];
+
   public state: "next" | "cur" | "prev" = "cur";
   @ViewChild("containerRef")
   public containerRef: ElementRef;
@@ -35,20 +43,26 @@ export class QuestionaryComponent extends SafeSubscriptionComponent implements O
 
   @Input()
   public set data(value: Dict) {
-    this._data = value;
-    if (this.formGroup && this._data !== value) {
-      for (let container of this.questionary.questionContainers) {
-        this.formGroup.controls[container.namespace] = this.controlFactory.createQuestionEntryFormGroup(container.questionEntries, value);
+    if (this.formGroup && this.formGroup.value !== value) {
+      for (const container of this.questionary.questionContainers) {
+        if (this.formGroup.controls[container.namespace]) {
+          const updateObj = getEntries(value).filter(([k]) => k.startsWith(container.id)).collect();
+          (this.formGroup.controls[container.namespace] as FormGroup).patchValue(updateObj, {emitEvent: false});
+        } else {
+          this.formGroup.controls[container.namespace] = this.controlFactory.createQuestionEntryFormGroup(container.questionEntries, value);
+        }
       }
     }
+    this._data = value;
+
   }
 
   public get next(): QuestionContainer | null {
-    return this.nextVisible();
+    return nextVisible(this.questionary, this.currentStep, this.context);
   }
 
   public get previous(): QuestionContainer | null {
-    return this.nextVisible(-1);
+    return nextVisible(this.questionary, this.currentStep, this.context, -1);
   }
 
   public get context(): { [key: string]: any } {
@@ -71,36 +85,30 @@ export class QuestionaryComponent extends SafeSubscriptionComponent implements O
       return;
     }
 
-    const next = this.nextVisible(this.state === "next" ? 1 : -1);
+    const next = nextVisible(this.questionary, this.currentStep, this.context, this.state === "next" ? 1 : -1);
 
-    this.stepChanged.emit(next);
+    if (next) {
+      this.stepChanged.emit(next);
+    } else {
+      this.formFilled.emit();
+    }
     this.state = "cur";
   }
 
-  public nextVisible(amount: number = 1): QuestionContainer | null {
-    if (!this.questionary.questionContainers) {
-      return null;
+  public nextStep() {
+    const next = nextVisible(this.questionary, this.currentStep, this.context, 1);
+    if (next) {
+      this.stepChanged.emit(next);
+    } else {
+      this.formFilled.emit();
     }
+  }
 
-    if (amount == 0) {
-      return this.currentStep;
+  public prevStep() {
+    const next = nextVisible(this.questionary, this.currentStep, this.context, -1);
+    if (next) {
+      this.stepChanged.emit(next);
     }
-
-    const direction = amount < 0 ? -1 : 1;
-    let next = this.questionary.questionContainers.indexOf(this.currentStep);
-    while (amount !== 0) {
-      next += direction;
-
-      if (next < 0 || next >= this.questionary.questionContainers.length) {
-        return null;
-      }
-
-      if (!(this.questionary.questionContainers[next].isHidden && this.questionary.questionContainers[next].isHidden(this.context))) {
-        amount -= direction;
-      }
-    }
-
-    return this.questionary.questionContainers[next];
   }
 
 

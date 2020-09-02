@@ -1,0 +1,13 @@
+@import "src/styles/vars";
+
+:host {
+}
+
+.toolbar {
+  width: 100%;
+}
+
+.container {
+  position: relative;
+  height: calc(100% - #{$toolbar-size});
+}

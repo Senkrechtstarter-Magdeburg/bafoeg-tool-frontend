@@ -18,4 +18,3 @@ for (const key in r) {
     window[key] = r[key];
   }
 }
-

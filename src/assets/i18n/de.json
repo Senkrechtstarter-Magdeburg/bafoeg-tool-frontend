@@ -3,18 +3,53 @@
   "app": {
     "next": "Weiter",
     "previous": "Zurück",
-    "title": "Kronos",
+    "title": "Bafoeg",
     "errors": {
-      "maxlength": "Maximale Länge von {requiredLength}",
+      "maxlength": "Maximale Länge von {{requiredLength}}",
       "required": "Dies ist ein Pflichtfeld"
+    },
+    "pdf_export": {
+      "dialog": {
+        "error": "Ein Fehler ist aufgetreten. Bitte wende dich an die Entwickler!",
+        "generating": "Aus Deinen Daten wird jetzt der Antrag generiert.",
+        "ready": "Dein Antrag wurde generiert.",
+        "btn_download": "PDF speichern",
+        "btn_cancel": "Abbrechen",
+        "title": "PDF generieren"
+      }
+    },
+    "import_export": {
+      "export_data": "Speichern",
+      "export_data_file_name": "BafoegToolExport_{{date}}",
+      "import_data": "Öffnen",
+      "error_opening_too_many_files": "Datei konnte nicht geladen werden: Es wurden zu viele Dateien ausgewählt.",
+      "error_opening_file": "Datei konnte nicht geladen werden: {{msg}}.",
+      "snackbar_close": "Ok",
+      "error_panel_retry": "Wiederholen",
+      "successfully_imported": "Daten erfolgreich geladen!"
+    },
+    "finished": {
+      "title": "Abschluss",
+      "content": "Du hast alle nötigen Fragen beantwortet und kannst Deinen Antrag nun generieren. Bitte beachte, dass Du die folgendenden Dokumente Deinem Antrag beifügen musst. (Du kannst die Checkliste hier nutzen, um Dir zu merken, was Du schon bereitgelegt hast)",
+      "all_documents_attached": "Alles angehängt! Jetzt nur noch unterschreiben und abgeben!",
+      "signing_note": "Vergiss nicht, den Antrag zu unterschreiben! Er ist sonst ungültig!",
+      "btn_go_back": "Daten bearbeiten",
+      "btn_generate_pdf": "Antrag generieren",
+      "title_edit_data": "Daten bearbeiten"
     }
   },
   "questions": {
     "part1": {
+      "__documents": {
+        "certificate_of_matriculation": {
+          "name": "Immatrikulationsbescheinigung",
+          "description": "Wird dir von deiner Hochschule ausgestellt. Üblicherweise im Studierendensekreteriat oder im Onlinesystem."
+        }
+      },
       "cv": {
         "__title": "Lebenslauf",
         "info": {
-          "text": "In diesem Abschnitt musst du lückenlos angeben, was du von der Schule bis jetzt gemacht hast.", 
+          "text": "In diesem Abschnitt musst du lückenlos angeben, was du von der Schule bis jetzt gemacht hast.",
           "hint": "Zum Beispiel: Schule, Ausbildung, Praktika, Studium; Erwerbstätigkeit; Wehr- und Zivildienst bzw. FSJ / FÖJ; Krankheiten, die mit Arbeitsunfähigkeit verbunden waren; Beschäftigungsverbote wegen Mutterschutz; Erwerbsunfähigkeit; Arbeitslosigkeit; Maßnahme zur medizinischen oder beruflichen Rehabilitation; berufliche Weiterbildung."
         }
       },
@@ -944,7 +979,7 @@
           "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden Nl",
           "placeholder": "Land"
         }
-        
+
       },
       "cvEntry": {
         "work": {

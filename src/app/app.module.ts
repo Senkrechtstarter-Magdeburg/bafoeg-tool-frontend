@@ -12,6 +12,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MatButtonModule} from "@angular/material/button";
 import {MatNativeDateModule} from "@angular/material/core";
 import {StoreModule} from "@ngrx/store";
+import {AppBarModule} from "./feature/app-bar/app-bar.module";
+import {MatIconModule} from "@angular/material/icon";
+import {MatMenuModule} from "@angular/material/menu";
 
 
 // AoT requires an exported function for factories
@@ -44,7 +47,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     MatButtonModule,
     MatNativeDateModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}, {}),
+    AppBarModule,
+    MatIconModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

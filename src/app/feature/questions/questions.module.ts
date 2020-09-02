@@ -5,7 +5,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuestionContainerComponent} from "./question-container/question-container.component";
 import {TextQuestionComponent} from "./text-question/text-question.component";
 import {QuestionaryComponent} from "./questionary/questionary.component";
-import {SharedModule} from "../../shared/shared.module";
+import {SharedModule} from "@shared";
 import {MatButtonModule} from "@angular/material/button";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatCardModule} from "@angular/material/card";
@@ -23,6 +23,7 @@ import {VisiblePipe} from "./visible.pipe";
 import {ListQuestionComponent} from "./list-question/list-question.component";
 import {QuestionFormControlFactory} from "./shared/questionFormControlFactory";
 import {DefaultQuestionFormControlFactory} from "./shared/defaultQuestionFormControlFactory";
+import {LayoutModule} from "@angular/cdk/layout";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {DefaultQuestionFormControlFactory} from "./shared/defaultQuestionFormCon
     TextBlockQuestionComponent,
     CalendarQuestionComponent,
     ListQuestionComponent,
+    VisiblePipe,
   ],
   imports: [
     SharedModule,
@@ -61,7 +63,8 @@ import {DefaultQuestionFormControlFactory} from "./shared/defaultQuestionFormCon
     MatButtonToggleModule,
     MatSelectModule,
     MatTooltipModule,
-    RouterModule
+    LayoutModule,
+    RouterModule,
   ],
   providers: [
     {

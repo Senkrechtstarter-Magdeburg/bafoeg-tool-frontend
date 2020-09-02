@@ -1,19 +1,27 @@
 <ng-container *ngIf="questionary$ | async; let questionary">
 
-  <mat-toolbar>
-    <span class="title">{{'app.title' | translate}}</span>
-    <span class="questionary-title">{{questionary.title | translate}}</span>
-    <button mat-icon-button>
-      <mat-icon (click)="save(questionary)" class="">save</mat-icon>
+  <span *appAppBarElement class="title">{{'app.title' | translate}}</span>
+  <span *appAppBarElement="'center'">{{questionary.title | translate}}</span>
+  <button (click)="export()" *appAppBarElement="'more'" mat-menu-item>
+    <mat-icon class="">save</mat-icon>
+    {{ 'app.import_export.export_data' | translate }}
+  </button>
+  <button (click)="import()" *appAppBarElement="'more'" mat-menu-item>
+    <mat-icon class="">folder_open</mat-icon>
+    {{ 'app.import_export.import_data' | translate }}
+  </button>
+  <ng-container *appIfDebug>
+    <button (click)="save(questionary)" *appAppBarElement="'more';" mat-menu-item title="Only debug">
+      <mat-icon color="warn" svgIcon="pdf-box"></mat-icon>
+      Generate PDF
     </button>
-  </mat-toolbar>
-  <ng-container *ngIf="currentStep$ | async; let currentStep">
-    <app-questionary
-      (dataChanged)="dataChanged($event)"
-      (stepChanged)="stepChanged($event)"
-      [currentStep]="currentStep"
-      [data]="data"
-      [questionary]="questionary"
-      class="questionary"></app-questionary>
+    <button (click)="storageService.clear(); restore()" *appAppBarElement="'more';" mat-menu-item title="Only debug">
+      <mat-icon color="warn">cancel</mat-icon>
+      Clear local data
+    </button>
   </ng-container>
+
+  <router-outlet></router-outlet>
+
+
 </ng-container>

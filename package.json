@@ -1,5 +1,5 @@
 {
-  "name": "kronos",
+  "name": "bafoeg",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -26,10 +26,11 @@
     "@ngrx/store": "^9.2.0",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "@senkrechtstarter-magdeburg/pdfformfill": "^0.1.5",
     "assemblyscript": "^0.14.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "uuid": "^8.2.0",
+    "uuid": "^8.3.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -37,8 +38,10 @@
     "@angular/cli": "~10.0.4",
     "@angular/compiler-cli": "~10.0.5",
     "@angular/language-service": "~10.0.5",
+    "@schematics/angular": "^10.0.5",
     "@types/jasmine": "~3.5.11",
     "@types/jasminewd2": "~2.0.3",
+    "@types/uuid": "^8.3.0",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.2",
