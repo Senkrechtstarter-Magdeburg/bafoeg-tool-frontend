@@ -34,7 +34,8 @@
       "all_documents_attached": "Alles angehängt! Jetzt nur noch unterschreiben und abgeben!",
       "signing_note": "Vergiss nicht, den Antrag zu unterschreiben! Er ist sonst ungültig!",
       "btn_go_back": "Daten bearbeiten",
-      "btn_generate_pdf": "Antrag generieren"
+      "btn_generate_pdf": "Antrag generieren",
+      "title_edit_data": "Daten bearbeiten"
     }
   },
   "questions": {

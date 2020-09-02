@@ -15,11 +15,19 @@
           {{"app.finished.all_documents_attached" | translate}}
         </p>
         <h2 class="text-warn" style="text-align: center">{{"app.finished.signing_note" | translate}}</h2>
+
+        <h2>{{"app.finished.title_edit_data" | translate}}</h2>
+        <mat-nav-list>
+          <a *ngFor="let entry of (questionary.questionContainers | visible: this.questionaryService.data)"
+             [routerLink]="['..', entry.id]"
+             mat-list-item>
+            <mat-icon matListIcon>edit</mat-icon>
+            <h3 matLine>{{entry.title | translate}}</h3>
+            <p *ngIf="entry.description" matLine>{{entry.description | translate}}</p>
+          </a>
+        </mat-nav-list>
       </mat-card-content>
       <mat-card-actions>
-
-        <button (click)="back(questionary)" color="accent"
-                mat-button>{{"app.finished.btn_go_back" | translate}}</button>
         <button (click)="save(questionary)" color="primary"
                 mat-button>{{"app.finished.btn_generate_pdf" | translate}}</button>
       </mat-card-actions>

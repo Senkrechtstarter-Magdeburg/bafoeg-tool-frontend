@@ -49,6 +49,7 @@ import {LayoutModule} from "@angular/cdk/layout";
     TextBlockQuestionComponent,
     CalendarQuestionComponent,
     ListQuestionComponent,
+    VisiblePipe,
   ],
   imports: [
     SharedModule,

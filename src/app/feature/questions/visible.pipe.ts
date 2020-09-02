@@ -9,9 +9,9 @@ interface Hidable {
 })
 export class VisiblePipe implements PipeTransform {
 
-  transform(value: Hidable[], context: { [key: string]: any }): Hidable[];
-  transform(value: Hidable, context: { [key: string]: any }): boolean;
-  transform(value: Hidable | Hidable[], context: { [key: string]: any }): boolean | Hidable[] {
+  transform<T extends Hidable>(value: T[], context: { [key: string]: any }): T[];
+  transform<T extends Hidable>(value: T, context: { [key: string]: any }): boolean;
+  transform<T extends Hidable>(value: T | T[], context: { [key: string]: any }): boolean | T[] {
     if (Array.isArray(value)) {
       return value.filter(val => !(val.isHidden && val.isHidden(context)));
     }
