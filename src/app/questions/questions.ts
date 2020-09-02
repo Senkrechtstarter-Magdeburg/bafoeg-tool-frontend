@@ -1,5 +1,5 @@
-import { buildQuestionary, defineBlock, QuestionContext } from "@shared/builder";
-import { DisplayType, QuestionEntry } from "@models/questions";
+import {buildQuestionary, defineBlock, QuestionContext} from "@shared/builder";
+import {DisplayType, QuestionEntry} from "@models/questions";
 
 export enum Gender {
   Male,
@@ -26,9 +26,9 @@ export type BlockArgs<T extends string> = {
 
 export const askForAddress = defineBlock("address",
   (builder,
-    args: BlockArgs<"address" | "zip" | "city" | "country">) => {
+   args: BlockArgs<"address" | "zip" | "city" | "country">) => {
 
-    args = { hints: { country: true, ...args.hints }, defaults: { country: () => "DE", ...args.defaults }, ...args };
+    args = {hints: {country: true, ...args.hints}, defaults: {country: () => "DE", ...args.defaults}, ...args};
 
     for (const name of ["address", "zip", "city", "country"]) {
       builder.askText(name, f => {
@@ -63,7 +63,7 @@ export const askForAddress = defineBlock("address",
 
 export const cvEntry = defineBlock("cvEntry",
   (builder, args: BlockArgs<"work" | "city" | "type" | "from" | "to" | "wage">) => {
-    args = { hints: { wage: true, ...args.hints }, ...args };
+    args = {hints: {wage: true, ...args.hints}, ...args};
 
     for (const name of ["work", "city", "type", "wage"]) {
       builder.askText(name, f => {
@@ -87,8 +87,8 @@ export const cvEntry = defineBlock("cvEntry",
         return f;
       });
     }
-    builder.askForDate("from")
-    builder.askForDate("to")
+    builder.askForDate("from");
+    builder.askForDate("to");
 
     return builder;
   }
@@ -109,22 +109,22 @@ export const questions = [
         .hideText()
         .entries(e => e
           .block("cvEntry", cvEntry, {
-        form: {
-          city: "",
-          from: "", // TODO add pdf mapping
-          to: "",
-          type: "",
-          wage: "",
-          work: ""
-        }
-      })
-          )))
+            form: {
+              city: "",
+              from: "", // TODO add pdf mapping
+              to: "",
+              type: "",
+              wage: "",
+              work: ""
+            }
+          })
+        )))
     .addQuestionContainer("intro", qc => qc
       .askMultipleChoiceQuestion("phase", c => c
         .displayAs(DisplayType.Promoted)
-        .option("school", Phase.School, { icon: "school" })
-        .option("uni", Phase.Uni, { icon: "graduation" })
-        .option("practical", Phase.Practical, { icon: "apprenticeship" }))
+        .option("school", Phase.School, {icon: "school"})
+        .option("uni", Phase.Uni, {icon: "graduation"})
+        .option("practical", Phase.Practical, {icon: "apprenticeship"}))
       .askForDate("start_date", c => c
         .showAsPopup()
         .showHint())
@@ -160,7 +160,6 @@ export const questions = [
 
     .addQuestionContainer("uni", c => c
       .hideIf(ctx => ctx.is("intro.phase", 1, 3))
-      .printInfo("info")
       .askText("university", f => f.withFormName("Ausbildungsstätte_Eingabe"))
       .askText("subject", f => f.withFormName("Klasse_Fachrichtung_Eingabe"))
       .askMultipleChoiceQuestion("graduation", f => f
@@ -199,7 +198,7 @@ export const questions = [
       .askText("type", f => f.showHint())
       .askText("discipline")
       .askYesNoQuestion("prev_discipline")
-      //if no we have to put 0 in the pdf form
+      // if no we have to put 0 in the pdf form
       .askText("prev_discipline_time", f => f
         .showHint()
         .hideIf(ctx => ctx.is("prev_discipline", false, null)))
@@ -213,14 +212,15 @@ export const questions = [
         .hideIf(ctx => ctx.is("prev_discipline", false, null) || ctx.is("prev_discipline_abroad", false, null)))
       .askYesNoQuestion("prev_discipline_abroad_bafoeg", f => f
         .hideIf(ctx => ctx.is("prev_discipline_abroad", false, null) || ctx.is("prev_discipline", false, null)))
-        //.hideIf(ctx => ctx.is("prev_discipline", false, null)))
       .askForDate("prev_discipline_abroad_bafoeg_from", f => f
-        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null)  || ctx.is("prev_discipline", false, null)))
-        //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) ||
+          ctx.is("prev_discipline_abroad", false, null) ||
+          ctx.is("prev_discipline", false, null)))
       .askForDate("prev_discipline_abroad_bafoeg_to", f => f
-        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null) || ctx.is("prev_discipline", false, null)))
-        //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
-      ) 
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) ||
+          ctx.is("prev_discipline_abroad", false, null) ||
+          ctx.is("prev_discipline", false, null)))
+    )
 
     .addQuestionContainer("abroad_study", c => c
       .printInfo("info")
@@ -251,7 +251,7 @@ export const questions = [
       .askYesNoQuestion("pay")
       .askText("amount", f => f.hideIf(ctx => ctx.is("pay", null, false)))
       .askText("currency", f => f.hideIf(ctx => ctx.is("pay", null, false))))
-      
+
     .addQuestionContainer("internship", c => c
       .askText("intern_name", f => f.showHint())
       .askText("intern_address")
@@ -267,7 +267,7 @@ export const questions = [
       .askText("school_city", f => f.hideText())
       .askText("school_country", f => f.hideText())
       .askYesNoQuestion("prev_discipline")
-      //if no we have to put 0 in the pdf form
+      // if no we have to put 0 in the pdf form
       .askText("prev_discipline_time", f => f
         .showHint()
         .hideIf(ctx => ctx.is("prev_discipline", false, null)))
@@ -281,14 +281,15 @@ export const questions = [
         .hideIf(ctx => ctx.is("prev_discipline", false, null) || ctx.is("prev_discipline_abroad", false, null)))
       .askYesNoQuestion("prev_discipline_abroad_bafoeg", f => f
         .hideIf(ctx => ctx.is("prev_discipline_abroad", false, null) || ctx.is("prev_discipline", false, null)))
-        //.hideIf(ctx => ctx.is("prev_discipline", false, null)))
       .askForDate("prev_discipline_abroad_bafoeg_from", f => f
-        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null)  || ctx.is("prev_discipline", false, null)))
-        //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) ||
+          ctx.is("prev_discipline_abroad", false, null) ||
+          ctx.is("prev_discipline", false, null)))
       .askForDate("prev_discipline_abroad_bafoeg_to", f => f
-        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) || ctx.is("prev_discipline_abroad", false, null) || ctx.is("prev_discipline", false, null)))
-        //.hideIf(ctx => ctx.is("prev_discipline_abroad", false, null)))
-    )  
+        .hideIf(ctx => ctx.is("prev_discipline_abroad_bafoeg", false, null) ||
+          ctx.is("prev_discipline_abroad", false, null) ||
+          ctx.is("prev_discipline", false, null)))
+    )
 
     .addQuestionContainer("abroad_aids", c => c
       .askYesNoQuestion("aids", f => f
@@ -296,9 +297,9 @@ export const questions = [
       .askText("amount", f => f
         .hideIf(ctx => ctx.is("aids", false, null)))
       .askText("currency", f => f
-      .hideIf(ctx => ctx.is("aids", false, null)))
+        .hideIf(ctx => ctx.is("aids", false, null)))
       .askText("aid_giver", f => f
-      .hideIf(ctx => ctx.is("aids", false, null)))
+        .hideIf(ctx => ctx.is("aids", false, null)))
     )
 
     .addQuestionContainer("about_me", qc => qc
@@ -368,7 +369,7 @@ export const questions = [
       .block("sec_address",
         askForAddress,
         {
-          form: { address: "", city: "", country: "", zip: "" },
+          form: {address: "", city: "", country: "", zip: ""},
           showIf: (ctx => ctx.is("know_address", true) && ctx.is("q_different_address_while_studying", true))
         })
 
@@ -381,7 +382,6 @@ export const questions = [
     )
 
     .addQuestionContainer("capital", qc => qc
-      .printInfo("capital")
       .askYesNoQuestion("bar")
       .askText("bar_amount", c => c
         .hideIf(ctx => ctx.is("bar", false, null))
@@ -517,7 +517,6 @@ export const questions = [
     )
 
     .addQuestionContainer("debts", c => c
-      .printInfo("debt")
       .askYesNoQuestion("mortgage")
       .askText("mortgage_amount", f => f
         .withFormName("Hypotheken_Eingabe")
@@ -533,7 +532,7 @@ export const questions = [
         .showHint()))
 
     .addQuestionContainer("mother", c => c
-      .askText("forname")
+      .askText("firstname")
       .askText("name")
       .askYesNoQuestion("birthname_q")
       .askText("birthname", f => f

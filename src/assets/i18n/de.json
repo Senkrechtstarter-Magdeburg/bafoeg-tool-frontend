@@ -110,9 +110,7 @@
         }
       },
       "uni": {
-        "info": {
-          "text": "Studium"
-        },
+        "__title": "Studium",
         "university": {
           "placeholder": "Name der Ausbildungstätte",
           "text": "Wie heißt deine Ausbildungstätte?"
@@ -463,6 +461,7 @@
         }
       },
       "mine_address": {
+        "__title": "Hauptwohnsitz",
         "main_address": {
           "text": "Hierbei geht es um deinen Hauptwohsitz (zum Beispiel bei deinen Eltern)"
         },
@@ -528,9 +527,7 @@
         }
       },
       "capital": {
-        "capital": {
-          "text": "Vermögen"
-        },
+        "__title": "Vermögen",
         "bar": {
           "text": "Besitzt du momentan Barvermögen in Höhe von mehr als 1€?"
         },
@@ -617,6 +614,7 @@
         }
       },
       "income": {
+        "__title": "Einkommen",
         "you_will": {
           "text": "Wirst du für den Zeitraum in dem du BAföG beantragst..."
         },
@@ -739,10 +737,7 @@
         }
       },
       "debts": {
-        "debt": {
-          "placeholder": "",
-          "text": "Schulden"
-        },
+        "__title": "Schulden",
         "mortgage": {
           "text": "Bezahlst du eine Hypothek, Grundschulden oder sonstige Belastungen dieser Art ab?"
         },
@@ -767,7 +762,8 @@
         }
       },
       "mother": {
-        "forname": {
+        "__title": "Angaben zu Deiner Mutter",
+        "firstname": {
           "placeholder": "",
           "text": "Wie lauter der Vorname deiner Mutter?"
         },
@@ -795,6 +791,7 @@
         }
       },
       "mother_other": {
+        "__title": "Weitere Angaben zu Deiner Mutter",
         "street": {
           "placeholder": "",
           "text": "In welcher Straße wohnt deine Mutter? (mit Hausnummer)"
@@ -849,6 +846,7 @@
         }
       },
       "mother_income": {
+        "__title": "Einnahmen Deiner Mutter",
         "employment_relationship": {
           "placeholder": "",
           "text": "Als was ist deine Mutter momentan tätig?",
@@ -906,6 +904,7 @@
         }
       },
       "children": {
+        "__title": "Deine Kinder",
         "children": {
           "placeholder": "",
           "text": "",
@@ -922,6 +921,7 @@
         }
       },
       "general": {
+        "__title": "Allgemeines",
         "money_info": {
           "placeholder": "",
           "text": "Hierbei geht es um die Kontodaten auf den das BAföG gezahlt werden soll."
@@ -979,7 +979,6 @@
           "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden Nl",
           "placeholder": "Land"
         }
-
       },
       "cvEntry": {
         "work": {
