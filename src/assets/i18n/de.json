@@ -3,7 +3,7 @@
   "app": {
     "next": "Weiter",
     "previous": "Zurück",
-    "title": "Kronos",
+    "title": "Bafoeg",
     "errors": {
       "maxlength": "Maximale Länge von {{requiredLength}}",
       "required": "Dies ist ein Pflichtfeld"

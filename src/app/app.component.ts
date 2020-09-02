@@ -9,7 +9,7 @@ import {DomSanitizer} from "@angular/platform-browser";
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  title = "Kronos";
+  title = "Bafoeg";
 
   constructor(translate: TranslateService, matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
     matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl("./assets/mdi.svg"));
