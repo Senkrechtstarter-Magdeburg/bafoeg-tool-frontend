@@ -87,7 +87,6 @@ export class BlockedQuestionContainerBuilder<TAliases extends string> extends Qu
   }
 
   protected ask<Q extends Questions, B extends QuestionBuilder<Q, TAliases>>(builder: B, callback?: BuilderCallBack<Q, TAliases, B>): this {
-    return super.ask(builder.setNamespace(this.namespace.substr(0, this.namespace.lastIndexOf(".")))
-      .setTranslationPrefix(this.translationNamespace), callback);
+    return super.ask(builder.setTranslationPrefix(this.translationNamespace), callback);
   }
 }

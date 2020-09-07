@@ -1,4 +1,6 @@
-import {questions} from "../questions/questions";
+import {questions} from "@questions/questions";
+
+export {getEntries} from "@shared/objectHelper";
 
 const TRANSLATION_BASE = "/assets/i18n";
 
