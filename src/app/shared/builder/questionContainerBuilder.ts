@@ -9,7 +9,7 @@ import {QuestionBuilderType} from "@shared/builder/questionBuilderType";
 import {BlockedQuestionContextFactory} from "@shared/builder/blockedQuestionContextFactory";
 
 
-export class QuestionContainerBuilder extends QuestionEntryBuilder {
+export class QuestionContainerBuilder<TAliases extends string> extends QuestionEntryBuilder<TAliases> {
   protected questionContextCallback: (ctx: any) => QuestionContext;
   protected hiddenCondition: QuestionContainer["isHidden"];
   private description: string;
@@ -17,7 +17,7 @@ export class QuestionContainerBuilder extends QuestionEntryBuilder {
   private nextText = "app.next";
   private previousText = "app.previous";
 
-  public constructor(id: string, namespace: string = id, formBuilder: FormBuilder) {
+  public constructor(id: string, namespace: string = id, formBuilder: { [alias: string]: FormBuilder }) {
     super(id, namespace, formBuilder);
     this.questionContextCallback = ctx => new QuestionContextInternal(ctx, namespace);
 
@@ -73,19 +73,20 @@ export class QuestionContainerBuilder extends QuestionEntryBuilder {
   }
 }
 
-export class BlockedQuestionContainerBuilder extends QuestionContainerBuilder {
-  constructor(id: string, namespace: string, formBuilder: FormBuilder, private translationNamespace: string) {
+export class BlockedQuestionContainerBuilder<TAliases extends string> extends QuestionContainerBuilder<TAliases> {
+  constructor(id: string, namespace: string, formBuilder: { [alias: string]: FormBuilder }, private translationNamespace: string) {
     super(id, namespace, formBuilder);
   }
 
 
-  protected askWithBuilder<Q extends Questions, B extends QuestionBuilder<Q>>(id: string,
-                                                                              builderConstructor: QuestionBuilderType<Q>,
-                                                                              callback?: BuilderCallBack<Q, B>): this {
+  protected askWithBuilder<Q extends Questions, B extends QuestionBuilder<Q, TAliases>>(
+    id: string,
+    builderConstructor: QuestionBuilderType<Q, TAliases>,
+    callback?: BuilderCallBack<Q, TAliases, B>): this {
     return this.ask(new builderConstructor(id, this.namespace, this.formBuilder, new BlockedQuestionContextFactory()), callback);
   }
 
-  protected ask<Q extends Questions, B extends QuestionBuilder<Q>>(builder: B, callback?: BuilderCallBack<Q, B>): this {
+  protected ask<Q extends Questions, B extends QuestionBuilder<Q, TAliases>>(builder: B, callback?: BuilderCallBack<Q, TAliases, B>): this {
     return super.ask(builder.setNamespace(this.namespace.substr(0, this.namespace.lastIndexOf(".")))
       .setTranslationPrefix(this.translationNamespace), callback);
   }

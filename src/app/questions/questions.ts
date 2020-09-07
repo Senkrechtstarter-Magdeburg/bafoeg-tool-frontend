@@ -1,5 +1,6 @@
 import {buildQuestionary, defineBlock, QuestionContext} from "@shared/builder";
 import {DisplayType, QuestionEntry} from "@models/questions";
+import {PDF_FORMS} from "@questions/pdfForms";
 
 export enum Gender {
   Male,
@@ -14,11 +15,13 @@ export enum Phase {
 
 export type BlockArgs<T extends string> = {
   form: { [k in T]: string };
+  formAlias: FormAliases;
   hints?: { [k in T]?: boolean };
   defaults?: { [k in T]?: QuestionEntry["defaultValue"] };
   hideIf?: (ctx: QuestionContext) => boolean
 } | {
   form: { [k in T]: string };
+  formAlias: FormAliases;
   hints?: { [k in T]?: boolean };
   defaults?: { [k in T]?: QuestionEntry["defaultValue"] };
   showIf?: (ctx: QuestionContext) => boolean
@@ -36,7 +39,7 @@ export const askForAddress = defineBlock("address",
           f.hideText();
         }
 
-        f.withFormName(args.form[name]);
+        f.withFormName(args.form[name], args.formAlias);
         if (args.hints[name]) {
           f.showHint();
         }
@@ -61,13 +64,18 @@ export const askForAddress = defineBlock("address",
   }
 );
 
+type FormAliases = keyof typeof PDF_FORMS | "fb1" | "fb3f" | "fb3m";
+
 export const questions = [
-  buildQuestionary("part1")
+  buildQuestionary<FormAliases>("part1")
     .addDocument("certificate_of_matriculation", ctx => ctx.is("intro.phase", Phase.Uni))
     .useForm("Formblatt1", fb => fb
+      .setAlias("fb1")
       .addCalculatedMapping("E-Mail_w_Eingabe", ctx => ctx.get("about_me.firstname") + "@" + ctx.get("about_me.name") + ".de")
       .addCalculatedMapping("Name_Vorname_Auszubildender_Eingabe",
         ctx => `${ctx.get("about_me.name")}, ${ctx.get("about_me.firstname")}`))
+    .useForm("Formblatt3_Father", fb => fb.setAlias("fb3f"))
+    .useForm("Formblatt3_Mother", fb => fb.setAlias("fb3m"))
 
     .addQuestionContainer("intro", qc => qc
       .askMultipleChoiceQuestion("phase", c => c
@@ -102,19 +110,19 @@ export const questions = [
       .askText("institute", c => c
         .hideIf(ctx => ctx.is("firsttime", null, false))
         .showHint()
-        .withFormName("Amt_Ausbildungsförderung_Eingabe"))
+        .withFormName("Amt_Ausbildungsförderung_Eingabe", "fb1"))
       .askText("number", c => c
         .hideIf(ctx => ctx.is("firsttime", null, false))
-        .withFormName("bisherige_Förderungsnummer_Eingabe"))
+        .withFormName("bisherige_Förderungsnummer_Eingabe", "fb1"))
     )
 
     .addQuestionContainer("uni", c => c
       .hideIf(ctx => ctx.is("intro.phase", 1, 3))
       .printInfo("info")
-      .askText("university", f => f.withFormName("Ausbildungsstätte_Eingabe"))
-      .askText("subject", f => f.withFormName("Klasse_Fachrichtung_Eingabe"))
+      .askText("university", f => f.withFormName("Ausbildungsstätte_Eingabe", "fb1"))
+      .askText("subject", f => f.withFormName("Klasse_Fachrichtung_Eingabe", "fb1"))
       .askMultipleChoiceQuestion("graduation", f => f
-        .withFormName("angestrebter_Anschluss_Eingabe")
+        .withFormName("angestrebter_Anschluss_Eingabe", "fb1")
         .option("ba", "Bachelor of Arts")
         .option("bsc", "Bachelor of Science")
         .option("llb", "Bachelor of Laws")
@@ -135,7 +143,7 @@ export const questions = [
       .askMultipleChoiceQuestion("time", f => f
         .option("full", 0)
         .option("part", 1)
-        .withFormName("Vollzeit_Teilzeit_Auswahl")
+        .withFormName("Vollzeit_Teilzeit_Auswahl", "fb1")
         .showHint()))
 
     .addQuestionContainer("aboard", c => c
@@ -157,20 +165,25 @@ export const questions = [
       .askForDate("end_lec", f => f.showAsPopup()))
 
     .addQuestionContainer("about_me", qc => qc
-      .askText("firstname", f => f.withFormName("Vorname_Eingabe"))
+      .askText("firstname", f => f
+        .withFormName("Vorname_Eingabe", "fb1")
+        .withFormName("Vorname_Azubi_Eingabe", "fb3m")
+        .withFormName("Vorname_Azubi_Eingabe", "fb3f"))
       .askText("name", f => f
-        .withFormName("Name_Eingabe"))
+        .withFormName("Name_Eingabe", "fb1")
+        .withFormName("Name_Azubi_Eingabe[0]", "fb3m")
+        .withFormName("Name_Azubi_Eingabe[0]", "fb3f"))
       .askYesNoQuestion("q_birthname")
       .askText("birthname", f => f
         .hideIf(ctx => ctx.is("q_birthname", false, null))
-        .withFormName("Geburtsname_Eingabe"))
+        .withFormName("Geburtsname_Eingabe", "fb1"))
       .askMultipleChoiceQuestion("sex", f => f
-        .withFormName("Geschlecht_Auswahl", (g: Gender) => g === Gender.Male ? "0" : "1")
+        .withFormName("Geschlecht_Auswahl", "fb1", (g: Gender) => g === Gender.Male ? "0" : "1")
         .option("male", Gender.Male)
         .option("female", Gender.Female)
         .showHint())
       .askForDate("birthdate", f => f
-        .withFormName("Geburtsdatum_Eingabe", (d: string) => {
+        .withFormName("Geburtsdatum_Eingabe", "fb1", (d: string) => {
           const date = new Date(d);
           const day = date.getDate().toString().padStart(2, "0");
           const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -180,7 +193,7 @@ export const questions = [
         .showAsPopup())
       .askText("birthplace", f => f
         .showHint()
-        .withFormName("Geburtsort_Eingabe"))
+        .withFormName("Geburtsort_Eingabe", "fb1"))
       .askMultipleChoiceQuestion("foreveralone", c => c
         .option("alone", 1)
         .option("married", 2)
@@ -206,7 +219,8 @@ export const questions = [
           zip: "PLZ_Eingabe",
           country: "Kennbuchstaben_Eingabe",
           city: "Ort_Eingabe",
-        }
+        },
+        formAlias: "fb1"
       })
       .askYesNoQuestion("q_bell")
       .askText("bell", f => f
@@ -224,13 +238,14 @@ export const questions = [
         askForAddress,
         {
           form: {address: "", city: "", country: "", zip: ""},
-          showIf: (ctx => ctx.is("know_address", true) && ctx.is("q_different_address_while_studying", true))
+          showIf: (ctx => ctx.is("know_address", true) && ctx.is("q_different_address_while_studying", true)),
+          formAlias: "fb1"
         })
 
       .askText("sec_bell", f => f
         .hideIf(ctx => ctx.is("know_address", false, null) || ctx.is("q_different_address_while_studying", true, null))
         .showHint()
-        .withFormName("bei_w_Eingabe"))
+        .withFormName("bei_w_Eingabe", "fb1"))
       .askYesNoQuestion("prop_of_parents", f => f
         .hideIf(ctx => ctx.is("know_address", false, null) || ctx.is("q_different_address_while_studying", true, null)))
     )
@@ -240,58 +255,58 @@ export const questions = [
       .askYesNoQuestion("bar")
       .askText("bar_amount", c => c
         .hideIf(ctx => ctx.is("bar", false, null))
-        .withFormName("Barvermögen_Eingabe"))
+        .withFormName("Barvermögen_Eingabe", "fb1"))
       .askYesNoQuestion("bank")
       .askText("bank_amount", c => c
         .hideIf(ctx => ctx.is("bank", false, null))
-        .withFormName("Bankguthaben_Eingabe"))
+        .withFormName("Bankguthaben_Eingabe", "fb1"))
       .askYesNoQuestion("building_savings")
       .askText("building_savings_amount", c => c
         .hideIf(ctx => ctx.is("building_savings", false, null))
-        .withFormName("Bausparguthaben_Eingabe"))
+        .withFormName("Bausparguthaben_Eingabe", "fb1"))
       .askYesNoQuestion("retirement")
       .askText("retirement_amount", c => c
         .hideIf(ctx => ctx.is("retirement", false, null))
-        .withFormName("Altersvorsorge_Eingabe"))
+        .withFormName("Altersvorsorge_Eingabe", "fb1"))
       .askYesNoQuestion("kfz")
       .askText("kfz_amount", c => c
         .hideIf(ctx => ctx.is("kfz", false, null))
-        .withFormName("KFZ_Eingabe")
+        .withFormName("KFZ_Eingabe", "fb1")
         .showHint())
       .askYesNoQuestion("stocks")
       .askText("buisness_assets", c => c
-        .withFormName("Vermögen_sonstig_Eingabe")
+        .withFormName("Vermögen_sonstig_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("stocks", false, null))
         .showHint())
       .askText("stock", c => c
-        .withFormName("Wertpapiere_Eingabe")
+        .withFormName("Wertpapiere_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("stocks", false, null))
         .showHint())
       .askText("life", c => c
-        .withFormName("LV_Eingabe")
+        .withFormName("LV_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("stocks", false, null))
         .showHint())
       .askYesNoQuestion("land")
       .askText("forest", c => c
         .hideIf(ctx => ctx.is("land", false, null))
-        .withFormName("Land_Eingabe")
+        .withFormName("Land_Eingabe", "fb1")
         .showHint())
       .askText("vacant", c => c
         .hideIf(ctx => ctx.is("land", false, null))
-        .withFormName("Grundstücke_Eingabe")
+        .withFormName("Grundstücke_Eingabe", "fb1")
         .showHint())
       .askText("built", c => c
         .hideIf(ctx => ctx.is("land", false, null))
-        .withFormName("Grundstücke_bebaut_Eingabe")
+        .withFormName("Grundstücke_bebaut_Eingabe", "fb1")
         .showHint())
       .askYesNoQuestion("other")
       .askText("pension", c => c
         .hideIf(ctx => ctx.is("other", false, null))
-        .withFormName("Betriebsvermögen_Eingabe")
+        .withFormName("Betriebsvermögen_Eingabe", "fb1")
         .showHint())
       .askText("other_amount", c => c
         .hideIf(ctx => ctx.is("other", false, null))
-        .withFormName("Forderungen_Eingabe"))
+        .withFormName("Forderungen_Eingabe", "fb1"))
     )
     .addQuestionContainer("income", c => c
       .printInfo("you_will")
@@ -299,13 +314,13 @@ export const questions = [
       .askYesNoQuestion("intership", f => f
         .hideIf(ctx => ctx.is("income", false, null)))
       .askText("intership_amount", f => f
-        .withFormName("Ausbildungsvergütung_Eingabe")
+        .withFormName("Ausbildungsvergütung_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("intership", false, null))
         .showHint())
       .askYesNoQuestion("holiday", f => f
         .hideIf(ctx => ctx.is("income", false, null)))
       .askText("holiday_amount", f => f
-        .withFormName("Arbeitsverhältnis_Eingabe")
+        .withFormName("Arbeitsverhältnis_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("holiday", false, null))
         .showHint())
       .askYesNoQuestion("service", f => f
@@ -315,23 +330,23 @@ export const questions = [
       .askYesNoQuestion("independence", f => f
         .hideIf(ctx => ctx.is("income", false, null)))
       .askText("independence_amount", f => f
-        .withFormName("Einkünfte_selbst_Eingabe")
+        .withFormName("Einkünfte_selbst_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("independence", false, null)))
       .askYesNoQuestion("capital", f => f
         .hideIf(ctx => ctx.is("income", false, null)))
       .askText("capital_amount", f => f
-        .withFormName("Kapitalvermögen_Eingabe")
+        .withFormName("Kapitalvermögen_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("capital", false, null))
         .showHint())
       .askYesNoQuestion("sholarship", f => f
         .hideIf(ctx => ctx.is("income", false, null)))
       .askText("sholarship_amount", f => f
-        .withFormName("Zuwendungen_Eingabe")
+        .withFormName("Zuwendungen_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("sholarship", false, null)))
       .askYesNoQuestion("bafog_regulation", f => f
         .hideIf(ctx => ctx.is("income", false, null)))
       .askText("bafog_regulation_amount", f => f
-        .withFormName("Einkommensverordnung_Eingabe")
+        .withFormName("Einkommensverordnung_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("bafog_regulation", false, null))
         .showHint())
       .askYesNoQuestion("children_entertains", f => f
@@ -360,7 +375,7 @@ export const questions = [
         .showHint())
       .askYesNoQuestion("pension")
       .askText("pension_amount", f => f
-        .withFormName("Waisen_Eingabe")
+        .withFormName("Waisen_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("pension", false, null))
         .showHint())
       .askText("other_pension", f => f
@@ -375,15 +390,15 @@ export const questions = [
       .printInfo("debt")
       .askYesNoQuestion("mortgage")
       .askText("mortgage_amount", f => f
-        .withFormName("Hypotheken_Eingabe")
+        .withFormName("Hypotheken_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("mortgage", false, null)))
       .askYesNoQuestion("repeat")
       .askText("repeat_amount", f => f
-        .withFormName("Lasten_Eingabe")
+        .withFormName("Lasten_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("repeat", false, null)))
       .askYesNoQuestion("other")
       .askText("other_amount", f => f
-        .withFormName("Schulden_Eingabe")
+        .withFormName("Schulden_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("other", false, null))
         .showHint()))
 
@@ -409,7 +424,7 @@ export const questions = [
         .hideIf(ctx => ctx.is("telefon_q", false, null)))
       .askYesNoQuestion("mail_q")
       .askText("mail", f => f
-        .withFormName("E-Mail_w_Eingabe")
+        .withFormName("E-Mail_w_Eingabe", "fb1")
         .hideIf(ctx => ctx.is("mail_q", false, null)))
       .askYesNoQuestion("german_nationality")
       .askText("nationality", f => f
@@ -417,6 +432,7 @@ export const questions = [
         .showHint())
       .askMultipleChoiceQuestion("foreveralone", f => f
         .option("alone", 1)
+
         .option("married", 2)
         .option("seperated", 3)
         .option("weathered", 4)
@@ -462,7 +478,7 @@ export const questions = [
       .askForList("children", l => l
         .showElementCaption()
         .entries(b => b
-          .askText("firstName", fb => fb.withFormName("Vorname_Eingabe"))
+          .askText("firstName", fb => fb.withFormName("Vorname_Eingabe", "fb1"))
           .askText("lastName")
           .askForDate("birthDate")
         ))

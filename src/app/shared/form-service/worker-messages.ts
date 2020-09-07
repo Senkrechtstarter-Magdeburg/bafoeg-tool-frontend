@@ -1,21 +1,11 @@
 import {Dict} from "../dict";
+import {v4 as uuid} from "uuid";
 
 export interface WorkerMessage {
   type: string;
+  messageId: string;
 }
 
-export class WorkerResponse {
-  public type: "genericresponse";
-
-  /**
-   * Wrapped message from the worker
-   */
-  public message: WorkerMessage;
-
-  constructor(message: WorkerMessage) {
-    this.message = message;
-  }
-}
 
 export class FillPdfRequest implements WorkerMessage {
   public type: "fillPdfRequest" = "fillPdfRequest";
@@ -30,14 +20,26 @@ export class FillPdfRequest implements WorkerMessage {
   public readonly fields: Dict;
 
 
-  constructor(pdfBuffer: Uint8Array, fields: Dict) {
+  constructor(pdfBuffer: Uint8Array, fields: Dict, public readonly messageId: string = uuid()) {
     this.pdfBuffer = pdfBuffer;
     this.fields = fields;
   }
 }
 
+export abstract class WorkerResponseMessage implements WorkerMessage {
+  public abstract type: string;
 
-export class FillPdfResponse implements WorkerMessage {
+  /**
+   * Message id of the request
+   */
+  public answers: string;
+
+  constructor(answers: string, public readonly messageId: string = uuid()) {
+    this.answers = answers;
+  }
+}
+
+export class FillPdfResponse extends WorkerResponseMessage {
   public type: "fillPdfResponse" = "fillPdfResponse";
 
   /**
@@ -46,17 +48,20 @@ export class FillPdfResponse implements WorkerMessage {
   public readonly pdfBuffer: Uint8Array;
 
 
-  constructor(pdfBuffer: Uint8Array) {
+  constructor(pdfBuffer: Uint8Array, answers: string, messageId: string = uuid()) {
+    super(answers, messageId);
     this.pdfBuffer = pdfBuffer;
   }
 }
 
-export class WorkerError implements WorkerMessage {
+export class WorkerError extends WorkerResponseMessage {
   public type: "error" = "error";
 
   public readonly err: any;
+  public messageId: string;
 
-  constructor(err: any) {
+  constructor(err: any, answers: string, messageId: string = uuid()) {
+    super(answers, messageId);
     this.err = err;
   }
 }
@@ -76,8 +81,4 @@ export function isFillPdfResponse(x: any): x is FillPdfResponse {
 
 export function isWorkerError(x: any): x is WorkerError {
   return isWorkerMessage(x) && x.type === "error";
-}
-
-export function isWorkerResponse(x: any): x is WorkerResponse {
-  return isWorkerMessage(x) && x.type === "genericresponse";
 }

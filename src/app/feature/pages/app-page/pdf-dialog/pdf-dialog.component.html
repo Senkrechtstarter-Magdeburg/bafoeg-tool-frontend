@@ -1,22 +1,24 @@
 <mat-dialog-content>
   <h1 mat-dialog-title>{{ 'app.pdf_export.dialog.title' | translate }}</h1>
-  <p *ngIf="loading$ | async; else readyToDownload">
+  <p *ngIf="(loading$ | async) < 100; else readyToDownload">
     {{ 'app.pdf_export.dialog.generating' | translate }}
   </p>
   <ng-template #readyToDownload>
     {{ 'app.pdf_export.dialog.ready' | translate }}
   </ng-template>
-  <mat-progress-bar *ngIf="loading$ | async" class="progress" mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar *ngIf="loading$ | async; let loading;" [value]="loading" class="progress"
+                    mode="buffer"></mat-progress-bar>
   <p *ngIf="error$ | async" class="mat-error">
     {{ 'app.pdf_export.dialog.error' | translate }}
   </p>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <a (click)="ref.close()" *ngIf="(link$ | async); let link" [download]="data.questionary.id + '.pdf'"
-     [href]="link"
-     color="primary"
-     mat-button
-     mat-dialog-close
-     target="_blank">{{ 'app.pdf_export.dialog.btn_download' | translate }}</a>
-  <button color="warn" mat-button mat-dialog-close>{{ 'app.pdf_export.dialog.btn_cancel' | translate }}</button>
+
+  <button *ngIf="links$ | async; let links; else cancel"
+          [mat-dialog-close]="links"
+          color="primary"
+          mat-button>{{ 'app.pdf_export.dialog.btn_download' | translate }}</button>
+  <ng-template #cancel>
+    <button color="warn" mat-button mat-dialog-close>{{ 'app.pdf_export.dialog.btn_cancel' | translate }}</button>
+  </ng-template>
 </mat-dialog-actions>

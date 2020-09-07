@@ -4,12 +4,15 @@ import {QuestionContext} from "@shared/builder/questionContext";
 import {QuestionContextFactory} from "@shared/builder/questionContextFactory";
 import {FormBuilder} from "@shared/builder/formBuilder";
 
-export class MultipleChoiceQuestionBuilder<T = any> extends QuestionBuilder<MultipleChoiceQuestion<T>> {
+export class MultipleChoiceQuestionBuilder<TAliases extends string, T = any> extends QuestionBuilder<MultipleChoiceQuestion<T>, TAliases> {
 
   private choices: Choice<T>[] = [];
 
 
-  constructor(id: string, namespace: string, formBuilder: FormBuilder, questionContextFactory: QuestionContextFactory) {
+  constructor(id: string,
+              namespace: string,
+              formBuilder: { [alias: string]: FormBuilder },
+              questionContextFactory: QuestionContextFactory) {
     super(id, namespace, formBuilder, questionContextFactory);
 
     this.displayType = DisplayType.Dropdown;
@@ -18,7 +21,7 @@ export class MultipleChoiceQuestionBuilder<T = any> extends QuestionBuilder<Mult
   public option(text: string, value: T, config: {
     hideIf?: (context: QuestionContext) => boolean,
     icon?: string
-  } = {}): MultipleChoiceQuestionBuilder {
+  } = {}): this {
     this.choices.push({
       text: `${this.fqn}.choices.${text}`,
       value,

@@ -22,12 +22,12 @@ import {BuilderCallBack} from "@shared/builder/builderCallBack";
 import {QuestionBuilderType} from "@shared/builder/questionBuilderType";
 import {DefaultQuestionContextFactory} from "@shared/builder/defaultQuestionContextFactory";
 
-export class QuestionEntryBuilder {
+export class QuestionEntryBuilder<TAliases extends string> {
   private questionEntries: QuestionEntry[] = [];
 
   constructor(protected id: string,
               protected namespace: string = id,
-              protected formBuilder: FormBuilder) {
+              protected formBuilder: { [alias: string]: FormBuilder }) {
   }
 
   public get entries(): QuestionEntry[] {
@@ -38,7 +38,7 @@ export class QuestionEntryBuilder {
 
   }
 
-  public block<S>(id: string, block: Block<QuestionContainerBuilder, S>, args: S): this {
+  public block<S>(id: string, block: Block<QuestionContainerBuilder<TAliases>, S>, args: S): this {
     const {blockId, callback} = block;
 
     const namespace = `${this.namespace}.${id}`;
@@ -52,38 +52,41 @@ export class QuestionEntryBuilder {
     return this;
   }
 
-  public askText(id: string, callback?: BuilderCallBack<TextQuestion, TextQuestionBuilder>): this {
+  public askText(id: string, callback?: BuilderCallBack<TextQuestion, TAliases, TextQuestionBuilder<TAliases>>): this {
     return this.askWithBuilder(id, TextQuestionBuilder, callback);
   }
 
-  public printInfo(id: string, callback?: BuilderCallBack<TextBlockQuestion, TextBlockQuestionBuilder>): this {
+  public printInfo(id: string, callback?: BuilderCallBack<TextBlockQuestion, TAliases, TextBlockQuestionBuilder<TAliases>>): this {
     return this.askWithBuilder(id, TextBlockQuestionBuilder, callback);
   }
 
-  public askYesNoQuestion(id: string, callback?: BuilderCallBack<YesNoQuestion, YesNoQuestionBuilder>): this {
+  public askYesNoQuestion(id: string, callback?: BuilderCallBack<YesNoQuestion, TAliases, YesNoQuestionBuilder<TAliases>>): this {
     return this.askWithBuilder(id, YesNoQuestionBuilder, callback);
   }
 
-  public askForList(id: string, callback?: BuilderCallBack<ListQuestion, ListQuestionBuilder>): this {
+  public askForList(id: string, callback?: BuilderCallBack<ListQuestion, TAliases, ListQuestionBuilder<TAliases>>): this {
     return this.askWithBuilder(id, ListQuestionBuilder, callback);
   }
 
-  public askMultipleChoiceQuestion(id: string,
-                                   callback?: BuilderCallBack<MultipleChoiceQuestion, MultipleChoiceQuestionBuilder>): this {
+  public askMultipleChoiceQuestion(
+    id: string,
+    callback?: BuilderCallBack<MultipleChoiceQuestion, TAliases, MultipleChoiceQuestionBuilder<TAliases>>): this {
     return this.askWithBuilder(id, MultipleChoiceQuestionBuilder, callback);
   }
 
-  public askForDate(id: string, callback?: BuilderCallBack<CalendarQuestion, CalendarQuestionBuilder>): this {
+  public askForDate(id: string, callback?: BuilderCallBack<CalendarQuestion, TAliases, CalendarQuestionBuilder<TAliases>>): this {
     return this.askWithBuilder(id, CalendarQuestionBuilder, callback);
   }
 
-  protected askWithBuilder<Q extends Questions, B extends QuestionBuilder<Q>>(id: string,
-                                                                              builderConstructor: QuestionBuilderType<Q>,
-                                                                              callback?: BuilderCallBack<Q, B>): this {
+  protected askWithBuilder<Q extends Questions, B extends QuestionBuilder<Q, TAliases>>(
+    id: string,
+    builderConstructor: QuestionBuilderType<Q, TAliases>,
+    callback?: BuilderCallBack<Q, TAliases, B>): this {
     return this.ask(new builderConstructor(id, this.namespace, this.formBuilder, new DefaultQuestionContextFactory()), callback);
   }
 
-  protected ask<Q extends Questions>(builder: QuestionBuilder<Q>, callback?: BuilderCallBack<Q, QuestionBuilder<Q>>): this {
+  protected ask<Q extends Questions>(builder: QuestionBuilder<Q, TAliases>,
+                                     callback?: BuilderCallBack<Q, TAliases, QuestionBuilder<Q, TAliases>>): this {
     const entry = (callback ? callback(builder) : builder).buildEntry();
     this.questionEntries.push(entry);
     return this;

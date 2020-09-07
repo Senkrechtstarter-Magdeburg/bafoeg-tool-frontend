@@ -5,7 +5,7 @@ import {FormBuilder} from "@shared/builder/formBuilder";
 import {Dict} from "@shared/dict";
 import {QuestionContextFactory} from "@shared/builder/questionContextFactory";
 
-export abstract class QuestionBuilder<T extends Question> {
+export abstract class QuestionBuilder<T extends Question, TAliases extends string> {
   protected text: string;
   protected hintText: string;
   protected hiddenCondition: QuestionEntry["isHidden"];
@@ -61,7 +61,8 @@ export abstract class QuestionBuilder<T extends Question> {
 
   public constructor(protected readonly id: string,
                      protected namespace: string,
-                     private formBuilder: FormBuilder, protected questionContextFactory: QuestionContextFactory) {
+                     private formBuilder: { [alias: string]: FormBuilder<TAliases> },
+                     protected questionContextFactory: QuestionContextFactory) {
     this.hintText = null;
     this.translationPrefix = this.namespace;
 
@@ -112,9 +113,17 @@ export abstract class QuestionBuilder<T extends Question> {
     return this;
   }
 
-  public withFormName(formFieldName: string, formatter: (value: any) => string = (a => a)): this {
+  /**
+   * Connects the field in the questionary to a field in a generated pdf
+   * @param formFieldName Name of the Field in the PDF Form
+   * @param form Name or alias of the form, added at the beginning with
+   * `buildQuestionary(name, q => q.addForm(formName, f => f.setAlias(alias)))`
+   * @param formatter Optional function that is applied before inserting the value to the PDF form.
+   * Can be used e.g. for custom date formats.
+   */
+  public withFormName(formFieldName: string, form: TAliases, formatter: (value: any) => string = (a => a)): this {
     this.touched = true;
-    this.formBuilder.addFieldMapping(formFieldName, this.fqn, formatter);
+    this.formBuilder[form].addFieldMapping(formFieldName, this.fqn, formatter);
     return this;
   }
 

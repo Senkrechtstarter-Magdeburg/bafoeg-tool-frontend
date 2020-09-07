@@ -1,7 +1,7 @@
 import {QuestionBuilder} from "./questionBuilder";
 import {CalendarQuestion} from "@models/questions/calendarQuestion";
 
-export class CalendarQuestionBuilder extends QuestionBuilder<CalendarQuestion> {
+export class CalendarQuestionBuilder<TAliases extends string> extends QuestionBuilder<CalendarQuestion, TAliases> {
   private calendarType: "textBox" | "embedded" | "popup";
 
   public showAsTextBox(): this {
