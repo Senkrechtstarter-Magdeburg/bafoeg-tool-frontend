@@ -12,6 +12,23 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
   protected defaultValue: QuestionEntry["defaultValue"];
   protected conditions: Dict<AnswerCondition> = {};
   public validate = {
+    regex: (pattern: RegExp, key: string = "matchRegex", id = uuid()): this => {
+      return this.validate.custom(key, val => typeof val !== "string" || ({
+        valid: !!val.match(pattern),
+        additional: {
+          pattern
+        }
+      }), id);
+    },
+    exactLength: (requiredLength: number, key: string = "exactLength", id = uuid()): this => {
+      return this.validate.custom(key, val => typeof val !== "string" || ({
+        valid: val.length === requiredLength,
+        additional: {
+          actualLength: val.length,
+          requiredLength
+        }
+      }), id);
+    },
     maxLength: (maxLength: number, key: string = "maxLength", id = uuid()): this => {
       return this.validate.custom(key, val => typeof val !== "string" || ({
         valid: val.length <= maxLength,
@@ -35,7 +52,7 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
       id),
     custom: <Z = any>(errorKey: string,
                       condition: (value: Z, context: QuestionContext) => boolean | { valid: boolean, additional?: Dict },
-                      id: string): this => {
+                      id: string = uuid()): this => {
       this.conditions[id] = (v, ctx) => {
         if (this.hiddenCondition && this.hiddenCondition(ctx)) {
           return null;
@@ -115,13 +132,13 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
 
   /**
    * Connects the field in the questionary to a field in a generated pdf
-   * @param formFieldName Name of the Field in the PDF Form
    * @param form Name or alias of the form, added at the beginning with
    * `buildQuestionary(name, q => q.addForm(formName, f => f.setAlias(alias)))`
-   * @param formatter Optional function that is applied before inserting the value to the PDF form.
    * Can be used e.g. for custom date formats.
+   * @param formFieldName Name of the Field in the PDF Form
+   * @param formatter Optional function that is applied before inserting the value to the PDF form.
    */
-  public withFormName(formFieldName: string, form: TAliases, formatter: (value: any) => string = (a => a)): this {
+  public withFormName(form: TAliases, formFieldName: string, formatter: (value: any) => string = (a => a)): this {
     this.touched = true;
     this.formBuilder[form].addFieldMapping(formFieldName, this.fqn, formatter);
     return this;

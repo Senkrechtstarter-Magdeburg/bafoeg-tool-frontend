@@ -13,7 +13,15 @@ export class LocalStorageStorageService implements StorageService {
   }
 
   public restore(): Dict {
-    return JSON.parse(localStorage.getItem("data") || "{}");
+    return JSON.parse(
+      localStorage.getItem("data") || "{}",
+      function (this, key: string, value: any) {
+        return typeof value ===
+               "string" &&
+               value.match(/\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d.\d\d\d\Z/) ?
+               new Date(value) :
+               value;
+      });
   }
 
   public clear() {

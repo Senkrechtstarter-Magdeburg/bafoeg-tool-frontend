@@ -1,7 +1,7 @@
 export interface QuestionContext {
   raw: any;
 
-  get(id: string, namespace?: string);
+  get<T = any>(id: string, namespace?: string): T;
 
   is(id: string, ...values: any[]): boolean;
 

@@ -455,6 +455,11 @@
           "placeholder": "Nationalität",
           "text": "Welche Staatsbürgerschaft hast du? (Kürzel)"
         },
+        "nationality_partner": {
+          "hint": "Bitte gebe das Kürzel an. Bspw. bei den Niederlanden NL",
+          "placeholder": "Nationalität",
+          "text": "Welche Staatsbürgerschaft hat dein(e) Partner(in)? (Kürzel)"
+        },
         "children": {
           "hint": "Gemeint sind eheliche und für ehelich erklärte, adoptierte sowie nichteheliche Kinder jeden Alters",
           "text": "Hast du Kinder?"
@@ -941,9 +946,9 @@
           "placeholder": "",
           "text": "Wie lautet die IBAN?"
         },
-        "blz": {
+        "bic": {
           "placeholder": "",
-          "text": "Wie lautet die Bankleitzahl?"
+          "text": "Wie lautet die BIC?"
         },
         "tax_ident": {
           "hint": "Wenn du schon mal gearbeitet hast, findest du diese auf deiner Lohnabrechnung sonst frage bei deinen Eltern nach. Falls sie dir auch nicht weiterhelfen können, rufe bei deinem Finanzamt an und diese schicken dir diese per Post.",

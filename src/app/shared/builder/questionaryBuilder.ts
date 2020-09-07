@@ -68,9 +68,10 @@ export class QuestionaryBuilder<TFormAliases extends string> {
   }
 
   public addQuestionContainer(namespace: string,
-                              callback: (builder: QuestionContainerBuilder<TFormAliases>) => QuestionContainerBuilder<TFormAliases>): this {
+                              callback: (builder: QuestionContainerBuilder<TFormAliases>) => void): this {
     const builder = new QuestionContainerBuilder(namespace, this.namespace + "." + namespace, this.formBuilder);
-    const container = callback(builder).build();
+    callback(builder);
+    const container = builder.build();
     this.containers.push(container);
     return this;
   }
