@@ -3,10 +3,13 @@ import {QuestionBuilder} from "@shared/builder/questionBuilder";
 import {FormBuilder} from "@shared/builder/formBuilder";
 import {QuestionContextFactory} from "@shared/builder/questionContextFactory";
 
-export class TextBlockQuestionBuilder extends QuestionBuilder<TextBlockQuestion> {
+export class TextBlockQuestionBuilder<TAliases extends string> extends QuestionBuilder<TextBlockQuestion, TAliases> {
 
 
-  constructor(id: string, namespace: string, formBuilder: FormBuilder, protected questionContextFactory: QuestionContextFactory) {
+  constructor(id: string,
+              namespace: string,
+              formBuilder: { [alias: string]: FormBuilder },
+              protected questionContextFactory: QuestionContextFactory) {
     super(id, namespace, formBuilder, questionContextFactory);
 
     this.hidePlaceholder();

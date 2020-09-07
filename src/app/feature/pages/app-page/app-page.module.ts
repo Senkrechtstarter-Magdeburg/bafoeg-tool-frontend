@@ -26,6 +26,7 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatListModule} from "@angular/material/list";
 import {FinishedScreenComponent} from "./finished-screen/finished-screen.component";
 import {QuestionaryScreenComponent} from "./questionary-screen/questionary-screen.component";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import {QuestionaryScreenComponent} from "./questionary-screen/questionary-scree
     MatSnackBarModule,
     SharedModule,
     MatListModule,
+    MatExpansionModule,
   ],
   providers: [
     {

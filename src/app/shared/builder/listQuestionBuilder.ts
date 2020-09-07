@@ -4,19 +4,22 @@ import {FormBuilder} from "@shared/builder/formBuilder";
 import {QuestionEntryBuilder} from "@shared/builder/questionEntryBuilder";
 import {QuestionContextFactory} from "@shared";
 
-export class ListQuestionBuilder extends QuestionBuilder<ListQuestion> {
+export class ListQuestionBuilder<TAliases extends string> extends QuestionBuilder<ListQuestion, TAliases> {
 
-  private readonly _entries: QuestionEntryBuilder;
+  private readonly _entries: QuestionEntryBuilder<TAliases>;
   private elementCaption: string;
   private addCaption: string;
 
 
-  constructor(id: string, namespace: string, formBuilder: FormBuilder, protected questionContextFactory: QuestionContextFactory) {
+  constructor(id: string,
+              namespace: string,
+              formBuilder: { [alias: string]: FormBuilder },
+              protected questionContextFactory: QuestionContextFactory) {
     super(id, namespace, formBuilder, questionContextFactory);
     this._entries = new QuestionEntryBuilder("listEntries", `${this.fqn}.listEntries`, formBuilder);
   }
 
-  public entries(callback: (builder: QuestionEntryBuilder) => void): this {
+  public entries(callback: (builder: QuestionEntryBuilder<TAliases>) => void): this {
     callback(this._entries);
     return this;
   }

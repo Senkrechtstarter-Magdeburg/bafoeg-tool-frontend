@@ -15,13 +15,13 @@ addEventListener("message", (ev) => wasm$.subscribe(wasm => {
       form.fill(data.fields);
       const result = form.save_to_buf();
 
-      postMessage(new FillPdfResponse(result));
+      postMessage(new FillPdfResponse(result, data.messageId));
     } catch (e) {
-      postMessage(new WorkerError(e));
+      postMessage(new WorkerError(e, data.messageId));
     }
   } else if (isWorkerMessage(data)) {
-    postMessage(new WorkerError(`Unknown message type: "${data.type}"`));
+    postMessage(new WorkerError(`Unknown message type: "${data.type}"`, data.messageId));
   } else {
-    postMessage(new WorkerError(`Unknown message "${data}"`));
+    postMessage(new WorkerError(`Unknown message "${data}"`, data.messageId));
   }
 }));

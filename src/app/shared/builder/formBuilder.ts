@@ -3,21 +3,35 @@ import {FormMapping} from "@models/forms";
 import {QuestionContext} from "@shared/builder/questionContext";
 import {QuestionContextInternal} from "@shared/builder/questionContextInternal";
 
-export class FormBuilder {
+export class FormBuilder<TAliases extends string = string> {
   public used = false;
-  private mappings: Dict<{ fieldId: string, formatter: (any) => string }> = {};
+  public formName: string;
+  public alias: string;
+  private mappings: Dict<{ fieldId: string, formatter: (val: any) => string }> = {};
   private calculatedMappings: Dict<(ctx: any) => any> = {};
-  private formName: string;
 
-  public constructor(private namespace: string) {
+  public constructor(private namespace: string, private getAliases: () => string[]) {
   }
 
-  public setFormName(formName: string) {
+  public setFormName(formName: string): this {
     this.formName = formName;
+    this.alias = this.alias ?? formName;
     this.used = true;
+    return this;
   }
 
-  public addFieldMapping(formFieldName: string, fieldId: string, formatter: (any) => string = (a => a)): this {
+  public setAlias(alias: TAliases): this {
+    if (this.getAliases().indexOf(alias) >= 0) {
+      throw new Error(`Alias "${alias}" for form "${this.formName}" is already taken.`);
+    }
+
+    this.alias = alias;
+
+    this.used = true;
+    return this;
+  }
+
+  public addFieldMapping<T = any>(formFieldName: string, fieldId: string, formatter: (val: T) => string = (a => a?.toString())): this {
     this.mappings = {...this.mappings, [formFieldName]: {fieldId, formatter}};
     this.used = true;
     return this;

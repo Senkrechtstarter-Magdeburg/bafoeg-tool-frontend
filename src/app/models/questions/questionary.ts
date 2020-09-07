@@ -6,6 +6,6 @@ export interface Questionary {
   id: string;
   title: string;
   questionContainers: QuestionContainer[];
-  formMapping?: FormMapping;
+  formMappings?: { [formName: string]: FormMapping };
   documents: DocumentRequest[]
 }

@@ -1,13 +1,14 @@
 import {Injectable, OnDestroy} from "@angular/core";
-import {from, fromEvent, merge, Observable, zip} from "rxjs";
-import {first, map, share, shareReplay, switchMap} from "rxjs/operators";
+import {forkJoin, from, fromEvent, merge, Observable, Subject, zip} from "rxjs";
+import {filter, finalize, first, map, scan, share, shareReplay, switchMap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {Questionary} from "@models";
 import {Dict} from "../dict";
-import {PDF_FORMS} from "../../questions/pdfForms";
+import {PDF_FORMS} from "@questions/pdfForms";
 import {FromEventTarget} from "rxjs/internal/observable/fromEvent";
 import {FillPdfRequest, isFillPdfResponse, isWorkerError, isWorkerMessage} from "./worker-messages";
-import {FormService} from "./form.service";
+import {FilledForms, FormService, WithProgress} from "./form.service";
+import {v4 as uuid} from "uuid";
 
 @Injectable()
 export class WasmFormService implements FormService, OnDestroy {
@@ -19,66 +20,99 @@ export class WasmFormService implements FormService, OnDestroy {
   constructor(private http: HttpClient) {
   }
 
-  public fill(questionary: Questionary, data: Dict): Observable<Uint8Array> {
-    const url = PDF_FORMS[questionary.formMapping.formName];
+  public fill(questionary: Questionary, data: Dict): Observable<WithProgress<FilledForms>> {
+
+    const results$ = Object.entries(questionary.formMappings)
+      .map(([, formMapping]) => {
+        const url = PDF_FORMS[formMapping.formName];
 
 
-    const fields = Object.entries(questionary.formMapping.getMappings(data))
-      .reduce((prev, [k, v]) => ({...prev, [k]: (v === null || v === undefined ? "" : v.toString())}), {});
+        const fields = Object.entries(formMapping.getMappings(data))
+          .reduce((prev, [k, v]) => ({...prev, [k]: (v === null || v === undefined ? "" : v.toString())}), {});
 
-    if (typeof Worker !== "undefined") {
-      if (!this.worker) {
-        // Create a new
-        this.worker = new Worker("./wasm.worker", {type: "module"});
+        if (typeof Worker !== "undefined") {
+          if (!this.worker) {
+            // Create a new
+            this.worker = new Worker("./wasm.worker", {type: "module"});
 
-        this.eventStream = merge(
-          fromEvent(this.worker as FromEventTarget<MessageEvent>, "message"),
-          fromEvent(this.worker as FromEventTarget<MessageEvent>, "error"),
-          fromEvent(this.worker as FromEventTarget<MessageEvent>, "messageerror"),
-        );
-      }
+            this.eventStream = merge(
+              fromEvent(this.worker as FromEventTarget<MessageEvent>, "message"),
+              fromEvent(this.worker as FromEventTarget<MessageEvent>, "error"),
+              fromEvent(this.worker as FromEventTarget<MessageEvent>, "messageerror"),
+            );
+          }
 
-      return this.http.get(url, {responseType: "arraybuffer"}).pipe(
-        switchMap((buf) => {
-          const res = this.eventStream.pipe(
-            first(),
-            map(workerEvent => {
-              if (isWorkerMessage(workerEvent.data)) {
-                const response = workerEvent.data;
+          const messageId = uuid();
 
-                if (isFillPdfResponse(response)) {
-                  return response.pdfBuffer;
-                }
+          return this.http.get(url, {responseType: "arraybuffer"}).pipe(
+            switchMap((buf) => {
+              const res = this.eventStream.pipe(
+                filter(({data: x}) => isFillPdfResponse(x) && x.answers === messageId),
+                first(),
+                map(workerEvent => {
+                  if (isWorkerMessage(workerEvent.data)) {
+                    const response = workerEvent.data;
 
-                if (isWorkerError(response)) {
-                  throw response.err;
-                }
-              }
-              throw new Error("Webworker did not respond valid response");
-            })
+                    if (isFillPdfResponse(response)) {
+
+                      return {
+                        formName: formMapping.formName,
+                        buffer: response.pdfBuffer,
+                      };
+                    }
+
+                    if (isWorkerError(response)) {
+                      throw response.err;
+                    }
+                  }
+                  throw new Error("Webworker did not respond valid response");
+                })
+              );
+
+              this.worker.postMessage(new FillPdfRequest(new Uint8Array(buf), fields, messageId));
+
+              return res;
+            }),
+            share(),
           );
 
-          this.worker.postMessage(new FillPdfRequest(new Uint8Array(buf), fields));
+        } else {
+          console.warn("Browser does not support webworkers");
+          // Web Workers are not supported in this environment.
+          return zip(
+            this.http.get(url, {responseType: "arraybuffer"}),
+            this.wasm
+          ).pipe(
+            map(([buf, wasm]) => {
+              const form = wasm.load_form(new Uint8Array(buf));
+              form.fill(fields);
+              return {
+                formName: formMapping.formName,
+                buffer: form.save_to_buf(),
+              };
+            })
+          );
+        }
+      });
 
-          return res;
-        }),
-        share(),
-      );
+    let finished = 0;
+    const progress$ = new Subject<number>();
+    const result$ = forkJoin(results$.map(obs$ => obs$.pipe(
+      finalize(() => {
+        progress$.next(++finished * 100 / results$.length);
+        if (finished === results$.length) {
+          progress$.complete();
+        }
+      })
+    )));
 
-    } else {
-      console.warn("Browser does not support webworkers");
-      // Web Workers are not supported in this environment.
-      return zip(
-        this.http.get(url, {responseType: "arraybuffer"}),
-        this.wasm
-      ).pipe(
-        map(([buf, wasm]) => {
-          const form = wasm.load_form(new Uint8Array(buf));
-          form.fill(fields);
-          return form.save_to_buf();
-        })
-      );
-    }
+    return merge(
+      progress$.pipe(map(progress => ({progress}))),
+      result$.pipe(map(forms => ({forms})))
+    ).pipe(
+      scan((prev, cur) => ({...prev, ...cur}), {progress: 0, forms: null}),
+      shareReplay(1)
+    );
   }
 
   public ngOnDestroy(): void {
