@@ -478,7 +478,10 @@ export const questions = [
       .askForList("children", l => l
         .showElementCaption()
         .entries(b => b
-          .askText("firstName", fb => fb.withFormName("Vorname_Eingabe", "fb1"))
+          .askText("firstName", fb => fb
+            .withListFormName("fb1", "Kind1_Name_Eingabe", 0)
+            .withListFormName("fb1", "Kind2_Name_Eingabe", 1)
+          )
           .askText("lastName")
           .askForDate("birthDate")
         ))

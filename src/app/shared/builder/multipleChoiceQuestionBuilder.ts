@@ -11,7 +11,7 @@ export class MultipleChoiceQuestionBuilder<TAliases extends string, T = any> ext
 
   constructor(id: string,
               namespace: string,
-              formBuilder: { [alias: string]: FormBuilder },
+              formBuilder: { [alias: string]: FormBuilder<TAliases> },
               questionContextFactory: QuestionContextFactory) {
     super(id, namespace, formBuilder, questionContextFactory);
 

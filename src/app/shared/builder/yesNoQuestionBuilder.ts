@@ -10,7 +10,7 @@ export class YesNoQuestionBuilder<TAliases extends string> extends QuestionBuild
 
   constructor(id: string,
               namespace: string,
-              formBuilder: { [alias: string]: FormBuilder },
+              formBuilder: { [alias: string]: FormBuilder<TAliases> },
               protected questionContextFactory: QuestionContextFactory) {
     super(id, namespace, formBuilder, questionContextFactory);
 

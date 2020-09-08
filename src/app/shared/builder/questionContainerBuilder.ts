@@ -3,10 +3,10 @@ import {QuestionBuilder} from "@shared/builder/questionBuilder";
 import {QuestionContext} from "@shared/builder/questionContext";
 import {QuestionContextInternal} from "@shared/builder/questionContextInternal";
 import {FormBuilder} from "@shared/builder/formBuilder";
-import {QuestionEntryBuilder} from "@shared/builder/questionEntryBuilder";
 import {BuilderCallBack} from "@shared/builder/builderCallBack";
 import {QuestionBuilderType} from "@shared/builder/questionBuilderType";
 import {BlockedQuestionContextFactory} from "@shared/builder/blockedQuestionContextFactory";
+import {QuestionEntryBuilder} from "@shared/builder/questionEntryBuilder";
 
 
 export class QuestionContainerBuilder<TAliases extends string> extends QuestionEntryBuilder<TAliases> {
@@ -17,8 +17,8 @@ export class QuestionContainerBuilder<TAliases extends string> extends QuestionE
   private nextText = "app.next";
   private previousText = "app.previous";
 
-  public constructor(id: string, namespace: string = id, formBuilder: { [alias: string]: FormBuilder }) {
-    super(id, namespace, formBuilder);
+  public constructor(private id: string, namespace: string, formBuilder: { [alias: string]: FormBuilder<TAliases> }) {
+    super(namespace, formBuilder);
     this.questionContextCallback = ctx => new QuestionContextInternal(ctx, namespace);
 
     this.withTitle();
@@ -74,7 +74,10 @@ export class QuestionContainerBuilder<TAliases extends string> extends QuestionE
 }
 
 export class BlockedQuestionContainerBuilder<TAliases extends string> extends QuestionContainerBuilder<TAliases> {
-  constructor(id: string, namespace: string, formBuilder: { [alias: string]: FormBuilder }, private translationNamespace: string) {
+  constructor(id: string,
+              namespace: string,
+              formBuilder: { [alias: string]: FormBuilder<TAliases> },
+              private translationNamespace: string) {
     super(id, namespace, formBuilder);
   }
 
