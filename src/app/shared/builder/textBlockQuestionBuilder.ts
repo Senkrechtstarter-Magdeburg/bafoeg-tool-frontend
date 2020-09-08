@@ -8,7 +8,7 @@ export class TextBlockQuestionBuilder<TAliases extends string> extends QuestionB
 
   constructor(id: string,
               namespace: string,
-              formBuilder: { [alias: string]: FormBuilder },
+              formBuilder: { [alias: string]: FormBuilder<TAliases> },
               protected questionContextFactory: QuestionContextFactory) {
     super(id, namespace, formBuilder, questionContextFactory);
 

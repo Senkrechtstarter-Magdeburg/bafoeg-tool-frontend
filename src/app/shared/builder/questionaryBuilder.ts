@@ -26,7 +26,7 @@ export function buildQuestionary<TFormAliases extends string>(id: string, title:
 
 export class QuestionaryBuilder<TFormAliases extends string> {
   private containers: QuestionContainer[] = [];
-  private formBuilder: { [alias: string]: FormBuilder };
+  private formBuilder: { [alias: string]: FormBuilder<TFormAliases> };
   private namespace = "questions." + this.id;
   private documents: DocumentRequest[] = [];
 

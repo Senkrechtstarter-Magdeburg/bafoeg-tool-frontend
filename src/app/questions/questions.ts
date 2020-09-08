@@ -732,17 +732,18 @@ export const questions = [
 
     .addQuestionContainer("father", c => c)
 
-    .addQuestionContainer("children", c => {
-        c
-          .hideIf(ctx => ctx.is("about_me.children", false, null))
-          .askForList("children", l => l
-            .showElementCaption()
-            .entries(b => b
-              .askText("firstName", fb => fb.withFormName("fb1", "Vorname_Eingabe"))
-              .askText("lastName")
-              .askForDate("birthDate")
-            ));
-      }
+    .addQuestionContainer("children", c => c
+      .hideIf(ctx => ctx.is("about_me.children", false, null))
+      .askForList("children", l => l
+        .showElementCaption()
+        .entries(b => b
+          .askText("firstName", fb => fb
+            .withListFormName("fb1", "Kind1_Name_Eingabe", 0)
+            .withListFormName("fb1", "Kind2_Name_Eingabe", 1)
+          )
+          .askText("lastName")
+          .askForDate("birthDate")
+        ))
     )
 
     .addQuestionContainer("partner", c => {

@@ -19,6 +19,10 @@
       <mat-icon color="warn">cancel</mat-icon>
       Clear local data
     </button>
+    <a *appAppBarElement="'more';" mat-menu-item routerLink="finished" title="Only debug">
+      <mat-icon color="warn">forward</mat-icon>
+      Go To End
+    </a>
   </ng-container>
 
   <router-outlet></router-outlet>

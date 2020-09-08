@@ -75,13 +75,19 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
   protected translationPrefix: string;
   protected displayType: DisplayType = DisplayType.Inline;
   private requiredValidatorUid: string;
+  private listId: string | undefined;
 
   public constructor(protected readonly id: string,
                      protected namespace: string,
-                     private formBuilder: { [alias: string]: FormBuilder<TAliases> },
-                     protected questionContextFactory: QuestionContextFactory) {
+                     protected formBuilder: { [alias: string]: FormBuilder<TAliases> },
+                     protected questionContextFactory: QuestionContextFactory,
+                     options: {
+                       translationPrefix?: string,
+                       listId?: string
+                     } = {}) {
     this.hintText = null;
-    this.translationPrefix = this.namespace;
+    this.translationPrefix = options?.translationPrefix ?? this.namespace;
+    this.listId = options?.listId;
 
     this.showText();
     this.showPlaceholder();
@@ -141,6 +147,21 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
   public withFormName(form: TAliases, formFieldName: string, formatter: (value: any) => string = (a => a)): this {
     this.touched = true;
     this.formBuilder[form].addFieldMapping(formFieldName, this.fqn, formatter);
+    return this;
+  }
+
+  public withListFormName(form: TAliases,
+                          formFieldName: string,
+                          index: number,
+                          formatter: (val: any) => string = String): this {
+    if (!this.listId) {
+      throw new Error(`Not in a list context. Cannot map the list field ${formFieldName}`);
+    }
+    this.formBuilder[form].addCalculatedMapping(formFieldName, ctx => {
+      console.log({id: this.listId, ctx});
+      return formatter(ctx.get(this.listId)[index]?.[this.id]);
+    });
+
     return this;
   }
 

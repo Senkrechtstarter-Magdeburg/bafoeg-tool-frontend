@@ -1,25 +1,28 @@
 import {ListQuestion} from "@models/questions";
 import {QuestionBuilder} from "@shared/builder/questionBuilder";
 import {FormBuilder} from "@shared/builder/formBuilder";
-import {QuestionEntryBuilder} from "@shared/builder/questionEntryBuilder";
 import {QuestionContextFactory} from "@shared";
+import {BasicQuestionEntryBuilder} from "@shared/builder/basicQuestionEntryBuilder";
 
 export class ListQuestionBuilder<TAliases extends string> extends QuestionBuilder<ListQuestion, TAliases> {
 
-  private readonly _entries: QuestionEntryBuilder<TAliases>;
+  private readonly _entries: BasicQuestionEntryBuilder<TAliases>;
   private elementCaption: string;
   private addCaption: string;
 
 
   constructor(id: string,
               namespace: string,
-              formBuilder: { [alias: string]: FormBuilder },
+              formBuilder: { [alias: string]: FormBuilder<TAliases> },
               protected questionContextFactory: QuestionContextFactory) {
     super(id, namespace, formBuilder, questionContextFactory);
-    this._entries = new QuestionEntryBuilder("listEntries", `${this.fqn}.listEntries`, formBuilder);
+    this._entries = new BasicQuestionEntryBuilder(``, formBuilder, {
+      translationPrefix: `${this.fqn}.listEntries`,
+      listId: this.fqn
+    });
   }
 
-  public entries(callback: (builder: QuestionEntryBuilder<TAliases>) => void): this {
+  public entries(callback: (builder: BasicQuestionEntryBuilder<TAliases>) => void): this {
     callback(this._entries);
     return this;
   }

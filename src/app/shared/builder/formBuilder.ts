@@ -3,7 +3,7 @@ import {FormMapping} from "@models/forms";
 import {QuestionContext} from "@shared/builder/questionContext";
 import {QuestionContextInternal} from "@shared/builder/questionContextInternal";
 
-export class FormBuilder<TAliases extends string = string> {
+export class FormBuilder<TAliases extends string> {
   public used = false;
   public formName: string;
   public alias: string;
