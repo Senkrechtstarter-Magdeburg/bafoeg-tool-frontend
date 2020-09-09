@@ -157,10 +157,7 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
     if (!this.listId) {
       throw new Error(`Not in a list context. Cannot map the list field ${formFieldName}`);
     }
-    this.formBuilder[form].addCalculatedMapping(formFieldName, ctx => {
-      console.log({id: this.listId, ctx});
-      return formatter(ctx.get(this.listId)[index]?.[this.id]);
-    });
+    this.formBuilder[form].addCalculatedMapping(formFieldName, ctx => formatter(ctx.get(this.listId)[index]?.[this.id]));
 
     return this;
   }

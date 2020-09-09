@@ -17,6 +17,7 @@ addEventListener("message", (ev) => wasm$.subscribe(wasm => {
 
       postMessage(new FillPdfResponse(result, data.messageId));
     } catch (e) {
+      console.error(e);
       postMessage(new WorkerError(e, data.messageId));
     }
   } else if (isWorkerMessage(data)) {

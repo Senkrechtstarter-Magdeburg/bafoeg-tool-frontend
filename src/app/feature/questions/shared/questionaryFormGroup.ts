@@ -51,7 +51,7 @@ export class QuestionaryFormGroup extends CrossValidatingFormGroup {
         const question = entry.question as ListQuestion;
         const arr = control as FormArray;
 
-        for (let itemControl of arr.controls) {
+        for (const itemControl of arr.controls) {
           this.formGroupDefaultValueEvaluation(question.itemQuestions, itemControl as FormGroup, context);
         }
         break;
@@ -59,7 +59,7 @@ export class QuestionaryFormGroup extends CrossValidatingFormGroup {
       default:
         if (entry.defaultValue && control.pristine) {
           const defaultValue = entry.defaultValue(context);
-          if (defaultValue !== control.value) {
+          if (defaultValue !== control.value && (control.value === null || control.value === undefined)) {
             control.setValue(defaultValue);
           }
         }

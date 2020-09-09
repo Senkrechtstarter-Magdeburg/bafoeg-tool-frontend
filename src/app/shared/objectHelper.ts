@@ -22,6 +22,10 @@ export class ObjectEntryArray<V> {
       ...this.fields.map(([k, v], i, self) => [k, callbackfn([k, v], i, self)] as [string, U], thisArg)
     );
   }
+
+  [Symbol.iterator]() {
+    return this.fields[Symbol.iterator]();
+  };
 }
 
 export function getEntries<V>(dict: Dict<V>): ObjectEntryArray<V> {
