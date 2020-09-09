@@ -254,6 +254,7 @@ export const questions = [
       .printInfo("capital")
       .askYesNoQuestion("bar")
       .askText("bar_amount", c => c
+        .defaultTo(0)
         .hideIf(ctx => ctx.is("bar", false, null))
         .withFormName("Barvermögen_Eingabe", "fb1"))
       .askYesNoQuestion("bank")

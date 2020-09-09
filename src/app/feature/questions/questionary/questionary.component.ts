@@ -43,16 +43,7 @@ export class QuestionaryComponent extends SafeSubscriptionComponent implements O
 
   @Input()
   public set data(value: Dict) {
-    if (this.formGroup && this.formGroup.value !== value) {
-      for (const container of this.questionary.questionContainers) {
-        if (this.formGroup.controls[container.namespace]) {
-          const updateObj = getEntries(value).filter(([k]) => k.startsWith(container.id)).collect();
-          (this.formGroup.controls[container.namespace] as FormGroup).patchValue(updateObj, {emitEvent: false});
-        } else {
-          this.formGroup.controls[container.namespace] = this.controlFactory.createQuestionEntryFormGroup(container.questionEntries, value);
-        }
-      }
-    }
+    this.updateFormGroup(value);
     this._data = value;
 
   }
@@ -71,7 +62,8 @@ export class QuestionaryComponent extends SafeSubscriptionComponent implements O
   }
 
   ngOnInit() {
-    this.formGroup = this.controlFactory.createQuestionaryFormGroup(this.questionary, this._data);
+    this.formGroup = this.controlFactory.createQuestionaryFormGroup(this.questionary, null);
+    this.updateFormGroup(this._data);
 
     this.formGroup.valueChanges.subscribe(this.dataChanged);
   }
@@ -112,4 +104,16 @@ export class QuestionaryComponent extends SafeSubscriptionComponent implements O
   }
 
 
+  private updateFormGroup(value: Dict) {
+    if (this.formGroup && JSON.stringify(this.formGroup.value) !== JSON.stringify(value)) {
+      for (const container of this.questionary.questionContainers) {
+        if (!this.formGroup.controls[container.namespace]) {
+          this.formGroup.controls[container.namespace] = this.controlFactory.createQuestionEntryFormGroup(container.questionEntries, null);
+        }
+
+        const updateObj = getEntries(value).filter(([k]) => k.startsWith(container.namespace)).collect();
+        (this.formGroup.controls[container.namespace] as FormGroup).patchValue(updateObj, {emitEvent: false});
+      }
+    }
+  }
 }
