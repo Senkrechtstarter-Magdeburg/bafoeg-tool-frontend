@@ -1,7 +1,7 @@
 import {buildQuestionary, defineBlock, QuestionContext} from "@shared/builder";
 import {DisplayType, QuestionEntry} from "@models/questions";
 import {PDF_FORMS} from "@questions/pdfForms";
-import {formatBoolNeg, formatDateFull, isValidIBANNumber} from "@questions/questionHelper";
+import {formatBool, formatBoolNeg, formatDateFull, isValidIBANNumber} from "@questions/questionHelper";
 
 
 export enum Gender {
@@ -164,10 +164,8 @@ export const questions = [
             .option("uni", Phase.Uni, {icon: "graduation"})
             .option("practical", Phase.Practical, {icon: "apprenticeship"}))
           .askForDate("start_date", c => c
-            .withFormName("fb1", "BWZ_Datum_vom_Eingabe", (date: Date) => {
-              console.log({date});
-              return (date?.getMonth() + 1).toString().padStart(2, "0") + date.getFullYear();
-            })
+            .withFormName("fb1", "BWZ_Datum_vom_Eingabe",
+              (date: Date) => (date?.getMonth() + 1).toString().padStart(2, "0") + date.getFullYear())
             .showAsPopup()
             .showHint())
           .askMultipleChoiceQuestion("time", c => c
@@ -538,7 +536,7 @@ export const questions = [
         c
           .printInfo("you_will")
           .askYesNoQuestion("income", f => f
-            .withFormName("fb1", "Einnahmen_Auswahl"))
+            .withFormName("fb1", "Einnahmen_Auswahl", formatBool))
           .askYesNoQuestion("intership", f => f
             .hideIf(ctx => ctx.is("income", false, null)))
           .askText("intership_amount", f => f
@@ -654,7 +652,7 @@ export const questions = [
           .withFormName("fb3m", "Name_Eingabe"))
         .askYesNoQuestion("birthname_q")
         .askText("birthname", f => f
-          .hideIf(ctx => ctx.is("birthname_q", false)))
+          .showIf(ctx => ctx.is("birthname_q", true)))
         .askForDate("birthdate", f => f
           .withFormName("fb1", "Mutter_Geburtsdatum_Eingabe", formatDateFull)
           .withFormName("fb3m", "Geburtsdatum_Eingabe", formatDateFull)
@@ -663,12 +661,12 @@ export const questions = [
         .askForDate("death_date", f => f
           .withFormName("fb1", "Mutter_Sterbedatum_Eingabe[1]", formatDateFull)
           .showAsPopup()
-          .hideIf(ctx => ctx.is("alive", false)));
+          .showIf(ctx => ctx.is("alive", true)));
     })
 
     .addQuestionContainer("mother_other", c => {
       c
-        .hideIf(ctx => ctx.is("mother.alive", false, null))
+        .hideIf(ctx => ctx.is("mother.alive", true, null))
         .askText("street", f => f
           .withFormName("fb1", "Mutter_Adresse_Eingabe")
           .withFormName("fb3m", "Straße_Eingabe")
