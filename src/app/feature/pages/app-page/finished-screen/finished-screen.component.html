@@ -12,7 +12,7 @@
               <p matLine>{{document.description | translate}}</p>
             </mat-list-option>
           </mat-selection-list>
-          <p *ngIf="list.options?.length && list.selectedOptions.selected.length === list.options?.length"
+          <p *ngIf="(list.options?.length > 0) && list.selectedOptions.selected.length === list.options?.length"
              class="text-success">
             {{"app.finished.all_documents_attached" | translate}}
           </p>

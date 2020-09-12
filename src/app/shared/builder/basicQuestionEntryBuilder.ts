@@ -19,6 +19,8 @@ import {BlockedQuestionContainerBuilder, QuestionContainerBuilder} from "@shared
 import {BuilderCallBack} from "@shared/builder/builderCallBack";
 import {QuestionBuilderType} from "@shared/builder/questionBuilderType";
 import {DefaultQuestionContextFactory} from "@shared/builder/defaultQuestionContextFactory";
+import {AutocompleteQuestion} from "@models/questions/autocompleteQuestion";
+import {AutocompleteQuestionBuilder} from "@shared/builder/autocompleteQuestionBuilder";
 
 export class BasicQuestionEntryBuilder<TAliases extends string, TBuildAdd = {}> {
   protected translationPrefix: string | null = null;
@@ -55,6 +57,11 @@ export class BasicQuestionEntryBuilder<TAliases extends string, TBuildAdd = {}> 
     this.questionEntries = [...this.questionEntries, ...builder.build().questionEntries];
 
     return this;
+  }
+
+  public askAutocompleteQuestion(id: string,
+                                 callback?: BuilderCallBack<AutocompleteQuestion, TAliases, AutocompleteQuestionBuilder<TAliases>>): this {
+    return this.askWithBuilder(id, AutocompleteQuestionBuilder, callback);
   }
 
   public askText(id: string, callback?: BuilderCallBack<TextQuestion, TAliases, TextQuestionBuilder<TAliases>>): this {

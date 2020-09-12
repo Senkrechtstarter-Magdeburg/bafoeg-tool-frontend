@@ -4,9 +4,9 @@
            matInput
            type="text">
   </mat-form-field>
-  <mat-autocomplete #autocomplete>
+  <mat-autocomplete #autocomplete [displayWith]="displayFnFactory()">
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">
-      {{ option.title }}
+      {{ getTitle(option.title) }}
     </mat-option>
   </mat-autocomplete>
 </app-base-question>

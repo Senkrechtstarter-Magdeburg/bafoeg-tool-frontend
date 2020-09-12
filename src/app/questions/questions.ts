@@ -1,8 +1,11 @@
-import {buildQuestionary, defineBlock, QuestionContext} from "@shared/builder";
-import {DisplayType, QuestionEntry} from "@models/questions";
+import {buildQuestionary, defineBlock, QuestionBuilder, QuestionContext} from "@shared/builder";
+import {DisplayType, Question, QuestionEntry} from "@models/questions";
 import {PDF_FORMS} from "@questions/pdfForms";
 
 import universities from "./autocomplete/universities.json";
+import countries from "./autocomplete/countries.json";
+import {AutocompleteOption} from "@models/questions/autocompleteQuestion";
+
 
 export enum Gender {
   Male,
@@ -35,32 +38,40 @@ export const askForAddress = defineBlock("address",
 
     args = {hints: {country: true, ...args.hints}, defaults: {country: () => "DE", ...args.defaults}, ...args};
 
-    for (const name of ["address", "zip", "city", "country"]) {
-      builder.askText(name, f => {
-        if (name !== "address") {
-          f.hideText();
-        }
+    const builderCallback = <T extends QuestionBuilder<Question, FormAliases>>(f: T) => {
+      if (name !== "address") {
+        f.hideText();
+      }
 
-        f.withFormName(args.form[name], args.formAlias);
-        if (args.hints[name]) {
-          f.showHint();
-        }
+      f.withFormName(args.form[name], args.formAlias);
+      if (args.hints[name]) {
+        f.showHint();
+      }
 
-        if (args.defaults[name]) {
-          f.defaultTo(args.defaults[name]);
-        }
+      if (args.defaults[name]) {
+        f.defaultTo(args.defaults[name]);
+      }
 
-        if ("hideIf" in args) {
-          f.hideIf(args.hideIf);
-        }
+      if ("hideIf" in args) {
+        f.hideIf(args.hideIf);
+      }
 
-        if ("showIf" in args) {
-          f.showIf(args.showIf);
-        }
+      if ("showIf" in args) {
+        f.showIf(args.showIf);
+      }
 
-        return f;
-      });
+      return f;
+    };
+    for (const name of ["address", "zip", "city"]) {
+      builder.askText(name, builderCallback);
     }
+
+    builder.askAutocompleteQuestion("country", f => {
+      const val = Object.entries(countries).map(([k, v]) => ({value: k, title: v} as AutocompleteOption));
+      f.option(...val);
+
+      return builderCallback(f);
+    });
 
     return builder;
   }

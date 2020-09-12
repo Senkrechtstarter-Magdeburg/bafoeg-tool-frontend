@@ -1,7 +1,7 @@
 import {QuestionBuilder} from "./questionBuilder";
 import {AutocompleteOption, AutocompleteQuestion} from "../../models/questions/autocompleteQuestion";
 
-export class AutocompleteQuestionBuilder extends QuestionBuilder<AutocompleteQuestion> {
+export class AutocompleteQuestionBuilder<TAliases extends string> extends QuestionBuilder<AutocompleteQuestion, TAliases> {
   private options: AutocompleteOption[] = [];
 
   public build(): AutocompleteQuestion {
