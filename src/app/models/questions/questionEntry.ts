@@ -1,7 +1,9 @@
 import {Question} from "@models/questions/question";
 import {Questions} from "@models/questions/questions";
 
-export type AnswerCondition<V = any, R = any> = (value: V, context?: { [key: string]: any }) => { [errorKey: string]: R };
+export type AnswerCondition<V = any, R = any, Q extends Question = Question> = (value: V,
+                                                                                context: { [key: string]: any } | null,
+                                                                                question: Question) => { [errorKey: string]: R };
 
 export interface QuestionEntry<T extends Question = Questions> {
   question: T;

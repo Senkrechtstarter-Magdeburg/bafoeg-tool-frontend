@@ -1,4 +1,4 @@
-import {AnswerCondition, Questionary, QuestionEntry} from "@models";
+import {AnswerCondition, Question, Questionary, QuestionEntry} from "@models";
 import {ValidatorFn} from "@angular/forms";
 
 export abstract class ValidatorFactory {
@@ -6,5 +6,5 @@ export abstract class ValidatorFactory {
 
   public abstract createFromEntry(entry: QuestionEntry): ValidatorFn | ValidatorFn[];
 
-  public abstract createFromFunction(condition: AnswerCondition): ValidatorFn | ValidatorFn[];
+  public abstract createFromFunction(condition: AnswerCondition, question: Question): ValidatorFn | ValidatorFn[];
 }

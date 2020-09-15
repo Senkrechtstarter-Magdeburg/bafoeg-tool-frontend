@@ -1,791 +1,265 @@
-{
-  "AFG": {
-    "de": "Afghanistan"
-  },
-  "EGY": {
-    "de": "Ägypten"
-  },
-  "ALA": {
-    "de": "Åland"
-  },
-  "ALB": {
-    "de": "Albanien"
-  },
-  "DZA": {
-    "de": "Algerien"
-  },
-  "ASM": {
-    "de": "Amerikanisch-Samoa"
-  },
-  "VIR": {
-    "de": "Amerikanische Jungferninseln"
-  },
-  "AND": {
-    "de": "Andorra"
-  },
-  "AGO": {
-    "de": "Angola"
-  },
-  "AIA": {
-    "de": "Anguilla"
-  },
-  "ATA": {
-    "de": "Antarktis (Sonderstatus durch Antarktisvertrag)"
-  },
-  "ATG": {
-    "de": "Antigua und Barbuda"
-  },
-  "GNQ": {
-    "de": "Äquatorialguinea"
-  },
-  "ARG": {
-    "de": "Argentinien"
-  },
-  "ARM": {
-    "de": "Armenien"
-  },
-  "ABW": {
-    "de": "Aruba"
-  },
-  "ASC": {
-    "de": "Ascension (verwaltet von St. Helena, reserviert für UPU und ITU)"
-  },
-  "AZE": {
-    "de": "Aserbaidschan"
-  },
-  "ETH": {
-    "de": "Äthiopien"
-  },
-  "AUS": {
-    "de": "Australien"
-  },
-  "BHS": {
-    "de": "Bahamas"
-  },
-  "BHR": {
-    "de": "Bahrain"
-  },
-  "BGD": {
-    "de": "Bangladesch"
-  },
-  "BRB": {
-    "de": "Barbados"
-  },
-  "BLR (BYS[2])": {
-    "de": "Weißrussland (Belarus)"
-  },
-  "BEL": {
-    "de": "Belgien"
-  },
-  "BLZ": {
-    "de": "Belize"
-  },
-  "BEN": {
-    "de": "Benin"
-  },
-  "BMU": {
-    "de": "Bermuda"
-  },
-  "BTN": {
-    "de": "Bhutan"
-  },
-  "BOL": {
-    "de": "Bolivien"
-  },
-  "BES": {
-    "de": "Bonaire,  Saba,  Sint Eustatius"
-  },
-  "BIH": {
-    "de": "Bosnien und Herzegowina"
-  },
-  "BWA": {
-    "de": "Botswana"
-  },
-  "BVT": {
-    "de": "Bouvetinsel"
-  },
-  "BRA": {
-    "de": "Brasilien"
-  },
-  "VGB": {
-    "de": "Britische Jungferninseln"
-  },
-  "IOT": {
-    "de": "Britisches Territorium im Indischen Ozean"
-  },
-  "BRN": {
-    "de": "Brunei"
-  },
-  "BGR": {
-    "de": "Bulgarien"
-  },
-  "BFA": {
-    "de": "Burkina Faso"
-  },
-  "BDI": {
-    "de": "Burundi"
-  },
-  "": {
-    "de": "Türkische Republik Nordzypern [5]"
-  },
-  "CHL": {
-    "de": "Chile"
-  },
-  "CHN": {
-    "de": "Volksrepublik China"
-  },
-  "CPT": {
-    "de": "Clipperton (reserviert für ITU)"
-  },
-  "COK": {
-    "de": "Cookinseln"
-  },
-  "CRI": {
-    "de": "Costa Rica"
-  },
-  "CUW": {
-    "de": "Curaçao"
-  },
-  "DNK": {
-    "de": "Dänemark"
-  },
-  "DEU": {
-    "de": "Deutschland"
-  },
-  "DGA": {
-    "de": "Diego Garcia (reserviert für ITU)"
-  },
-  "DMA": {
-    "de": "Dominica"
-  },
-  "DOM": {
-    "de": "Dominikanische Republik"
-  },
-  "DJI": {
-    "de": "Dschibuti"
-  },
-  "ECU": {
-    "de": "Ecuador"
-  },
-  "CIV": {
-    "de": "Elfenbeinküste (Côte d’Ivoire)"
-  },
-  "SLV": {
-    "de": "El Salvador"
-  },
-  "ERI": {
-    "de": "Eritrea"
-  },
-  "EST": {
-    "de": "Estland"
-  },
-  "SWZ": {
-    "de": "Eswatini[3] (Swasiland)"
-  },
-  "CEE[2]/EEC[2]": {
-    "de": "Europäische Gemeinschaft"
-  },
-  "FLK": {
-    "de": "Falklandinseln"
-  },
-  "FRO": {
-    "de": "Färöer"
-  },
-  "FJI": {
-    "de": "Fidschi"
-  },
-  "FIN": {
-    "de": "Finnland"
-  },
-  "FRA": {
-    "de": "Frankreich"
-  },
-  "FXX": {
-    "de": "Frankreich France métropolitaine (europäisches Frankreich ohne Übersee-Départements)"
-  },
-  "GUF": {
-    "de": "Französisch-Guayana"
-  },
-  "PYF": {
-    "de": "Französisch-Polynesien"
-  },
-  "ATF": {
-    "de": "Französische Süd- und Antarktisgebiete"
-  },
-  "GAB": {
-    "de": "Gabun"
-  },
-  "GMB": {
-    "de": "Gambia"
-  },
-  "GEO": {
-    "de": "Georgien"
-  },
-  "GHA": {
-    "de": "Ghana"
-  },
-  "GIB": {
-    "de": "Gibraltar"
-  },
-  "GRD": {
-    "de": "Grenada"
-  },
-  "GRC": {
-    "de": "Griechenland"
-  },
-  "GRL": {
-    "de": "Grönland"
-  },
-  "GLP": {
-    "de": "Guadeloupe"
-  },
-  "GUM": {
-    "de": "Guam"
-  },
-  "GTM": {
-    "de": "Guatemala"
-  },
-  "GGY": {
-    "de": "Guernsey (Kanalinsel)"
-  },
-  "GIN": {
-    "de": "Guinea"
-  },
-  "GNB": {
-    "de": "Guinea-Bissau"
-  },
-  "GUY": {
-    "de": "Guyana"
-  },
-  "HTI": {
-    "de": "Haiti"
-  },
-  "HMD": {
-    "de": "Heard und McDonaldinseln"
-  },
-  "HND": {
-    "de": "Honduras"
-  },
-  "HKG": {
-    "de": "Hongkong"
-  },
-  "IND": {
-    "de": "Indien"
-  },
-  "IDN": {
-    "de": "Indonesien"
-  },
-  "IMN": {
-    "de": "Isle of Man"
-  },
-  "IRQ": {
-    "de": "Irak"
-  },
-  "IRN": {
-    "de": "Iran"
-  },
-  "IRL": {
-    "de": "Irland"
-  },
-  "ISL": {
-    "de": "Island"
-  },
-  "ISR": {
-    "de": "Israel"
-  },
-  "ITA": {
-    "de": "Italien"
-  },
-  "JAM": {
-    "de": "Jamaika"
-  },
-  "JPN": {
-    "de": "Japan"
-  },
-  "YEM": {
-    "de": "Jemen"
-  },
-  "JEY": {
-    "de": "Jersey (Kanalinsel)"
-  },
-  "JOR": {
-    "de": "Jordanien"
-  },
-  "CYM": {
-    "de": "Cayman Islands (Kaimaninseln)"
-  },
-  "KHM": {
-    "de": "Kambodscha"
-  },
-  "CMR": {
-    "de": "Kamerun"
-  },
-  "CAN": {
-    "de": "Kanada"
-  },
-  "CPV": {
-    "de": "Kap Verde"
-  },
-  "KAZ": {
-    "de": "Kasachstan"
-  },
-  "QAT": {
-    "de": "Katar"
-  },
-  "KEN": {
-    "de": "Kenia"
-  },
-  "KGZ": {
-    "de": "Kirgisistan"
-  },
-  "KIR": {
-    "de": "Kiribati"
-  },
-  "CCK": {
-    "de": "Kokosinseln"
-  },
-  "COL": {
-    "de": "Kolumbien"
-  },
-  "COM": {
-    "de": "Komoren"
-  },
-  "COD": {
-    "de": "Demokratische Republik Kongo (ehem. Zaire)"
-  },
-  "COG": {
-    "de": "Republik Kongo (ehem. Kongo-Brazzaville)"
-  },
-  "PRK": {
-    "de": "Nordkorea"
-  },
-  "KOR": {
-    "de": "Südkorea"
-  },
-  "XKX": {
-    "de": "Kosovo [4]"
-  },
-  "HRV": {
-    "de": "Kroatien"
-  },
-  "CUB": {
-    "de": "Kuba"
-  },
-  "KWT": {
-    "de": "Kuwait"
-  },
-  "LAO": {
-    "de": "Laos"
-  },
-  "LSO": {
-    "de": "Lesotho"
-  },
-  "LVA": {
-    "de": "Lettland"
-  },
-  "LBN": {
-    "de": "Libanon"
-  },
-  "LBR": {
-    "de": "Liberia"
-  },
-  "LBY": {
-    "de": "Libyen"
-  },
-  "LIE": {
-    "de": "Liechtenstein"
-  },
-  "LTU": {
-    "de": "Litauen"
-  },
-  "LUX": {
-    "de": "Luxemburg"
-  },
-  "MAC": {
-    "de": "Macau"
-  },
-  "MDG": {
-    "de": "Madagaskar"
-  },
-  "MWI": {
-    "de": "Malawi"
-  },
-  "MYS": {
-    "de": "Malaysia"
-  },
-  "MDV": {
-    "de": "Malediven"
-  },
-  "MLI": {
-    "de": "Mali"
-  },
-  "MLT": {
-    "de": "Malta"
-  },
-  "MAR": {
-    "de": "Marokko"
-  },
-  "MHL": {
-    "de": "Marshallinseln"
-  },
-  "MTQ": {
-    "de": "Martinique"
-  },
-  "MRT": {
-    "de": "Mauretanien"
-  },
-  "MUS": {
-    "de": "Mauritius"
-  },
-  "MYT": {
-    "de": "Mayotte"
-  },
-  "MEX": {
-    "de": "Mexiko"
-  },
-  "FSM": {
-    "de": "Mikronesien"
-  },
-  "MDA": {
-    "de": "Moldau (Moldawien)"
-  },
-  "MCO": {
-    "de": "Monaco"
-  },
-  "MNG": {
-    "de": "Mongolei"
-  },
-  "MNE": {
-    "de": "Montenegro"
-  },
-  "MSR": {
-    "de": "Montserrat"
-  },
-  "MOZ": {
-    "de": "Mosambik"
-  },
-  "MMR": {
-    "de": "Myanmar (Burma)"
-  },
-  "NAM": {
-    "de": "Namibia"
-  },
-  "NRU": {
-    "de": "Nauru"
-  },
-  "NPL": {
-    "de": "Nepal"
-  },
-  "NCL": {
-    "de": "Neukaledonien"
-  },
-  "NZL": {
-    "de": "Neuseeland"
-  },
-  "NTZ[2]": {
-    "de": "Neutrale Zone (Saudi-Arabien und Irak bis 1993)"
-  },
-  "NIC": {
-    "de": "Nicaragua"
-  },
-  "NLD": {
-    "de": "Niederlande"
-  },
-  "ANT": {
-    "de": "Niederländische Antillen (historisch)"
-  },
-  "NER": {
-    "de": "Niger"
-  },
-  "NGA": {
-    "de": "Nigeria"
-  },
-  "NIU": {
-    "de": "Niue"
-  },
-  "MNP": {
-    "de": "Nördliche Marianen"
-  },
-  "MKD": {
-    "de": "Nordmazedonien"
-  },
-  "NFK": {
-    "de": "Norfolkinsel"
-  },
-  "NOR": {
-    "de": "Norwegen"
-  },
-  "OMN": {
-    "de": "Oman"
-  },
-  "AUT": {
-    "de": "Österreich"
-  },
-  "TLS (TMP[2])": {
-    "de": "Osttimor (Timor-Leste)"
-  },
-  "PAK": {
-    "de": "Pakistan"
-  },
-  "PSE": {
-    "de": "Palästina"
-  },
-  "PLW": {
-    "de": "Palau"
-  },
-  "PAN": {
-    "de": "Panama"
-  },
-  "PNG": {
-    "de": "Papua-Neuguinea"
-  },
-  "PRY": {
-    "de": "Paraguay"
-  },
-  "PER": {
-    "de": "Peru"
-  },
-  "PHL": {
-    "de": "Philippinen"
-  },
-  "PCN": {
-    "de": "Pitcairninseln"
-  },
-  "POL": {
-    "de": "Polen"
-  },
-  "PRT": {
-    "de": "Portugal"
-  },
-  "PRI": {
-    "de": "Puerto Rico"
-  },
-  "REU": {
-    "de": "Réunion"
-  },
-  "RWA": {
-    "de": "Ruanda"
-  },
-  "ROU (ROM[2])": {
-    "de": "Rumänien"
-  },
-  "RUS": {
-    "de": "Russland"
-  },
-  "SLB": {
-    "de": "Salomonen"
-  },
-  "BLM": {
-    "de": "Saint-Barthélemy"
-  },
-  "MAF": {
-    "de": "Saint-Martin (französischer Teil)"
-  },
-  "ZMB": {
-    "de": "Sambia"
-  },
-  "WSM": {
-    "de": "Samoa"
-  },
-  "SMR": {
-    "de": "San Marino"
-  },
-  "STP": {
-    "de": "São Tomé und Príncipe"
-  },
-  "SAU": {
-    "de": "Saudi-Arabien"
-  },
-  "SWE": {
-    "de": "Schweden"
-  },
-  "CHE": {
-    "de": "Schweiz (Confoederatio Helvetica)"
-  },
-  "SEN": {
-    "de": "Senegal"
-  },
-  "SRB": {
-    "de": "Serbien"
-  },
-  "SCG[2]": {
-    "de": "Serbien und Montenegro (historisch)"
-  },
-  "SYC": {
-    "de": "Seychellen"
-  },
-  "SLE": {
-    "de": "Sierra Leone"
-  },
-  "ZWE": {
-    "de": "Simbabwe"
-  },
-  "SGP": {
-    "de": "Singapur"
-  },
-  "SXM": {
-    "de": "Sint Maarten"
-  },
-  "SVK": {
-    "de": "Slowakei"
-  },
-  "SVN": {
-    "de": "Slowenien"
-  },
-  "SOM": {
-    "de": "Somalia"
-  },
-  "ESP": {
-    "de": "Spanien"
-  },
-  "LKA": {
-    "de": "Sri Lanka"
-  },
-  "SHN": {
-    "de": "St. Helena, Ascension und Tristan da Cunha"
-  },
-  "KNA": {
-    "de": "St. Kitts und Nevis"
-  },
-  "LCA": {
-    "de": "St. Lucia"
-  },
-  "SPM": {
-    "de": "Saint-Pierre und Miquelon"
-  },
-  "VCT": {
-    "de": "St. Vincent und die Grenadinen"
-  },
-  "ZAF": {
-    "de": "Südafrika"
-  },
-  "SDN": {
-    "de": "Sudan"
-  },
-  "SGS": {
-    "de": "Südgeorgien und die Südlichen Sandwichinseln"
-  },
-  "SSD": {
-    "de": "Südsudan"
-  },
-  "SUR": {
-    "de": "Suriname"
-  },
-  "SJM": {
-    "de": "Spitzbergen und Jan Mayen"
-  },
-  "SYR": {
-    "de": "Syrien"
-  },
-  "TJK": {
-    "de": "Tadschikistan"
-  },
-  "TWN": {
-    "de": "Taiwan"
-  },
-  "TZA": {
-    "de": "Tansania"
-  },
-  "THA": {
-    "de": "Thailand"
-  },
-  "TGO": {
-    "de": "Togo"
-  },
-  "TKL": {
-    "de": "Tokelau"
-  },
-  "TON": {
-    "de": "Tonga"
-  },
-  "TTO": {
-    "de": "Trinidad und Tobago"
-  },
-  "TAA": {
-    "de": "Tristan da Cunha (verwaltet von St. Helena, reserviert für UPU)"
-  },
-  "TCD": {
-    "de": "Tschad"
-  },
-  "CZE": {
-    "de": "Tschechien"
-  },
-  "CSK[2]": {
-    "de": "Tschechoslowakei (historisch)"
-  },
-  "TUN": {
-    "de": "Tunesien"
-  },
-  "TUR": {
-    "de": "Türkei"
-  },
-  "TKM": {
-    "de": "Turkmenistan"
-  },
-  "TCA": {
-    "de": "Turks- und Caicosinseln"
-  },
-  "TUV": {
-    "de": "Tuvalu"
-  },
-  "SUN[2]": {
-    "de": "Sowjetunion (UdSSR, historisch)"
-  },
-  "UGA": {
-    "de": "Uganda"
-  },
-  "UKR": {
-    "de": "Ukraine"
-  },
-  "HUN": {
-    "de": "Ungarn"
-  },
-  "UMI": {
-    "de": "United States Minor Outlying Islands"
-  },
-  "URY": {
-    "de": "Uruguay"
-  },
-  "UZB": {
-    "de": "Usbekistan"
-  },
-  "VUT": {
-    "de": "Vanuatu"
-  },
-  "VAT": {
-    "de": "Vatikanstadt"
-  },
-  "VEN": {
-    "de": "Venezuela"
-  },
-  "ARE": {
-    "de": "Vereinigte Arabische Emirate"
-  },
-  "USA": {
-    "de": "Vereinigte Staaten"
-  },
-  "GBR": {
-    "de": "Vereinigtes Königreich (Großbritannien und Nordirland)"
-  },
-  "VNM": {
-    "de": "Vietnam"
-  },
-  "WLF": {
-    "de": "Wallis und Futuna"
-  },
-  "CXR": {
-    "de": "Weihnachtsinsel"
-  },
-  "ESH": {
-    "de": "Westsahara"
-  },
-  "ZAR[2]": {
-    "de": "Zaire (jetzt Demokratische Republik Kongo)"
-  },
-  "CAF": {
-    "de": "Zentralafrikanische Republik"
-  },
-  "CYP": {
-    "de": "Zypern"
-  }
-}
+[
+  "AFG",
+  "EGY",
+  "ALA",
+  "ALB",
+  "DZA",
+  "ASM",
+  "VIR",
+  "AND",
+  "AGO",
+  "AIA",
+  "ATA",
+  "ATG",
+  "GNQ",
+  "ARG",
+  "ARM",
+  "ABW",
+  "ASC",
+  "AZE",
+  "ETH",
+  "AUS",
+  "BHS",
+  "BHR",
+  "BGD",
+  "BRB",
+  "BLR (BYS[2])",
+  "BEL",
+  "BLZ",
+  "BEN",
+  "BMU",
+  "BTN",
+  "BOL",
+  "BES",
+  "BIH",
+  "BWA",
+  "BVT",
+  "BRA",
+  "VGB",
+  "IOT",
+  "BRN",
+  "BGR",
+  "BFA",
+  "BDI",
+  "",
+  "CHL",
+  "CHN",
+  "CPT",
+  "COK",
+  "CRI",
+  "CUW",
+  "DNK",
+  "DEU",
+  "DGA",
+  "DMA",
+  "DOM",
+  "DJI",
+  "ECU",
+  "CIV",
+  "SLV",
+  "ERI",
+  "EST",
+  "SWZ",
+  "CEE[2]/EEC[2]",
+  "FLK",
+  "FRO",
+  "FJI",
+  "FIN",
+  "FRA",
+  "FXX",
+  "GUF",
+  "PYF",
+  "ATF",
+  "GAB",
+  "GMB",
+  "GEO",
+  "GHA",
+  "GIB",
+  "GRD",
+  "GRC",
+  "GRL",
+  "GLP",
+  "GUM",
+  "GTM",
+  "GGY",
+  "GIN",
+  "GNB",
+  "GUY",
+  "HTI",
+  "HMD",
+  "HND",
+  "HKG",
+  "IND",
+  "IDN",
+  "IMN",
+  "IRQ",
+  "IRN",
+  "IRL",
+  "ISL",
+  "ISR",
+  "ITA",
+  "JAM",
+  "JPN",
+  "YEM",
+  "JEY",
+  "JOR",
+  "CYM",
+  "KHM",
+  "CMR",
+  "CAN",
+  "CPV",
+  "KAZ",
+  "QAT",
+  "KEN",
+  "KGZ",
+  "KIR",
+  "CCK",
+  "COL",
+  "COM",
+  "COD",
+  "COG",
+  "PRK",
+  "KOR",
+  "XKX",
+  "HRV",
+  "CUB",
+  "KWT",
+  "LAO",
+  "LSO",
+  "LVA",
+  "LBN",
+  "LBR",
+  "LBY",
+  "LIE",
+  "LTU",
+  "LUX",
+  "MAC",
+  "MDG",
+  "MWI",
+  "MYS",
+  "MDV",
+  "MLI",
+  "MLT",
+  "MAR",
+  "MHL",
+  "MTQ",
+  "MRT",
+  "MUS",
+  "MYT",
+  "MEX",
+  "FSM",
+  "MDA",
+  "MCO",
+  "MNG",
+  "MNE",
+  "MSR",
+  "MOZ",
+  "MMR",
+  "NAM",
+  "NRU",
+  "NPL",
+  "NCL",
+  "NZL",
+  "NTZ[2]",
+  "NIC",
+  "NLD",
+  "ANT",
+  "NER",
+  "NGA",
+  "NIU",
+  "MNP",
+  "MKD",
+  "NFK",
+  "NOR",
+  "OMN",
+  "AUT",
+  "TLS (TMP[2])",
+  "PAK",
+  "PSE",
+  "PLW",
+  "PAN",
+  "PNG",
+  "PRY",
+  "PER",
+  "PHL",
+  "PCN",
+  "POL",
+  "PRT",
+  "PRI",
+  "REU",
+  "RWA",
+  "ROU (ROM[2])",
+  "RUS",
+  "SLB",
+  "BLM",
+  "MAF",
+  "ZMB",
+  "WSM",
+  "SMR",
+  "STP",
+  "SAU",
+  "SWE",
+  "CHE",
+  "SEN",
+  "SRB",
+  "SCG[2]",
+  "SYC",
+  "SLE",
+  "ZWE",
+  "SGP",
+  "SXM",
+  "SVK",
+  "SVN",
+  "SOM",
+  "ESP",
+  "LKA",
+  "SHN",
+  "KNA",
+  "LCA",
+  "SPM",
+  "VCT",
+  "ZAF",
+  "SDN",
+  "SGS",
+  "SSD",
+  "SUR",
+  "SJM",
+  "SYR",
+  "TJK",
+  "TWN",
+  "TZA",
+  "THA",
+  "TGO",
+  "TKL",
+  "TON",
+  "TTO",
+  "TAA",
+  "TCD",
+  "CZE",
+  "CSK[2]",
+  "TUN",
+  "TUR",
+  "TKM",
+  "TCA",
+  "TUV",
+  "SUN[2]",
+  "UGA",
+  "UKR",
+  "HUN",
+  "UMI",
+  "URY",
+  "UZB",
+  "VUT",
+  "VAT",
+  "VEN",
+  "ARE",
+  "USA",
+  "GBR",
+  "VNM",
+  "WLF",
+  "CXR",
+  "ESH",
+  "ZAR[2]",
+  "CAF",
+  "CYP"
+]

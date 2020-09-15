@@ -1,11 +1,12 @@
 import {Component, OnInit} from "@angular/core";
 import {QuestionBaseComponent} from "../question-base-component";
-import {AutocompleteOption, AutocompleteQuestion} from "@models/questions/autocompleteQuestion";
+import {AutocompleteOption, AutocompleteQuestion, TranslatedAutocompleteOption} from "@models/questions/autocompleteQuestion";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
-import {delay, map} from "rxjs/operators";
+import {delay, distinctUntilChanged, map} from "rxjs/operators";
 import {compareTwoStrings} from "string-similarity";
 import {TranslateService} from "@ngx-translate/core";
+import {debug} from "@shared";
 
 @Component({
   selector: "app-autocomplete-question",
@@ -23,34 +24,39 @@ export class AutocompleteQuestionComponent extends QuestionBaseComponent<Autocom
 
   public ngOnInit(): void {
     this.filteredOptions = this.control.valueChanges.pipe(
-      map(value => value.length >= 2 ? this.filterOptions(value) : []),
-      delay(0)
+      distinctUntilChanged(),
+      debug("val"),
+      map((value) => value.length >= 2 ? this.filterOptions(
+        this.question.options.map(option => ({...option, title: this.getTitleInstant(option)})),
+        value) : []),
+      delay(0),
     );
   }
 
   public displayFnFactory(): (value: any) => string {
     const self = this;
     return ((value) => {
-      return self.getTitle(self.question.options.find(x => x.value === value)?.title);
+      return self.getTitleInstant(self.question.options.find(x => x.value === value));
     });
   }
 
-  public getTitle(title: string | { [p: string]: string } | null): string | null {
-    return typeof title === "object" ? title?.[this.translateService.currentLang] ?? title.en ?? title.de : title;
+  public getTitleInstant(option: AutocompleteOption): string {
+    const title = option?.title;
+    return typeof title === "object" ? this.translateService.instant(title?.translateKey) : title;
   }
 
-  private filterOptions(filterValue: string) {
-    return this.question.options
+  private filterOptions(options: TranslatedAutocompleteOption[], filterValue: string) {
+    return options
       .map(option => {
-          const title = this.getTitle(option.title);
+        const title = option.title;
 
-          return {
-            ...option,
-            match:
-              this.question.valueWeight * compareTwoStrings(filterValue, option.value) +
-              this.question.titleWeight * compareTwoStrings(filterValue, title) +
-              this.question.startsWithWeight * (+title.startsWith(filterValue) * (filterValue.length / title.length))
-          };
+        return {
+          ...option,
+          match:
+            this.question.valueWeight * compareTwoStrings(filterValue, option.value) +
+            this.question.titleWeight * compareTwoStrings(filterValue, title) +
+            this.question.startsWithWeight * (+title.startsWith(filterValue) * (filterValue.length / title.length))
+        };
         }
       )
       .sort((a, b) => b.match - a.match)

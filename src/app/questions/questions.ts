@@ -2,9 +2,11 @@ import {buildQuestionary, defineBlock, QuestionBuilder, QuestionContext} from "@
 import {DisplayType, Question, QuestionEntry} from "@models/questions";
 import {PDF_FORMS} from "@questions/pdfForms";
 
+
 import universities from "./autocomplete/universities.json";
 import countries from "./autocomplete/countries.json";
 import {AutocompleteOption} from "@models/questions/autocompleteQuestion";
+import {isAutocompleteOptionValidator} from "@shared/builder/validators";
 
 
 export enum Gender {
@@ -67,8 +69,9 @@ export const askForAddress = defineBlock("address",
     }
 
     builder.askAutocompleteQuestion("country", f => {
-      const val = Object.entries(countries).map(([k, v]) => ({value: k, title: v} as AutocompleteOption));
+      const val = countries.map(key => ({value: key, title: {translateKey: `app.autocomplete.countries.${key}`}} as AutocompleteOption));
       f.option(...val);
+      f.valid(isAutocompleteOptionValidator());
 
       return builderCallback(f);
     });

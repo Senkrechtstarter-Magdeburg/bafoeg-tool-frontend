@@ -1,10 +1,17 @@
 import {BaseQuestion} from "./baseQuestion";
 import {QuestionOptions} from "./questionOptions";
 
-export interface AutocompleteOption {
-  title: string | { [lan: string]: string };
+export interface TranslatableAutocompleteOption {
+  title: { translateKey: string };
   value: any;
 }
+
+export interface TranslatedAutocompleteOption {
+  title: string;
+  value: any;
+}
+
+export type AutocompleteOption = TranslatedAutocompleteOption | TranslatableAutocompleteOption;
 
 export class AutocompleteQuestion extends BaseQuestion {
   public readonly type: "autocomplete" = "autocomplete";
