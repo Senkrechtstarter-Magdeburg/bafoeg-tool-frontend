@@ -1,0 +1,17 @@
+<app-base-question [control]="control" [question]="question">
+  <mat-form-field>
+    <input [formControl]="control" [matAutocomplete]="autocomplete" [placeholder]="question.placeholder | translate"
+           matInput
+           type="text">
+  </mat-form-field>
+  <mat-autocomplete #autocomplete [displayWith]="displayFnFactory()">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">
+      <ng-container *ngIf="option.title.translateKey; else: rawTitle">
+        {{option.title.translateKey | translate}}
+      </ng-container>
+      <ng-template #rawTitle>
+        {{option.title}}
+      </ng-template>
+    </mat-option>
+  </mat-autocomplete>
+</app-base-question>

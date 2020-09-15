@@ -4,6 +4,8 @@ import {QuestionContext} from "@shared/builder/questionContext";
 import {FormBuilder} from "@shared/builder/formBuilder";
 import {Dict} from "@shared/dict";
 import {QuestionContextFactory} from "@shared/builder/questionContextFactory";
+import {maxLengthValidator, minLengthValidator, QuestionValidator, requiredValidator} from "@shared/builder/validators";
+
 
 export abstract class QuestionBuilder<T extends Question, TAliases extends string> {
   protected text: string;
@@ -11,28 +13,28 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
   protected hiddenCondition: QuestionEntry["isHidden"];
   protected defaultValue: QuestionEntry["defaultValue"];
   protected conditions: Dict<AnswerCondition> = {};
+
   public validate = {
+    /**
+     * @deprecated Use `QuestionBuilder.valid(maxLengthValidator(...)) instead.
+     */
     maxLength: (maxLength: number, key: string = "maxLength", id = uuid()): this => {
-      return this.validate.custom(key, val => typeof val !== "string" || ({
-        valid: val.length <= maxLength,
-        additional: {
-          actualLength: val.length,
-          maxLength
-        }
-      }), id);
+      return this.valid(maxLengthValidator(maxLength, key, id));
     },
+    /**
+     * @deprecated Use `QuestionBuilder.valid(minLengthValidator(...)) instead.
+     */
     minLength: (minLength: number, key: string = "minLength", id = uuid()): this => {
-      return this.validate.custom(key, val => typeof val !== "string" || ({
-        valid: val.length >= minLength,
-        additional: {
-          actualLength: val.length,
-          maxLength: minLength
-        }
-      }), id);
+      return this.valid(minLengthValidator(minLength, key, id));
     },
-    required: (key: string = "required", id = uuid()): this => this.validate.custom(key,
-      val => !(val === "" || val === undefined || val === null),
-      id),
+    /**
+     * @deprecated Use `QuestionBuilder.valid(required(...)) instead.
+     */
+    required: (key: string = "required", id = uuid()): this => this.valid(requiredValidator(key, id)),
+
+    /**
+     * @deprecated Use `QuestionBuilder.valid instead.
+     */
     custom: <Z = any>(errorKey: string,
                       condition: (value: Z, context: QuestionContext) => boolean | { valid: boolean, additional?: Dict },
                       id: string): this => {
@@ -53,6 +55,25 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
       return this;
     }
   };
+
+  public valid(validator: QuestionValidator, id: string = uuid()): this {
+    this.conditions[id] = (v, ctx, q) => {
+      if (this.hiddenCondition && this.hiddenCondition(ctx)) {
+        return null;
+      }
+
+      const result = validator.validate(v, this.questionContextCallback(ctx), q);
+
+      const resultObj = typeof result === "boolean" ? {valid: result} : result;
+
+      return resultObj.valid ? null : {
+        [validator.defaultErrorKey]: resultObj.additional === undefined ? true : resultObj.additional
+      };
+
+    };
+    return this;
+  }
+
   protected touched = false;
   protected placeholder: string;
   protected translationPrefix: string;

@@ -29,6 +29,7 @@
     "@senkrechtstarter-magdeburg/pdfformfill": "^0.1.5",
     "assemblyscript": "^0.14.5",
     "rxjs": "~6.6.0",
+    "string-similarity": "^4.0.2",
     "tslib": "^2.0.0",
     "uuid": "^8.3.0",
     "zone.js": "~0.10.2"

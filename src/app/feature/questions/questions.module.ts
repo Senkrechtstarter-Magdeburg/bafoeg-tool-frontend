@@ -23,6 +23,8 @@ import {VisiblePipe} from "./visible.pipe";
 import {ListQuestionComponent} from "./list-question/list-question.component";
 import {QuestionFormControlFactory} from "./shared/questionFormControlFactory";
 import {DefaultQuestionFormControlFactory} from "./shared/defaultQuestionFormControlFactory";
+import {AutocompleteQuestionComponent} from "./autocomplete-question/autocomplete-question.component";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {LayoutModule} from "@angular/cdk/layout";
 
 @NgModule({
@@ -38,6 +40,7 @@ import {LayoutModule} from "@angular/cdk/layout";
     BaseQuestionComponent,
     VisiblePipe,
     ListQuestionComponent,
+    AutocompleteQuestionComponent,
   ],
   exports: [
     MultipleChoiceQuestionComponent,
@@ -63,6 +66,8 @@ import {LayoutModule} from "@angular/cdk/layout";
     MatButtonToggleModule,
     MatSelectModule,
     MatTooltipModule,
+    RouterModule,
+    MatAutocompleteModule,
     LayoutModule,
     RouterModule,
   ],
