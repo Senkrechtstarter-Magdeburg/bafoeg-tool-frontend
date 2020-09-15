@@ -12,6 +12,8 @@
                            [question]="question"></app-text-block-question>
   <app-list-question *ngSwitchCase="'list'" [context]="context" [control]="control"
                      [question]="question"></app-list-question>
+  <app-autocomplete-question *ngSwitchCase="'autocomplete'" [context]="context" [control]="control"
+                             [question]="question"></app-autocomplete-question>
   <div *ngSwitchDefault>
     The question type "{{question.type}}" is unknown.
   </div>

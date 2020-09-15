@@ -1,7 +1,14 @@
-import {buildQuestionary, defineBlock, QuestionContext} from "@shared/builder";
-import {DisplayType, QuestionEntry} from "@models/questions";
+import {buildQuestionary, defineBlock, QuestionBuilder, QuestionContext} from "@shared/builder";
+import {DisplayType, Question, QuestionEntry} from "@models/questions";
 import {PDF_FORMS} from "@questions/pdfForms";
 import {formatBool, formatBoolNeg, formatDateFull, isValidIBANNumber} from "@questions/questionHelper";
+
+
+
+import universities from "./autocomplete/universities.json";
+import countries from "./autocomplete/countries.json";
+import {AutocompleteOption} from "@models/questions/autocompleteQuestion";
+import {isAutocompleteOptionValidator} from "@shared/builder/validators";
 
 
 export enum Gender {
@@ -35,32 +42,41 @@ export const askForAddress = defineBlock("address",
 
     args = {hints: {country: true, ...args.hints}, defaults: {country: () => "DE", ...args.defaults}, ...args};
 
-    for (const name of ["address", "zip", "city", "country", "state"]) {
-      builder.askText(name, f => {
-        if (name !== "address") {
-          f.hideText();
-        }
+    const builderCallback = (name: string) => <T extends QuestionBuilder<Question, FormAliases>>(f: T) => {
+      if (name !== "address") {
+        f.hideText();
+      }
 
-        f.withFormName(args.formAlias, args.form[name]);
-        if (args.hints[name]) {
-          f.showHint();
-        }
+      f.withFormName(args.formAlias, args.form[name]);
+      if (args.hints[name]) {
+        f.showHint();
+      }
 
-        if (args.defaults && args.defaults[name]) {
-          f.defaultTo(args.defaults[name]);
-        }
+      if (args.defaults && args.defaults[name]) {
+        f.defaultTo(args.defaults[name]);
+      }
 
-        if ("hideIf" in args) {
-          f.hideIf(args.hideIf);
-        }
+      if ("hideIf" in args) {
+        f.hideIf(args.hideIf);
+      }
 
-        if ("showIf" in args) {
-          f.showIf(args.showIf);
-        }
+      if ("showIf" in args) {
+        f.showIf(args.showIf);
+      }
 
-        return f;
-      });
+      return f;
+    };
+    for (const name of ["address", "zip", "city", "state"]) {
+      builder.askText(name, builderCallback(name));
     }
+
+    builder.askAutocompleteQuestion("country", f => {
+      const val = countries.map(key => ({value: key, title: {translateKey: `app.autocomplete.countries.${key}`}} as AutocompleteOption));
+      f.option(...val);
+      f.valid(isAutocompleteOptionValidator());
+
+      return builderCallback("country")(f);
+    });
 
     return builder;
   }
@@ -204,7 +220,10 @@ export const questions = [
     .addQuestionContainer("uni", c => {
       c
         .hideIf(ctx => ctx.is("intro.phase", 1, 3))
-        .askText("university", f => f.withFormName("fb1", "Ausbildungsstätte_Eingabe"))
+        .printInfo("info")
+        .askAutocompleteQuestion("university", f => f
+          .withFormName("fb1", "Ausbildungsstätte_Eingabe")
+          .option(...universities.map(u => ({title: u, value: u}))))
         .askText("subject", f => f.withFormName("fb1", "Klasse_Fachrichtung_Eingabe"))
         .askMultipleChoiceQuestion("graduation", f => f
           .withFormName("fb1", "angestrebter_Anschluss_Eingabe")
