@@ -161,12 +161,12 @@ export const questions = [
           .entries(e => e
             .block("cvEntry", cvEntry, {
               form: {
-                city: "",
-                from: "", // TODO add pdf mapping
-                to: "",
-                type: "",
-                wage: "",
-                work: ""
+                city: "__MISSING__",
+                from: "__MISSING__", // TODO add pdf mapping
+                to: "__MISSING__",
+                type: "__MISSING__",
+                wage: "__MISSING__",
+                work: "__MISSING__"
               },
               formAlias: "fb1a1"
             })

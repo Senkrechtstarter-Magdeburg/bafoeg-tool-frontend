@@ -32,6 +32,14 @@ export class FormBuilder<TAliases extends string> {
   }
 
   public addFieldMapping<T = any>(formFieldName: string, fieldId: string, formatter: (val: T) => string = (a => a?.toString())): this {
+    if(!formFieldName) {
+      throw new Error("A form field name " + (fieldId ? `for "${fieldId}" ` : "") + "must be provided!")
+    }
+
+    if(fieldId === undefined || fieldId === null) {
+      throw new Error("A field id " + (formFieldName ? `for "${formFieldName}" ` : "") + "must be provided!")
+    }
+
     this.mappings = {...this.mappings, [formFieldName]: {fieldId, formatter}};
     this.used = true;
     return this;
