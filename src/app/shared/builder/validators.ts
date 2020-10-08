@@ -10,42 +10,39 @@ export type QuestionValidatorFn<T extends Question = Question> = (value: any, co
 export type QuestionValidator<T extends Question = Question> = {
   validate: QuestionValidatorFn<T>,
   defaultErrorKey?: string;
-  id?: string;
 }
 
 export function validatorFactory<T extends Question = Question>(
   validatorFn: QuestionValidatorFn<T>,
-  errorKey: string,
-  id: string = uuid()): QuestionValidator<T> {
+  errorKey: string): QuestionValidator<T> {
   return {
     validate: validatorFn,
     defaultErrorKey: errorKey,
-    id
   };
 }
 
-export function maxLengthValidator(maxLength: number, errorKey: string = "maxLength", id: string = uuid()) {
+export function maxLengthValidator(maxLength: number, errorKey: string = "maxLength") {
   return validatorFactory(val => typeof val !== "string" || {
     valid: val.length <= maxLength,
     additional: {
       actualLength: val.length,
       maxLength
     }
-  }, errorKey, id);
+  }, errorKey);
 }
 
-export function minLengthValidator(minLength: number, errorKey: string = "minLength", id: string = uuid()) {
+export function minLengthValidator(minLength: number, errorKey: string = "minLength") {
   return validatorFactory(val => typeof val !== "string" || ({
     valid: val.length >= minLength,
     additional: {
       actualLength: val.length,
       maxLength: minLength
     }
-  }), errorKey, id);
+  }), errorKey);
 }
 
-export function requiredValidator(errorKey: string = "required", id: string = uuid()) {
-  return validatorFactory(val => !(val === "" || val === undefined || val === null), errorKey, id);
+export function requiredValidator(errorKey: string = "required") {
+  return validatorFactory(val => !(val === "" || val === undefined || val === null), errorKey);
 }
 
 export function ofSelectionValidator<T>(selection: T[],
@@ -58,13 +55,13 @@ export function ofSelectionValidator<T>(selection: T[],
     additional: {
       selection: selection.map(String).join(", ")
     }
-  }), errorKey, id);
+  }), errorKey);
 }
 
-export function isAutocompleteOptionValidator(errorKey: string = "autocompleteInvalidOption", id: string = uuid()) {
+export function isAutocompleteOptionValidator(errorKey: string = "autocompleteInvalidOption") {
   const valid = (res: { valid: boolean } | boolean) => typeof res === "boolean" ? res : res?.valid;
 
   return validatorFactory<AutocompleteQuestion>((val, ctx, question) => valid(ofSelectionValidator(
     question.options, (a, b) => b.value === a
-  ).validate(val, ctx, question)), errorKey, id);
+  ).validate(val, ctx, question)), errorKey);
 }

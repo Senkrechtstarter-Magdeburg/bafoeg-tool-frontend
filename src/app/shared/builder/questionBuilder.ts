@@ -19,18 +19,18 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
      * @deprecated Use `QuestionBuilder.valid(maxLengthValidator(...)) instead.
      */
     maxLength: (maxLength: number, key: string = "maxLength", id = uuid()): this => {
-      return this.valid(maxLengthValidator(maxLength, key, id));
+      return this.valid(maxLengthValidator(maxLength, key));
     },
     /**
      * @deprecated Use `QuestionBuilder.valid(minLengthValidator(...)) instead.
      */
     minLength: (minLength: number, key: string = "minLength", id = uuid()): this => {
-      return this.valid(minLengthValidator(minLength, key, id));
+      return this.valid(minLengthValidator(minLength, key));
     },
     /**
      * @deprecated Use `QuestionBuilder.valid(required(...)) instead.
      */
-    required: (key: string = "required", id = uuid()): this => this.valid(requiredValidator(key, id)),
+    required: (key: string = "required", id = uuid()): this => this.valid(requiredValidator(key)),
 
     /**
      * @deprecated Use `QuestionBuilder.valid instead.
@@ -55,25 +55,6 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
       return this;
     }
   };
-
-  public valid(validator: QuestionValidator, id: string = uuid()): this {
-    this.conditions[id] = (v, ctx, q) => {
-      if (this.hiddenCondition && this.hiddenCondition(ctx)) {
-        return null;
-      }
-
-      const result = validator.validate(v, this.questionContextCallback(ctx), q);
-
-      const resultObj = typeof result === "boolean" ? {valid: result} : result;
-
-      return resultObj.valid ? null : {
-        [validator.defaultErrorKey]: resultObj.additional === undefined ? true : resultObj.additional
-      };
-
-    };
-    return this;
-  }
-
   protected touched = false;
   protected placeholder: string;
   protected translationPrefix: string;
@@ -97,7 +78,7 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
     this.showPlaceholder();
 
     this.requiredValidatorUid = uuid();
-    this.validate.required("required", this.requiredValidatorUid);
+    this.valid(requiredValidator("required"), this.requiredValidatorUid);
 
     this.touched = false;
   }
@@ -108,6 +89,24 @@ export abstract class QuestionBuilder<T extends Question, TAliases extends strin
 
   protected get fqn(): string {
     return this.namespace ? `${this.namespace}.${this.id}` : this.id;
+  }
+
+  public valid(validator: QuestionValidator, id: string = uuid()): this {
+    this.conditions[id] = (v, ctx, q) => {
+      if (this.hiddenCondition && this.hiddenCondition(ctx)) {
+        return null;
+      }
+
+      const result = validator.validate(v, this.questionContextCallback(ctx), q);
+
+      const resultObj = typeof result === "boolean" ? {valid: result} : result;
+
+      return resultObj.valid ? null : {
+        [validator.defaultErrorKey]: resultObj.additional === undefined ? true : resultObj.additional
+      };
+
+    };
+    return this;
   }
 
   public optional(): this {

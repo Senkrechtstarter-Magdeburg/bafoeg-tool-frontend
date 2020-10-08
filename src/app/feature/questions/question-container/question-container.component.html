@@ -16,6 +16,7 @@
   <mat-card-actions>
     <button (click)="goBack.next()" *ngIf="allowPrevious; else spacer" color="primary"
             mat-button>{{questionContainer.previousText | translate}}</button>
+    <button (click)="group.markAllAsTouched()" *appIfDebug mat-button>[DEBUG] VALIDATE</button>
     <button (click)="valid ? continue.next() : group.markAllAsTouched()" *ngIf="allowNext; else spacer"
             [color]="group.valid ? 'primary' : 'warn'"
             mat-button>{{questionContainer.nextText | translate}}</button>
