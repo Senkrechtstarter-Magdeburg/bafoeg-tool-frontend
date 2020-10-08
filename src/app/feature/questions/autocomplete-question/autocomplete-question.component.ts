@@ -1,12 +1,15 @@
 import {Component, OnInit} from "@angular/core";
 import {QuestionBaseComponent} from "../question-base-component";
-import {AutocompleteOption, AutocompleteQuestion, TranslatedAutocompleteOption} from "@models/questions/autocompleteQuestion";
+import {
+  AutocompleteOption,
+  AutocompleteQuestion,
+  TranslatedAutocompleteOption
+} from "@models/questions/autocompleteQuestion";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
-import {delay, distinctUntilChanged, map} from "rxjs/operators";
+import {delay, distinctUntilChanged, filter, map} from "rxjs/operators";
 import {compareTwoStrings} from "string-similarity";
 import {TranslateService} from "@ngx-translate/core";
-import {debug} from "@shared";
 
 @Component({
   selector: "app-autocomplete-question",
@@ -22,22 +25,17 @@ export class AutocompleteQuestionComponent extends QuestionBaseComponent<Autocom
     super();
   }
 
+  public displayFn = value => this.getTitleInstant(this.question.options.find(x => x.value === value)) ?? value
+
   public ngOnInit(): void {
     this.filteredOptions = this.control.valueChanges.pipe(
       distinctUntilChanged(),
-      debug("val"),
+      filter(x => !!x),
       map((value) => value.length >= 2 ? this.filterOptions(
         this.question.options.map(option => ({...option, title: this.getTitleInstant(option)})),
         value) : []),
       delay(0),
     );
-  }
-
-  public displayFnFactory(): (value: any) => string {
-    const self = this;
-    return ((value) => {
-      return self.getTitleInstant(self.question.options.find(x => x.value === value));
-    });
   }
 
   public getTitleInstant(option: AutocompleteOption): string {
@@ -48,15 +46,15 @@ export class AutocompleteQuestionComponent extends QuestionBaseComponent<Autocom
   private filterOptions(options: TranslatedAutocompleteOption[], filterValue: string) {
     return options
       .map(option => {
-        const title = option.title;
+          const title = option.title;
 
-        return {
-          ...option,
-          match:
-            this.question.valueWeight * compareTwoStrings(filterValue, option.value) +
-            this.question.titleWeight * compareTwoStrings(filterValue, title) +
-            this.question.startsWithWeight * (+title.startsWith(filterValue) * (filterValue.length / title.length))
-        };
+          return {
+            ...option,
+            match:
+              this.question.valueWeight * compareTwoStrings(filterValue, option.value) +
+              this.question.titleWeight * compareTwoStrings(filterValue, title) +
+              this.question.startsWithWeight * (+title.startsWith(filterValue) * (filterValue.length / title.length))
+          };
         }
       )
       .sort((a, b) => b.match - a.match)
