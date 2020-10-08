@@ -1,9 +1,10 @@
 .container {
   display: grid;
-  grid-template-rows: auto auto;
+  grid-auto-rows: auto;
   grid-template-columns: 1fr auto;
 
   h3 {
+    grid-row: 1;
     grid-column: 1;
     padding-left: 0;
     padding-right: 0;
@@ -11,22 +12,31 @@
 
   .question {
     grid-column: 1/3;
+    grid-row: 2;
   }
 
   .hint {
-    grid-column: 2;
     grid-row: 1;
+    grid-column: 2;
     margin-left: 16px;
     margin-top: 16px;
   }
 
   &.inline {
     .question {
+      grid-row: 2;
       grid-column: 1/2;
     }
 
     .hint {
-      grid-row: 1;
+      grid-column: 2;
+      grid-row: 2;
     }
+  }
+
+
+  mat-error {
+    grid-row: 3;
+    grid-column: 1;
   }
 }
